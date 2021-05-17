@@ -1,5 +1,6 @@
 package users;
 
+import java.util.Scanner;
 import java.util.UUID;
 
 public abstract class User {
@@ -54,5 +55,5 @@ public abstract class User {
                 "\nNickName='" + nickName;
     }
 
-    public abstract void userMenu();
+    public abstract void userMenu(Scanner scan);
 }
