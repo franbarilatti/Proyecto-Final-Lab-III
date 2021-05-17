@@ -5,6 +5,7 @@ import Enumn.TvType;
 public abstract class Room {
     int number;
     int cantBed;
+    double price;
     TvType tv;
     boolean disponible;
     boolean miniFridge;
