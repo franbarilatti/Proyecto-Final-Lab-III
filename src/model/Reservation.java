@@ -10,7 +10,7 @@ public class Reservation {
     private LocalDate checkIn;
     private LocalDate checkOut;
 
-    public Reservation() {
+    public Reservation(Pax pax, Room room, LocalDate checkIn, LocalDate checkOut) {
     }
 
     public Pax getPax() {

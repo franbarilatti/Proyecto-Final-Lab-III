@@ -11,6 +11,7 @@ public class Pax extends User{
     private String address;
     private String dni;
     private String nationality;
+    private boolean ingress;
 
     //------ Constructors ------//
     public Pax() {
@@ -22,6 +23,7 @@ public class Pax extends User{
         address = "";
         dni = "";
         nationality = "";
+        ingress = false;
     }
 
     public Pax(String nickName, String password, String name, String surname, String location, String dni, String nationality) {
@@ -35,7 +37,53 @@ public class Pax extends User{
         this.nationality = nationality;
     }
     //------ Getters ------//
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
     //------ Setters ------//
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setIngress(boolean ingress) {
+        this.ingress = ingress;
+    }
+
     //------ Methods ------//
     @Override
     public void userMenu(Scanner scan) {
