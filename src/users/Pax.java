@@ -1,7 +1,8 @@
 package users;
 
+import model.Ticket;
+
 import java.util.Scanner;
-import java.util.UUID;
 
 public class Pax extends User{
     //------ Attributes ------//
@@ -10,29 +11,18 @@ public class Pax extends User{
     private String address;
     private String dni;
     private String nationality;
+    private Ticket ticket;
 
     //------ Constructors ------//
-    public Pax() {
-        id = UUID.randomUUID();
-        nickName = "";
-        password = "";
-        name = "";
-        surname = "";
-        address = "";
-        dni = "";
-        nationality = "";
-    }
 
-    public Pax(String nickName, String password, String name, String surname, String location, String dni, String nationality) {
-        id = UUID.randomUUID();
-        this.nickName = nickName;
-        this.password = password;
+    public Pax(String name, String surname, String address, String dni, String nationality) {
         this.name = name;
         this.surname = surname;
-        this.address = location;
+        this.address = address;
         this.dni = dni;
         this.nationality = nationality;
     }
+
     //------ Getters ------//
     //------ Setters ------//
     //------ Methods ------//

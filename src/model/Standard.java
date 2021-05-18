@@ -1,6 +1,6 @@
 package model;
 
-import Enumn.TvType;
+import enumn.TvType;
 
 public class Standard extends Room {
     boolean fan;

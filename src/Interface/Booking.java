@@ -1,4 +1,4 @@
-package model;
+package Interface;
 
 public interface Booking {
     abstract boolean book();

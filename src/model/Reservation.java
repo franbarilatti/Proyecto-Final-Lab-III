@@ -1,5 +1,7 @@
 package model;
 
+import users.Pax;
+
 import java.time.LocalDate;
 
 public class Reservation {
