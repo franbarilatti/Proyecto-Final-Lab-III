@@ -1,5 +1,6 @@
 package users;
 
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -67,4 +68,5 @@ public class Pax extends User{
                 "\nDni= " + dni +
                 "\nNationality= " + nationality;
     }
+
 }

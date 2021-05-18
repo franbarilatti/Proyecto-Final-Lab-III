@@ -1,6 +1,5 @@
 package Interface;
 
-import model.Pax;
 import model.Reservation;
 import model.Room;
 
