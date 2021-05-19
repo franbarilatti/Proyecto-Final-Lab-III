@@ -5,16 +5,15 @@ import model.Reservation;
 import model.Room;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class Admin extends User implements Reserve{
     //------ Constructors ------//
 
-    public Admin() {
-        nickName = "";
-        password = "";
-        id = UUID.randomUUID();
+
+    public Admin(String nickName, String password) {
+        super(nickName, password);
     }
 
     //------ Methods ------//
@@ -52,11 +51,35 @@ public class Admin extends User implements Reserve{
     }
 
     @Override
-    public Reservation makeReserve(Pax pax, Room room, LocalDate checkIn, LocalDate checkOut) {
-        pax.setIngress(true);
-        room.setAvailability(false);
-        Reservation newReserve = new Reservation(pax,room,checkIn,checkOut);
-        return newReserve;
+    public Reservation makeReserve(Pax pax, List<Room> roomList, int roomNumber, LocalDate checkIn, LocalDate checkOut) {
+        Room roomAux= roomList.stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
+        if(roomAux!=null){
+            pax.setIngress(true);
+            roomAux.setAvailability(false);
+        }
+        return new Reservation(pax,roomAux,checkIn,checkOut);
+    }
+
+    @Override
+    public Pax NewPax() {
+        Pax pax=new Pax();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nombre: ");
+        pax.setName(scanner.nextLine());
+        System.out.print("Apellido: ");
+        pax.setSurname(scanner.nextLine());
+        System.out.print("Direccion: ");
+        pax.setAddress(scanner.nextLine());
+        System.out.print("DNI o Pasaporte: ");
+        pax.setDni(scanner.nextLine());
+        System.out.print("Nacionalidad: ");
+        pax.setNationality(scanner.nextLine());
+        return pax;
+    }
+
+    @Override
+    public void RoomAvailable(List<Room> roomList) {
+
     }
 
     @Override

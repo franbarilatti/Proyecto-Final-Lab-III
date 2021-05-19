@@ -1,14 +1,16 @@
-package model;
+package app;
 
+import model.Reservation;
+import model.Room;
 import users.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
-     public List<User> users;
-     public List<Room> rooms;
-     public List<Reservation> reserves;
+     protected List<User> users;
+    protected List<Room> rooms;
+    protected List<Reservation> reserves;
 
     public Hotel() {
         users = new ArrayList<>();
