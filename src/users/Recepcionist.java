@@ -1,16 +1,20 @@
 package users;
 
+import Interface.Ingress;
 import Interface.Reserve;
+import app.Hotel;
 import model.Reservation;
 import model.Room;
 
+import java.sql.Struct;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class Recepcionist extends User implements Reserve {
+public class Recepcionist extends User implements Reserve, Ingress {
     //------ Constructors ------//
     public Recepcionist() {
+
     }
 
     public Recepcionist(String nickName, String password) {
@@ -28,6 +32,7 @@ public class Recepcionist extends User implements Reserve {
             opt = scan.nextInt();
             switch (opt){
                 case 1:
+
                     break;
                 case 2:
                     break;
@@ -59,7 +64,6 @@ public class Recepcionist extends User implements Reserve {
     public Reservation makeReserve(Pax pax, List<Room> roomList, int roomNumber, LocalDate checkIn, LocalDate checkOut) {
         Room roomAux= roomList.stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
         if(roomAux!=null){
-            pax.setIngress(true);
             roomAux.setAvailability(false);
         }
         return new Reservation(pax,roomAux,checkIn,checkOut);
@@ -90,5 +94,23 @@ public class Recepcionist extends User implements Reserve {
             }
         }
 
+    }
+
+    @Override
+    public void checkIn(Pax pax,Room room, Hotel hotel) {
+        Reservation auxReserve = hotel.searchReserve(pax,room);
+        pax.setIngress(true);
+        pax.setReserve(auxReserve);
+        hotel.addHistoryPax(pax);
+        hotel.eliminateReserve(auxReserve);
+        room.setOccupated(true);
+    }
+
+    @Override
+    public void checkOut(Pax pax, Room room) {
+        pax.setIngress(false);
+        pax.setReserve(null);
+        room.setAvailability(true);
+        room.setOccupated(false);
     }
 }

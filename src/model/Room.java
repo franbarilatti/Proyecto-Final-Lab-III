@@ -10,11 +10,13 @@ public abstract class Room {
     private double price;
     private TvType tv;
     private boolean availability;
+    private boolean occupated;
     private boolean miniFridge;
 
     public Room() {
         this.availability = true;
         this.miniFridge = true;
+        this.occupated = true;
     }
 
     public Room(int number, int cantBed,BedType bedType, double price, TvType tv) {
@@ -25,6 +27,7 @@ public abstract class Room {
         this.tv = tv;
         this.availability = true;
         this.miniFridge = true;
+        this.occupated = true;
     }
 
     //------ Getters ------//
@@ -52,6 +55,10 @@ public abstract class Room {
         return miniFridge;
     }
 
+    public boolean isOccupated() {
+        return occupated;
+    }
+
     //------ Setters ------//
     public void setNumber(int number) {
         this.number = number;
@@ -75,6 +82,10 @@ public abstract class Room {
 
     public void setMiniFridge(boolean miniFridge) {
         this.miniFridge = miniFridge;
+    }
+
+    public void setOccupated(boolean occupated) {
+        this.occupated = occupated;
     }
 
     //------ Methods ------//

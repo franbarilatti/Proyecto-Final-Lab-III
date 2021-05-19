@@ -1,5 +1,7 @@
 package users;
 
+import model.Reservation;
+
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.UUID;
@@ -12,18 +14,17 @@ public class Pax extends User{
     private String dni;
     private String nationality;
     private boolean ingress;
+    private Reservation reserve;
 
     //------ Constructors ------//
     public Pax() {
-        id = UUID.randomUUID();
-        nickName = "";
-        password = "";
         name = "";
         surname = "";
         address = "";
         dni = "";
         nationality = "";
         ingress = false;
+        reserve = null;
     }
 
     public Pax(String nickName, String password, String name, String surname, String location, String dni, String nationality) {
@@ -35,6 +36,7 @@ public class Pax extends User{
         this.address = location;
         this.dni = dni;
         this.nationality = nationality;
+        reserve = null;
     }
     //------ Getters ------//
 
@@ -56,6 +58,14 @@ public class Pax extends User{
 
     public String getNationality() {
         return nationality;
+    }
+
+    public boolean isIngress() {
+        return ingress;
+    }
+
+    public Reservation getReserve() {
+        return reserve;
     }
 
     //------ Setters ------//
@@ -82,6 +92,10 @@ public class Pax extends User{
 
     public void setIngress(boolean ingress) {
         this.ingress = ingress;
+    }
+
+    public void setReserve(Reservation reserve) {
+        this.reserve = reserve;
     }
 
     //------ Methods ------//

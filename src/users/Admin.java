@@ -1,6 +1,8 @@
 package users;
 
+import Interface.Ingress;
 import Interface.Reserve;
+import app.Hotel;
 import model.Reservation;
 import model.Room;
 
@@ -8,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
-public class Admin extends User implements Reserve{
+public class Admin extends User implements Reserve, Ingress {
     //------ Constructors ------//
 
 
@@ -85,5 +87,15 @@ public class Admin extends User implements Reserve{
     @Override
     public String toString() {
         return "Admin: "+ nickName;
+    }
+
+    @Override
+    public void checkIn(Pax pax, Room room, Hotel hotel) {
+
+    }
+
+    @Override
+    public void checkOut(Pax pax, Room room) {
+
     }
 }
