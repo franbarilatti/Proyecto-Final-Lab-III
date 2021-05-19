@@ -1,5 +1,6 @@
 package model;
 
+import enumn.BedType;
 import enumn.TvType;
 
 public class Superior extends Room{
@@ -8,11 +9,14 @@ public class Superior extends Room{
     boolean safeBox;
     boolean oceanView;
 
-    public Superior(int number, int cantBed, TvType tv) {
-        super(number, cantBed, tv);
+    public Superior() {
         this.ac = true;
         this.safeBox = true;
         this.oceanView = true;
+    }
+
+    public Superior(int number, int cantBed, BedType bedType, double price, TvType tv) {
+        super(number, cantBed,bedType, price, tv);
     }
 
     @Override
@@ -20,5 +24,10 @@ public class Superior extends Room{
         return "Nuestras habitaciones están diseñadas para que usted disfrute de las mayores comodidades," +
                 " encontrándose en ellas, la superior calidad en servicios de hotelería. LCD 32 pulgadas, wifi en todo el hotel" +
                 ", aire acondicionado frío-calor, secadores de cabello, pisos alfombrados, frigobar, cofres de seguridad, room service las 24hs.";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

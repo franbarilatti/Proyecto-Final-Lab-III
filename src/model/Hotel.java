@@ -6,21 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
-    private List<User> users;
-    private List<Room> rooms;
-    private List<Reservation> reserves;
+     public List<User> users;
+     public List<Room> rooms;
+     public List<Reservation> reserves;
 
     public Hotel() {
-        this.users = new ArrayList<>();
-        this.rooms = new ArrayList<>();
-        this.reserves = new ArrayList<>();
+        users = new ArrayList<>();
+        rooms = new ArrayList<>();
+        reserves = new ArrayList<>();
     }
 
-    public Hotel(List<User> users, List<Room> rooms, List<Reservation> reserves) {
-        this.users = users;
-        this.rooms = rooms;
-        this.reserves = reserves;
+    public List<User> getUsers() {
+        return users;
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
 
+    public List<Reservation> getReserves() {
+        return reserves;
+    }
 }
