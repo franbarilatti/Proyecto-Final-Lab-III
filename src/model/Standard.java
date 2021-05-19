@@ -1,13 +1,14 @@
 package model;
 
+import enumn.BedType;
 import enumn.TvType;
 
 public class Standard extends Room {
     boolean fan;
 
-    public Standard(int number, int cantBed, TvType tv, boolean fan) {
-        super(number, cantBed, tv);
-        this.fan = true;
+    public Standard(int number, int cantBed, BedType bedType, double price, TvType tv, boolean fan) {
+        super(number, cantBed,bedType, price, tv);
+        this.fan = fan;
     }
 
     @Override

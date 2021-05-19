@@ -1,25 +1,32 @@
 package model;
 
+import enumn.BedType;
 import enumn.TvType;
 
 public abstract class Room {
     private int number;
     private int cantBed;
+    private BedType bedType;
     private double price;
     private TvType tv;
     private boolean availability;
     private boolean miniFridge;
 
     public Room() {
+        this.availability = true;
+        this.miniFridge = true;
     }
 
-    public Room(int number, int cantBed, TvType tv) {
+    public Room(int number, int cantBed,BedType bedType, double price, TvType tv) {
         this.number = number;
         this.cantBed = cantBed;
+        this.bedType = bedType;
+        this.price = price;
         this.tv = tv;
         this.availability = true;
-        this.miniFridge=true;
+        this.miniFridge = true;
     }
+
     //------ Getters ------//
     public int getNumber() {
         return number;
@@ -78,11 +85,21 @@ public abstract class Room {
         return "Detalles de la habitacion:" +
                 "\nNumero de habitacion: " + number +
                 "\nCantidad de camas: " + cantBed+
+                "\nTipo de cama: "+ bedType +
+                "\nMini Bar: " + SiOrNo(miniFridge) +
                 "\nDisponibilidad: " + showAvailability();
     }
 
     private String showAvailability(){
         if(this.availability){
+            return "Si";
+        }else {
+            return "No";
+        }
+    }
+
+    public String SiOrNo(boolean bool){
+        if(bool){
             return "Si";
         }else {
             return "No";
