@@ -23,6 +23,8 @@ public abstract class Room {
         this.bedType = bedType;
         this.price = price;
         this.tv = tv;
+        this.availability = true;
+        this.miniFridge = true;
     }
 
     //------ Getters ------//
@@ -83,11 +85,21 @@ public abstract class Room {
         return "Detalles de la habitacion:" +
                 "\nNumero de habitacion: " + number +
                 "\nCantidad de camas: " + cantBed+
+                "\nTipo de cama: "+ bedType +
+                "\nMini Bar: " + SiOrNo(miniFridge) +
                 "\nDisponibilidad: " + showAvailability();
     }
 
     private String showAvailability(){
         if(this.availability){
+            return "Si";
+        }else {
+            return "No";
+        }
+    }
+
+    public String SiOrNo(boolean bool){
+        if(bool){
             return "Si";
         }else {
             return "No";

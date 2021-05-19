@@ -17,6 +17,9 @@ public class Superior extends Room{
 
     public Superior(int number, int cantBed, BedType bedType, double price, TvType tv) {
         super(number, cantBed,bedType, price, tv);
+        this.ac = true;
+        this.safeBox = true;
+        this.oceanView = true;
     }
 
     @Override
@@ -26,8 +29,12 @@ public class Superior extends Room{
                 ", aire acondicionado frío-calor, secadores de cabello, pisos alfombrados, frigobar, cofres de seguridad, room service las 24hs.";
     }
 
+
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() +
+                "\nAire acondicionado: " + SiOrNo(ac) +
+                "\nCaja de seguridad: " + SiOrNo(safeBox) +
+                "\nVista al mar: " + SiOrNo(oceanView);
     }
 }
