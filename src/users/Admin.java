@@ -90,7 +90,7 @@ public class Admin extends User implements Reserve, Ingress {
     }
 
     @Override
-    public void checkIn(Pax pax, Room room, Hotel hotel) {
+    public void checkIn(List<Pax> paxes, Room room, Hotel hotel) {
 
     }
 

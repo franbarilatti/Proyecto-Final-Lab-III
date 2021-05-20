@@ -2,7 +2,6 @@ package users;
 
 import model.Reservation;
 
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -27,10 +26,8 @@ public class Pax extends User{
         reserve = null;
     }
 
-    public Pax(String nickName, String password, String name, String surname, String location, String dni, String nationality) {
+    public Pax(String name, String surname, String location, String dni, String nationality) {
         id = UUID.randomUUID();
-        this.nickName = nickName;
-        this.password = password;
         this.name = name;
         this.surname = surname;
         this.address = location;
