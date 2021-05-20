@@ -63,7 +63,7 @@ public class Admin extends User implements Reserve, Ingress {
     }
 
     @Override
-    public Pax NewPax() {
+    public Pax newPax() {
         Pax pax=new Pax();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nombre: ");
@@ -91,11 +91,28 @@ public class Admin extends User implements Reserve, Ingress {
 
     @Override
     public void checkIn(List<Pax> paxes, Room room, Hotel hotel) {
+        Scanner scanner=new Scanner(System.in);
+        System.out.print("Ingrese un DNI o Pasaporte: ");
+        String dniAux=scanner.nextLine();
+        Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dniAux)).findFirst().orElse(null);
+        if(pax==null){
+            System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
+            paxes.add(newPax());
+        }
+        Reservation auxReserve = hotel.searchReserve(pax,room);
+        pax.setIngress(true);
+        pax.setReserve(auxReserve);
+        hotel.addHistoryPax(pax);
+        hotel.eliminateReserve(auxReserve);
+        room.setOccupated(true);
 
     }
 
     @Override
     public void checkOut(Pax pax, Room room) {
-
+        pax.setIngress(false);
+        pax.setReserve(null);
+        room.setAvailability(true);
+        room.setOccupated(false);
     }
 }

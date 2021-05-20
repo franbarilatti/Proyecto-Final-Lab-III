@@ -122,10 +122,12 @@ public class Pax extends User{
 
     @Override
     public String toString() {
-        return "Pax= "+ name +" "+surname+
+        return "\n-----------------------------\n"+
+                "Pax= "+ name +" "+surname+
                 "\nAddress= " + address +
                 "\nDni= " + dni +
-                "\nNationality= " + nationality;
+                "\nNationality= " + nationality+
+                "\n-----------------------------\n";
     }
 
 }

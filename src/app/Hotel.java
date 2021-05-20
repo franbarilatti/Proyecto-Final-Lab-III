@@ -2,10 +2,12 @@ package app;
 
 import model.Reservation;
 import model.Room;
+import org.w3c.dom.ls.LSOutput;
 import users.Pax;
 import users.User;
 
 import java.security.DrbgParameters;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +50,21 @@ public class Hotel {
                 orElse(null);
     }
 
+    public void showAllReserves(){
+        if (reserves != null)
+            reserves.stream().forEach(System.out::println);
+        else
+            throw new RuntimeException("No hay reservas cargadas en el sistema");
+    }
+
+    public void showTodayReserves(){
+        if (reserves != null)
+            reserves.stream().
+                    filter((Reservation r)-> r.getCheckIn().equals(LocalDate.now())).
+                    forEach(System.out::println);
+        else
+            throw new RuntimeException("No hay reservas cargadas en el sistema");
+    }
 
     public Reservation searchReserve(Pax pax,Room room){
         return reserves.stream().
@@ -60,4 +77,25 @@ public class Hotel {
     public void eliminateReserve(Reservation reserve){
         reserves.remove(reserve);
     }
+
+    public void showRooms(){
+
+        if (rooms == null) {
+            System.out.println("No hay habitaciones disponibles");
+        } else {
+            rooms.stream().forEach(System.out::println);
+        }
+    }
+
+    public void showDisponibledRooms(){
+        if (rooms == null) {
+            System.out.println("No hay habitaciones disponibles");
+        } else {
+            rooms.stream().
+                    filter((Room r)->r.isAvailability() == true).
+                    filter(r-> r.isOccupated() == false).
+                    forEach(System.out::println);
+        }
+    }
+
 }

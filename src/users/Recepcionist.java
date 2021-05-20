@@ -6,6 +6,7 @@ import app.Hotel;
 import model.Reservation;
 import model.Room;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -61,8 +62,19 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
 
     @Override
-    public Reservation makeReserve(Pax pax, List<Room> roomList, int roomNumber, LocalDate checkIn, LocalDate checkOut) {
-        Room roomAux= roomList.stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
+    public Reservation makeReserve(Hotel hotel,Scanner scan) {
+        System.out.print("Ingrese el dni del pasajero: ");
+        String dni = scan.next();
+        Pax auxPax = (Pax) hotel.searchHistoryPaxs(dni);
+        if (auxPax == null){
+            System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
+            auxPax = newPax();
+        }
+        System.out.print("\ningrese la fecha en la que ingresara (DD/MM/AAAA):");
+        String date = scan.nextLine();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        LocalDate checkIn = dateFormat.parse(date);
+        Room roomAux= hotel.getRooms().stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
         if(roomAux!=null){
             roomAux.setAvailability(false);
         }
@@ -70,7 +82,7 @@ public class Recepcionist extends User implements Reserve, Ingress {
     }
 
     @Override
-    public Pax NewPax() {
+    public Pax newPax() {
         Pax pax=new Pax();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nombre: ");
@@ -103,8 +115,8 @@ public class Recepcionist extends User implements Reserve, Ingress {
         String dniAux=scanner.nextLine();
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dniAux)).findFirst().orElse(null);
         if(pax==null){
-            System.out.println("Pasajero no encontrado. Cargue uno nuevo");
-            paxes.add(NewPax());
+            System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
+            paxes.add(newPax());
         }
         Reservation auxReserve = hotel.searchReserve(pax,room);
         pax.setIngress(true);
