@@ -7,6 +7,7 @@ import model.Reservation;
 import model.Room;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -53,13 +54,28 @@ public class Admin extends User implements Reserve, Ingress {
     }
 
     @Override
-    public Reservation makeReserve(Pax pax, List<Room> roomList, int roomNumber, LocalDate checkIn, LocalDate checkOut) {
-        Room roomAux= roomList.stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
+    public Reservation makeReserve(Hotel hotel,Scanner scan) {
+        System.out.print("Ingrese el dni del pasajero: ");
+        String dni = scan.next();
+        Pax auxPax = (Pax) hotel.searchHistoryPaxs(dni);
+        if (auxPax == null){
+            System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
+            auxPax = newPax();
+        }
+        System.out.print("\ningrese la fecha en la que ingresará (DD/MM/AAAA):");
+        LocalDate checkIn = ingressDate(scan);
+        System.out.print("\ningrese la fecha en la que se retira (DD/MM/AAAA):");
+        LocalDate checkOut = ingressDate(scan);
+        System.out.print("\ningrese el numero de habitación disponible: ");
+        System.out.println("--------------------------------------");
+        hotel.showDisponibledRooms();
+        System.out.println("--------------------------------------");
+        int roomNumber = scan.nextInt();
+        Room roomAux= hotel.getRooms().stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
         if(roomAux!=null){
-            pax.setIngress(true);
             roomAux.setAvailability(false);
         }
-        return new Reservation(pax,roomAux,checkIn,checkOut);
+        return new Reservation(auxPax,roomAux,checkIn,checkOut);
     }
 
     @Override
@@ -82,6 +98,18 @@ public class Admin extends User implements Reserve, Ingress {
     @Override
     public void RoomAvailable(List<Room> roomList) {
 
+    }
+
+    @Override
+    public LocalDate ingressDate(Scanner scan) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String date = scan.nextLine();
+        LocalDate localDate = LocalDate.parse(date,formatter);
+        if(!formatter.format(localDate).equals(date)){
+            System.out.println("\nFecha invalida");
+            return null;
+        }else
+            return localDate;
     }
 
     @Override

@@ -6,8 +6,11 @@ import app.Hotel;
 import model.Reservation;
 import model.Room;
 
+import javax.swing.text.DateFormatter;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,16 +73,22 @@ public class Recepcionist extends User implements Reserve, Ingress {
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             auxPax = newPax();
         }
-        System.out.print("\ningrese la fecha en la que ingresara (DD/MM/AAAA):");
-        String date = scan.nextLine();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        LocalDate checkIn = dateFormat.parse(date);
+        System.out.print("\ningrese la fecha en la que ingresará (DD/MM/AAAA):");
+        LocalDate checkIn = ingressDate(scan);
+        System.out.print("\ningrese la fecha en la que se retira (DD/MM/AAAA):");
+        LocalDate checkOut = ingressDate(scan);
+        System.out.print("\ningrese el numero de habitación disponible: ");
+        System.out.println("--------------------------------------");
+        hotel.showDisponibledRooms();
+        System.out.println("--------------------------------------");
+        int roomNumber = scan.nextInt();
         Room roomAux= hotel.getRooms().stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
         if(roomAux!=null){
             roomAux.setAvailability(false);
         }
-        return new Reservation(pax,roomAux,checkIn,checkOut);
+        return new Reservation(auxPax,roomAux,checkIn,checkOut);
     }
+
 
     @Override
     public Pax newPax() {
@@ -105,7 +114,6 @@ public class Recepcionist extends User implements Reserve, Ingress {
                 System.out.println(room.toString());
             }
         }
-
     }
 
     @Override
@@ -132,5 +140,18 @@ public class Recepcionist extends User implements Reserve, Ingress {
         pax.setReserve(null);
         room.setAvailability(true);
         room.setOccupated(false);
+    }
+
+    @Override
+    public LocalDate ingressDate(Scanner scan) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String date = scan.next();
+        LocalDate localDate = LocalDate.parse(date,formatter);
+        if(!formatter.format(localDate).equals(date)){
+            System.out.println("\nFecha invalida");
+            return null;
+        }else {
+            return localDate;
+        }
     }
 }

@@ -50,6 +50,10 @@ public class Hotel {
                 orElse(null);
     }
 
+    public void addNewReserve(Reservation newReserve){
+        this.reserves.add(newReserve);
+    }
+
     public void showAllReserves(){
         if (reserves != null)
             reserves.stream().forEach(System.out::println);

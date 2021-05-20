@@ -10,6 +10,10 @@ public class Reservation {
     private LocalDate checkIn;
     private LocalDate checkOut;
 
+    public Reservation() {
+
+    }
+
     public Reservation(Pax pax, Room room, LocalDate checkIn, LocalDate checkOut) {
     }
 
@@ -43,5 +47,15 @@ public class Reservation {
 
     public void setCheckOut(LocalDate checkOut) {
         this.checkOut = checkOut;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "pax=" + pax +
+                ", room=" + room +
+                ", checkIn=" + checkIn +
+                ", checkOut=" + checkOut +
+                '}';
     }
 }
