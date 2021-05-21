@@ -39,7 +39,10 @@ public class Hotel {
     }
 
     public void showHistoryPax(){
-
+        if (paxes != null)
+            paxes.stream().forEach(System.out::println);
+        else
+            throw new RuntimeException("No hay pasajeros historicos en el sistema");
     }
 
     public Pax searchHistoryPax(String dni){

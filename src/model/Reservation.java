@@ -15,6 +15,10 @@ public class Reservation {
     }
 
     public Reservation(Pax pax, Room room, LocalDate checkIn, LocalDate checkOut) {
+        this.pax = pax;
+        this.room = room;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
     }
 
     public Pax getPax() {
@@ -51,11 +55,11 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "pax=" + pax +
-                ", room=" + room +
-                ", checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
-                '}';
+        return "\n-------------------------------\n"+
+                "Pasajero: "+ pax.getName()+" "+ pax.getSurname()+
+                "\nHabitacion: "+ room.getNumber()+
+                "\nFecha de ingreso: "+checkIn+
+                "\nFecha de retiro: "+checkOut+
+                "\n---------------------------------";
     }
 }
