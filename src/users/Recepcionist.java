@@ -6,9 +6,6 @@ import app.Hotel;
 import model.Reservation;
 import model.Room;
 
-import javax.swing.text.DateFormatter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -68,14 +65,14 @@ public class Recepcionist extends User implements Reserve, Ingress {
     public Reservation makeReserve(Hotel hotel,Scanner scan) {
         System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
-        Pax auxPax = (Pax) hotel.searchHistoryPaxs(dni);
+        Pax auxPax = hotel.searchHistoryPax(dni);
         if (auxPax == null){
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             auxPax = newPax();
         }
-        System.out.print("\ningrese la fecha en la que ingresará (DD/MM/AAAA):");
+        System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan);
-        System.out.print("\ningrese la fecha en la que se retira (DD/MM/AAAA):");
+        System.out.print("\nFecha de salida(DD/MM/AAAA):");
         LocalDate checkOut = ingressDate(scan);
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");

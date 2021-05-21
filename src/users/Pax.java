@@ -3,9 +3,8 @@ package users;
 import model.Reservation;
 
 import java.util.Scanner;
-import java.util.UUID;
 
-public class Pax extends User{
+public class Pax {
     //------ Attributes ------//
     private String name;
     private String surname;
@@ -27,7 +26,6 @@ public class Pax extends User{
     }
 
     public Pax(String name, String surname, String location, String dni, String nationality) {
-        id = UUID.randomUUID();
         this.name = name;
         this.surname = surname;
         this.address = location;
@@ -96,7 +94,7 @@ public class Pax extends User{
     }
 
     //------ Methods ------//
-    @Override
+
     public void userMenu(Scanner scan) {
         int opt;
         int back = 0;

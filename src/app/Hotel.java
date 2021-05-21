@@ -2,11 +2,9 @@ package app;
 
 import model.Reservation;
 import model.Room;
-import org.w3c.dom.ls.LSOutput;
 import users.Pax;
 import users.User;
 
-import java.security.DrbgParameters;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +13,13 @@ public class Hotel {
      protected List<User> users;
     protected List<Room> rooms;
     protected List<Reservation> reserves;
+    protected List<Pax> paxes;
 
     public Hotel() {
         users = new ArrayList<>();
         rooms = new ArrayList<>();
         reserves = new ArrayList<>();
+        paxes = new ArrayList<>();
     }
 
     public List<User> getUsers() {
@@ -35,19 +35,18 @@ public class Hotel {
     }
 
     public void addHistoryPax(Pax pax){
-        users.add(pax);
+        paxes.add(pax);
     }
 
     public void showHistoryPax(){
-        users.stream().filter((User u)->u instanceof Pax).forEach(System.out::println);
+
     }
 
-    public User searchHistoryPaxs(String dni){
-        return users.stream().
-                filter((User u)-> u instanceof Pax).
-                filter(u-> ((Pax) u).getDni().equalsIgnoreCase(dni)).
-                findFirst().
-                orElse(null);
+    public Pax searchHistoryPax(String dni){
+        return paxes.stream().
+                filter(pax -> pax.getDni().equals(dni))
+                .findFirst()
+                .orElse(null);
     }
 
     public void addNewReserve(Reservation newReserve){
@@ -95,10 +94,7 @@ public class Hotel {
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
-            rooms.stream().
-                    filter((Room r)->r.isAvailability() == true).
-                    filter(r-> r.isOccupated() == false).
-                    forEach(System.out::println);
+            rooms.stream().filter(room -> room.isAvailability()).filter(room -> room.isOccupated()).forEach(System.out::println);
         }
     }
 

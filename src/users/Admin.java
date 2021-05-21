@@ -57,7 +57,7 @@ public class Admin extends User implements Reserve, Ingress {
     public Reservation makeReserve(Hotel hotel,Scanner scan) {
         System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
-        Pax auxPax = (Pax) hotel.searchHistoryPaxs(dni);
+        Pax auxPax = (Pax) hotel.searchHistoryPax(dni);
         if (auxPax == null){
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             auxPax = newPax();
