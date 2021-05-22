@@ -1,7 +1,10 @@
 package users;
 
 import model.Reservation;
+import model.Ticket;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Pax {
@@ -13,6 +16,7 @@ public class Pax {
     private String nationality;
     private boolean ingress;
     private Reservation reserve;
+    private List<Ticket> tickets;
 
     //------ Constructors ------//
     public Pax() {
@@ -23,6 +27,7 @@ public class Pax {
         nationality = "";
         ingress = false;
         reserve = null;
+        tickets = new ArrayList<>();
     }
 
     public Pax(String name, String surname, String location, String dni, String nationality) {
@@ -32,6 +37,8 @@ public class Pax {
         this.dni = dni;
         this.nationality = nationality;
         reserve = null;
+        this.tickets = new ArrayList<>();
+
     }
     //------ Getters ------//
 

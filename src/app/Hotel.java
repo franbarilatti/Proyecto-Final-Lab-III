@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hotel {
-     protected List<User> users;
+    protected List<User> users;
     protected List<Room> rooms;
     protected List<Reservation> reserves;
     protected List<Pax> paxes;
@@ -101,8 +101,5 @@ public class Hotel {
         }
     }
 
-    public User Login(List<User> users){
-
-    }
 
 }

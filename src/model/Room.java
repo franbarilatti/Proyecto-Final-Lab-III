@@ -95,8 +95,9 @@ public abstract class Room {
     public String toString() {
         return "Detalles de la habitacion:" +
                 "\nNumero de habitacion: " + number +
-                "\nCantidad de camas: " + cantBed+
-                "\nTipo de cama: "+ bedType +
+                "\nCantidad de camas: " + cantBed +
+                "\nTipo de cama: "+ bedType.getDescription()+
+                "\nTelevisor: " + tv.getDescription() +
                 "\nMini Bar: " + SiOrNo(miniFridge) +
                 "\nDisponibilidad: " + showAvailability();
     }

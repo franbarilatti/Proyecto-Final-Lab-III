@@ -1,5 +1,9 @@
 package users;
 
+import model.Ticket;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -10,11 +14,13 @@ public abstract class User {
     protected String nickName;
     protected String password;
 
+
     //------ Constructors ------//
     public User() {
         id = UUID.randomUUID();
         nickName = "";
         password = "";
+
     }
 
     public User(String nickName, String password) {
