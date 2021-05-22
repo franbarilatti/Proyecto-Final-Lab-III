@@ -101,4 +101,8 @@ public class Hotel {
         }
     }
 
+    public User Login(List<User> users){
+
+    }
+
 }
