@@ -1,5 +1,6 @@
 package users;
 
+import enumn.MiniBar;
 import model.Reservation;
 import model.Ticket;
 
@@ -17,6 +18,7 @@ public class Pax {
     private boolean ingress;
     private Reservation reserve;
     private List<Ticket> tickets;
+    private MiniBar miniBar;
 
     //------ Constructors ------//
     public Pax() {
@@ -124,6 +126,12 @@ public class Pax {
         }
 
     }
+
+    public void Service(){
+        System.out.println("Elija un producto");
+
+    }
+
 
     @Override
     public String toString() {
