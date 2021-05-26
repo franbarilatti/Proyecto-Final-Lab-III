@@ -62,18 +62,18 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
 
     @Override
-    public Reservation makeReserve(Hotel hotel,Scanner scan, Pax pax) {
-        /*System.out.print("Ingrese el dni del pasajero: ");
+    public Reservation makeReserve(Hotel hotel,Scanner scan) {
+        System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
-        Pax auxPax = hotel.searchHistoryPax(dni);*/
+        Pax pax = hotel.searchHistoryPax(dni);
         if (pax == null){
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             pax = newPax();
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
-        LocalDate checkIn = ingressDate(scan);
+        LocalDate checkIn = ingressDate(scan,LocalDate.now());
         System.out.print("\nFecha de salida(DD/MM/AAAA):");
-        LocalDate checkOut = ingressDate(scan);
+        LocalDate checkOut = ingressDate(scan, LocalDate.now().plusDays(1));
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
         hotel.showDisponibledRooms();
@@ -144,15 +144,20 @@ public class Recepcionist extends User implements Reserve, Ingress {
     }
 
     @Override
-    public LocalDate ingressDate(Scanner scan) {
+    public LocalDate ingressDate(Scanner scan, LocalDate today) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String date = scan.next();
         LocalDate localDate = LocalDate.parse(date,formatter);
-        if(!formatter.format(localDate).equals(date)){
-            System.out.println("\nFecha invalida");
-            return null;
-        }else {
-            return localDate;
+        int exit=0;
+        while (exit==0){
+            if(!formatter.format(localDate).equals(date) || localDate.compareTo(today)<0){
+                System.out.println("\nFecha invalida. Ingrese una nueva fecha");
+                date = scan.next();
+                localDate = LocalDate.parse(date,formatter);
+            }else {
+                exit++;
+            }
         }
+        return localDate;
     }
 }

@@ -54,7 +54,7 @@ public class Admin extends User implements Reserve, Ingress {
     }
 
     @Override
-    public Reservation makeReserve(Hotel hotel,Scanner scan, Pax pax) {
+    public Reservation makeReserve(Hotel hotel,Scanner scan) {
         System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
         Pax auxPax = hotel.searchHistoryPax(dni);
@@ -63,9 +63,9 @@ public class Admin extends User implements Reserve, Ingress {
             auxPax = newPax();
         }
         System.out.print("\ningrese la fecha en la que ingresará (DD/MM/AAAA):");
-        LocalDate checkIn = ingressDate(scan);
+        LocalDate checkIn = ingressDate(scan, LocalDate.now().plusDays(1));
         System.out.print("\ningrese la fecha en la que se retira (DD/MM/AAAA):");
-        LocalDate checkOut = ingressDate(scan);
+        LocalDate checkOut = ingressDate(scan, LocalDate.now().plusDays(1));
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
         hotel.showDisponibledRooms();
@@ -101,7 +101,7 @@ public class Admin extends User implements Reserve, Ingress {
     }
 
     @Override
-    public LocalDate ingressDate(Scanner scan) {
+    public LocalDate ingressDate(Scanner scan, LocalDate today) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String date = scan.nextLine();
         LocalDate localDate = LocalDate.parse(date,formatter);

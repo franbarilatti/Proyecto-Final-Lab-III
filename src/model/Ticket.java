@@ -43,10 +43,8 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
-                "pax=" + pax +
+        return "pax=" + pax.getName() +" " +pax.getSurname() +
                 ", room=" + room.getNumber() +
-                ", total=" + total +
-                '}';
+                ", total=" + total;
     }
 }

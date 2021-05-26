@@ -139,13 +139,13 @@ public class Pax {
             }
             op=scan.nextInt();
             switch (op) {
-                case 1 -> total = +MiniBar.COCA_COLA.getPrice();
-                case 2 -> total = +MiniBar.SPRITE.getPrice();
-                case 3 -> total = +MiniBar.VINO_TINTO.getPrice();
-                case 4 -> total = +MiniBar.VINO_BLANCO.getPrice();
-                case 5 -> total = +MiniBar.PAPAS_LAYS.getPrice();
-                case 6 -> total = +MiniBar.TABLETA_CHOCOLATE.getPrice();
-                case 7 -> total = +MiniBar.BOLSA_MANI.getPrice();
+                case 1 -> total += MiniBar.COCA_COLA.getPrice();
+                case 2 -> total += MiniBar.SPRITE.getPrice();
+                case 3 -> total += MiniBar.VINO_TINTO.getPrice();
+                case 4 -> total += MiniBar.VINO_BLANCO.getPrice();
+                case 5 -> total += MiniBar.PAPAS_LAYS.getPrice();
+                case 6 -> total += MiniBar.TABLETA_CHOCOLATE.getPrice();
+                case 7 -> total += MiniBar.BOLSA_MANI.getPrice();
                 case 0 -> exit++;
                 default -> System.out.println("Opcion invalida, por favor elija una nueva");
             }
