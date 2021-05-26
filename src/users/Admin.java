@@ -54,7 +54,7 @@ public class Admin extends User implements Reserve, Ingress {
     }
 
     @Override
-    public Reservation makeReserve(Hotel hotel,Scanner scan) {
+    public Reservation makeReserve(Hotel hotel,Scanner scan, Pax pax) {
         System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
         Pax auxPax = hotel.searchHistoryPax(dni);

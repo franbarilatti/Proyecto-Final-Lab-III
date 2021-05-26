@@ -4,6 +4,8 @@ import enumn.BedType;
 import enumn.TvType;
 import model.Reservation;
 import model.Superior;
+import users.Pax;
+import users.Recepcionist;
 
 import java.util.Scanner;
 
@@ -15,7 +17,7 @@ public class Main {
         hotel.rooms.add(new Superior(3,1, BedType.MATRIMONIAL,2500, TvType.TV_LED_42));
         hotel.showRooms();
 
-        /*Recepcionist recepcionist1 = new Recepcionist("luchossj", "1234");
+        Recepcionist recepcionist1 = new Recepcionist("luchossj", "1234");
         Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
         Recepcionist recepcionist3 = new Recepcionist("L-Gante", "420");
         hotel.users.add(recepcionist1);
@@ -29,8 +31,10 @@ public class Main {
         hotel.paxes.add(new Pax("Otto", "", "", "778754", ""));
         hotel.paxes.add(new Pax("Pololo", "", "", "212446", ""));
         //hotel.showHistoryPax();
-        hotel.addNewReserve(recepcionist.makeReserve(hotel,scan));
-        hotel.showAllReserves();*/
+        hotel.addNewReserve(recepcionist1.makeReserve(hotel,scan,hotel.paxes.get(0)));
+       // hotel.showAllReserves();
+        hotel.paxes.get(0).userMenu(scan);
+        System.out.println(hotel.paxes.get(0).getTickets());
     }
 
 

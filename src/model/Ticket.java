@@ -7,6 +7,7 @@ public class Ticket {
     private Room room;
     private double total;
 
+
     public Ticket() {
     }
 
@@ -44,7 +45,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "pax=" + pax +
-                ", room=" + room +
+                ", room=" + room.getNumber() +
                 ", total=" + total +
                 '}';
     }

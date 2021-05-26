@@ -62,13 +62,13 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
 
     @Override
-    public Reservation makeReserve(Hotel hotel,Scanner scan) {
-        System.out.print("Ingrese el dni del pasajero: ");
+    public Reservation makeReserve(Hotel hotel,Scanner scan, Pax pax) {
+        /*System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
-        Pax auxPax = hotel.searchHistoryPax(dni);
-        if (auxPax == null){
+        Pax auxPax = hotel.searchHistoryPax(dni);*/
+        if (pax == null){
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
-            auxPax = newPax();
+            pax = newPax();
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan);
@@ -83,7 +83,9 @@ public class Recepcionist extends User implements Reserve, Ingress {
         if(roomAux!=null){
             roomAux.setAvailability(false);
         }
-        return new Reservation(auxPax,roomAux,checkIn,checkOut);
+        Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut);
+        pax.setReserve(reservation);
+        return reservation;
     }
 
 

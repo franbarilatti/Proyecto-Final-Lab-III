@@ -18,7 +18,6 @@ public class Pax {
     private boolean ingress;
     private Reservation reserve;
     private List<Ticket> tickets;
-    private MiniBar miniBar;
 
     //------ Constructors ------//
     public Pax() {
@@ -102,6 +101,7 @@ public class Pax {
         this.reserve = reserve;
     }
 
+    public List<Ticket> getTickets() { return tickets; }
     //------ Methods ------//
 
     public void userMenu(Scanner scan) {
@@ -115,6 +115,7 @@ public class Pax {
                 case 1:
                     break;
                 case 2:
+                    Service(scan);
                     break;
                 case 3:
                     back++;
@@ -127,9 +128,29 @@ public class Pax {
 
     }
 
-    public void Service(){
-        System.out.println("Elija un producto");
-
+    public void Service(Scanner scan){
+        int op=0;
+        int exit=0;
+        double total=0;
+        while (exit==0){
+            System.out.println("Elija un producto, 0 para cancelar");
+            for(MiniBar m : MiniBar.values()){
+                System.out.println(m.ordinal()+1 +" "+ m.getProduct() + ": $" + m.getPrice());
+            }
+            op=scan.nextInt();
+            switch (op) {
+                case 1 -> total = +MiniBar.COCA_COLA.getPrice();
+                case 2 -> total = +MiniBar.SPRITE.getPrice();
+                case 3 -> total = +MiniBar.VINO_TINTO.getPrice();
+                case 4 -> total = +MiniBar.VINO_BLANCO.getPrice();
+                case 5 -> total = +MiniBar.PAPAS_LAYS.getPrice();
+                case 6 -> total = +MiniBar.TABLETA_CHOCOLATE.getPrice();
+                case 7 -> total = +MiniBar.BOLSA_MANI.getPrice();
+                case 0 -> exit++;
+                default -> System.out.println("Opcion invalida, por favor elija una nueva");
+            }
+        }
+        this.tickets.add(new Ticket(this, this.reserve.getRoom(), total));
     }
 
 
