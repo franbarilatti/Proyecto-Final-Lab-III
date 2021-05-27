@@ -7,7 +7,6 @@ public abstract class Room {
     private int number;
     private int cantBed;
     private BedType bedType;
-    private double price;
     private TvType tv;
     private boolean availability;
     private boolean occupated;
@@ -19,11 +18,11 @@ public abstract class Room {
         this.occupated = true;
     }
 
-    public Room(int number, int cantBed,BedType bedType, double price, TvType tv) {
+    public Room(int number, int cantBed,BedType bedType, TvType tv) {
         this.number = number;
         this.cantBed = cantBed;
         this.bedType = bedType;
-        this.price = price;
+
         this.tv = tv;
         this.availability = true;
         this.miniFridge = true;
