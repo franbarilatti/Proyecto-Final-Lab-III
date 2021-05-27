@@ -39,11 +39,11 @@ public class Hotel {
         paxes.add(pax);
     }
 
-    public void showHistoryPax(){
+    public void showHistoryPax() throws Exception {
         if (paxes != null)
             paxes.stream().forEach(System.out::println);
         else
-            throw new RuntimeException("No hay pasajeros historicos en el sistema");
+            throw new Exception("No hay pasajeros historicos en el sistema");
     }
 
     public Pax searchHistoryPax(String dni){
@@ -57,20 +57,20 @@ public class Hotel {
         this.reserves.add(newReserve);
     }
 
-    public void showAllReserves(){
+    public void showAllReserves() throws Exception {
         if (reserves != null)
             reserves.stream().forEach(System.out::println);
         else
-            throw new RuntimeException("No hay reservas cargadas en el sistema");
+            throw new Exception("No hay reservas cargadas en el sistema");
     }
 
-    public void showTodayReserves(){
+    public void showTodayReserves() throws Exception {
         if (reserves != null)
             reserves.stream().
                     filter((Reservation r)-> r.getCheckIn().equals(LocalDate.now())).
                     forEach(System.out::println);
         else
-            throw new RuntimeException("No hay reservas cargadas en el sistema");
+            throw new Exception("No hay reservas cargadas en el sistema");
     }
 
     public Reservation searchReserve(Pax pax,Room room){
