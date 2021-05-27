@@ -8,6 +8,7 @@ public class Superior extends Room{
     boolean ac;
     boolean safeBox;
     boolean oceanView;
+    private static double addSuperior = 1000;
 
     public Superior() {
         this.ac = true;
