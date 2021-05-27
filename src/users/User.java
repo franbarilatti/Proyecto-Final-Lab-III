@@ -1,9 +1,5 @@
 package users;
 
-import model.Ticket;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -62,4 +58,5 @@ public abstract class User {
     }
 
     public abstract void userMenu(Scanner scan);
+
 }

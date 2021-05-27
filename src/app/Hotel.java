@@ -8,6 +8,7 @@ import users.User;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Hotel {
     protected List<User> users;
@@ -98,6 +99,25 @@ public class Hotel {
             System.out.println("No hay habitaciones disponibles");
         } else {
             rooms.stream().filter(room -> room.isAvailability()).filter(room -> room.isOccupated()).forEach(System.out::println);
+        }
+    }
+
+    public void logIn(Scanner scan){
+        System.out.println("Ingrese su Nick Name");
+
+        User userAux = users.stream().
+                filter(user -> user.getNickName().equals(scan.nextLine())).
+                findFirst().
+                orElse(null);
+        if (userAux != null){
+            System.out.println("Ingrese su contrasña");
+            if (userAux.getPassword().equals(scan.nextLine())){
+                userAux.userMenu(scan);
+            }else {
+                System.out.println("Contraseña incorrecta");
+            }
+        }else {
+            System.out.println("El usuario registrado no se encuentra registrado");
         }
     }
 
