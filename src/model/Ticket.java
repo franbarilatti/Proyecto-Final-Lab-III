@@ -7,6 +7,7 @@ public class Ticket {
     private Room room;
     private double total;
 
+
     public Ticket() {
     }
 
@@ -42,10 +43,8 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Ticket{" +
-                "pax=" + pax +
-                ", room=" + room +
-                ", total=" + total +
-                '}';
+        return "pax=" + pax.getName() +" " +pax.getSurname() +
+                ", room=" + room.getNumber() +
+                ", total=" + total;
     }
 }
