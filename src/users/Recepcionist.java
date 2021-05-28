@@ -25,12 +25,12 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
     //------ Methods ------//
     @Override
-    public void userMenu(Scanner scan) {
+    public void userMenu(Scanner scan,Hotel hotel) {
         int opt;
         int back = 0;
-        System.out.println("Welcome, "+nickName);
+        System.out.println("Bienvenido, "+nickName);
         while (back == 0){
-            System.out.println("\nSelect one option:\n[1]- Check in\n[2]-Check out\n[3]- Add new reserve\n[4]- Check reserves\n[5]- Check Rooms\n[6]- Room service\n[0]- Log out");
+            System.out.println("\nIngrese el numero de la opcion a la que quiere entrar:\n[1]- Check in\n[2]-Check out\n[3]- Agregar Nueva Reserva\n[4]- Revisar Reservas\n[5]- Revisar Habitaciones\n[6]- Buscar Pasajero\n[0]- Log out");
             opt = scan.nextInt();
             switch (opt){
                 case 1:
@@ -45,13 +45,20 @@ public class Recepcionist extends User implements Reserve, Ingress {
                 case 5:
                     break;
                 case 6:
+<<<<<<< HEAD
 
+=======
+                    System.out.print("Ingrese el dni del pasajero que busca: ");
+                    String dni = scan.next();
+                    Pax srchPax = hotel.searchHistoryPax(dni);
+                    srchPax.userMenu(scan,hotel);
+>>>>>>> 35d9da1d483ebef7c28c26e695b8262c03e9dfa8
                     break;
                 case 0:
                     back++;
                     break;
                 default:
-                    System.out.println("Incorrect option");
+                    System.out.println("opcion incorrecta");
                     break;
             }
         }
