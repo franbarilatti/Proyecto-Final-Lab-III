@@ -7,16 +7,9 @@ public enum BedType {
     CUADRUPLE("Una cama matrimonial, una individual y una cucheta",2600);
 
     private final String description;
-<<<<<<< HEAD
     private double price;
 
-    BedType(String description) {
-
-=======
-    private final double price;
-
     BedType(String description, double price) {
->>>>>>> 62dd79e88b5a5959aed4e6126fc7ec26b7d41fc4
         this.description = description;
         this.price = price;
     }

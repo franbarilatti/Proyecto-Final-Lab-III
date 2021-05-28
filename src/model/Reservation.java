@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Reservation {
     private Pax pax;
     private Room room;
+    private int cantDays;
     private LocalDate checkIn;
     private LocalDate checkOut;
 
@@ -53,6 +54,14 @@ public class Reservation {
         this.checkOut = checkOut;
     }
 
+    public int getCantDays() {
+        return cantDays;
+    }
+
+    public void setCantDays(int cantDays) {
+        this.cantDays = cantDays;
+    }
+
     @Override
     public String toString() {
         return "\n-------------------------------\n"+
@@ -60,6 +69,7 @@ public class Reservation {
                 "\nHabitacion: "+ room.getNumber()+
                 "\nFecha de ingreso: "+checkIn+
                 "\nFecha de retiro: "+checkOut+
+                "\nCantidad de dias: " +cantDays+
                 "\n---------------------------------";
     }
 }

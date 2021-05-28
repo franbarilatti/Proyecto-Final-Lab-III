@@ -3,6 +3,7 @@ package users;
 import Interface.Ingress;
 import Interface.Reserve;
 import app.Hotel;
+import enumn.Condition;
 import model.Reservation;
 import model.Room;
 
@@ -57,26 +58,29 @@ public class Admin extends User implements Reserve, Ingress {
     public Reservation makeReserve(Hotel hotel,Scanner scan) {
         System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
-        Pax auxPax = hotel.searchHistoryPax(dni);
-        if (auxPax == null){
+        Pax pax = hotel.searchHistoryPax(dni);
+        if (pax == null){
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
-            auxPax = newPax();
+            pax = newPax();
         }
-        System.out.print("\ningrese la fecha en la que ingresará (DD/MM/AAAA):");
-        LocalDate checkIn = ingressDate(scan, LocalDate.now().plusDays(1));
-        System.out.print("\ningrese la fecha en la que se retira (DD/MM/AAAA):");
-        LocalDate checkOut = ingressDate(scan, LocalDate.now().plusDays(1));
+        System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
+        LocalDate checkIn = ingressDate(scan,LocalDate.now());
+        System.out.print("Cantidad de noches que se queda: ");
+        LocalDate checkOut = checkIn.plusDays(scan.nextInt());
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
-        hotel.showDisponibledRooms();
+        hotel.showDisponibledRooms(checkIn,checkOut);
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux= hotel.getRooms().stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
         if(roomAux!=null){
-            roomAux.setAvailability(false);
+            roomAux.setCondition(Condition.OCUPPED);
         }
-        return new Reservation(auxPax,roomAux,checkIn,checkOut);
+        Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut);
+        pax.setReserve(reservation);
+        return reservation;
     }
+
 
     @Override
     public Pax newPax() {
@@ -97,24 +101,11 @@ public class Admin extends User implements Reserve, Ingress {
 
     @Override
     public void RoomAvailable(List<Room> roomList) {
-
-    }
-
-    @Override
-    public LocalDate ingressDate(Scanner scan, LocalDate today) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String date = scan.nextLine();
-        LocalDate localDate = LocalDate.parse(date,formatter);
-        if(!formatter.format(localDate).equals(date)){
-            System.out.println("\nFecha invalida");
-            return null;
-        }else
-            return localDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Admin: "+ nickName;
+        for (Room room:roomList){
+            if (room.getCondition() == Condition.AVAILABLE || room.getCondition() == Condition.UNCLEAN_AVAILABLE){
+                System.out.println(room.toString());
+            }
+        }
     }
 
     @Override
@@ -133,7 +124,7 @@ public class Admin extends User implements Reserve, Ingress {
         pax.setReserve(auxReserve);
         hotel.addHistoryPax(pax);
         hotel.eliminateReserve(auxReserve);
-        room.setOccupated(true);
+        room.setCondition(Condition.OCUPPED);
 
     }
 
@@ -141,7 +132,24 @@ public class Admin extends User implements Reserve, Ingress {
     public void checkOut(Pax pax, Room room) {
         pax.setIngress(false);
         pax.setReserve(null);
-        room.setAvailability(true);
-        room.setOccupated(false);
+        room.setCondition(Condition.UNCLEAN_AVAILABLE);
+    }
+
+    @Override
+    public LocalDate ingressDate(Scanner scan, LocalDate today) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String date = scan.next();
+        LocalDate localDate = LocalDate.parse(date,formatter);
+        int exit=0;
+        while (exit==0){
+            if(!formatter.format(localDate).equals(date) || localDate.compareTo(today)<0){
+                System.out.println("\nFecha invalida. Ingrese una nueva fecha");
+                date = scan.next();
+                localDate = LocalDate.parse(date,formatter);
+            }else {
+                exit++;
+            }
+        }
+        return localDate;
     }
 }

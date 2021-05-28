@@ -1,121 +1,57 @@
 package model;
 
 import enumn.BedType;
+import enumn.Condition;
 import enumn.TvType;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Room {
     private int number;
-    private int cantBed;
     private BedType bedType;
-    private TvType tv;
-    private boolean availability;
-    private boolean occupated;
-    private boolean miniFridge;
-
+    private Condition condition;
+    private TvType tvType;
+    public List<Reservation> reservations;
     public Room() {
-        this.availability = true;
-        this.miniFridge = true;
-        this.occupated = true;
+        this.reservations= new ArrayList<>();
     }
 
-    public Room(int number, int cantBed,BedType bedType, TvType tv) {
+    public Room(int number, BedType bedType, Condition condition, TvType tvType) {
         this.number = number;
-        this.cantBed = cantBed;
         this.bedType = bedType;
-
-        this.tv = tv;
-        this.availability = true;
-        this.miniFridge = true;
-        this.occupated = true;
+        this.condition = condition;
+        this.tvType = tvType;
+        this.reservations= new ArrayList<>();
     }
 
-    //------ Getters ------//
+    public Condition getCondition() {
+        return condition;
+    }
+
+    public void setCondition(Condition condition) {
+        this.condition = condition;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
     public int getNumber() {
         return number;
     }
 
-    public int getCantBed() {
-        return cantBed;
+    public boolean isOcuped(LocalDate ingress, LocalDate exit){
+        Reservation reservation= reservations.stream().filter(reservation1 -> (reservation1.getCheckIn().compareTo(ingress)<=0 && reservation1.getCheckOut().compareTo(exit)>=0)).findFirst().orElse(null);
+
+        return reservation != null;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public TvType getTv() {
-        return tv;
-    }
-
-    public boolean isAvailability() {
-        return availability;
-    }
-
-    public boolean isMiniFridge() {
-        return miniFridge;
-    }
-
-    public boolean isOccupated() {
-        return occupated;
-    }
-
-    //------ Setters ------//
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public void setCantBed(int cantBed) {
-        this.cantBed = cantBed;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public void setTv(TvType tv) {
-        this.tv = tv;
-    }
-
-    public void setAvailability(boolean availability) {
-        this.availability = availability;
-    }
-
-    public void setMiniFridge(boolean miniFridge) {
-        this.miniFridge = miniFridge;
-    }
-
-    public void setOccupated(boolean occupated) {
-        this.occupated = occupated;
-    }
-
-    //------ Methods ------//
-    public abstract String showDescription();
-
-    @Override
     public String toString() {
-        return "Detalles de la habitacion:" +
-                "\nNumero de habitacion: " + number +
-                "\nCantidad de camas: " + cantBed +
-                "\nTipo de cama: "+ bedType.getDescription()+
-                "\nTelevisor: " + tv.getDescription() +
-                "\nMini Bar: " + SiOrNo(miniFridge) +
-                "\nDisponibilidad: " + showAvailability();
+        return "Numero de habitacio: " + number +
+                "Tipo de cama " + bedType.getDescription() +
+                "Tipo de Tv" + tvType.getDescription()+
+                "Estado: " + condition.getState();
     }
-
-    private String showAvailability(){
-        if(this.availability){
-            return "Si";
-        }else {
-            return "No";
-        }
-    }
-
-    public String SiOrNo(boolean bool){
-        if(bool){
-            return "Si";
-        }else {
-            return "No";
-        }
-    }
-
-
 }
