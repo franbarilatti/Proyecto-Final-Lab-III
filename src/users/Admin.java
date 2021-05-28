@@ -21,7 +21,7 @@ public class Admin extends User implements Reserve, Ingress {
 
     //------ Methods ------//
     @Override
-    public void userMenu(Scanner scan) {
+    public void userMenu(Scanner scan,Hotel hotel) {
         int opt;
         int back = 0;
         System.out.println("Welcome, "+nickName);

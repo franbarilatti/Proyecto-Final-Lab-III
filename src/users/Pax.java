@@ -1,5 +1,6 @@
 package users;
 
+import app.Hotel;
 import enumn.MiniBar;
 import model.Reservation;
 import model.Ticket;
@@ -104,7 +105,7 @@ public class Pax {
     public List<Ticket> getTickets() { return tickets; }
     //------ Methods ------//
 
-    public void userMenu(Scanner scan) {
+    public void userMenu(Scanner scan, Hotel hotel) {
         int opt;
         int back = 0;
         System.out.println("Welcome, "+name+" "+surname);

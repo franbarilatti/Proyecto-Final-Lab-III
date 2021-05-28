@@ -1,5 +1,6 @@
 package users;
 
+import app.Hotel;
 import model.Ticket;
 
 import java.util.ArrayList;
@@ -55,11 +56,14 @@ public abstract class User {
     //------ Methods ------//
 
 
+    //------ Methods ------//
+
+
     @Override
     public String toString() {
         return "User:" +
                 "\nNickName='" + nickName;
     }
 
-    public abstract void userMenu(Scanner scan);
+    public abstract void userMenu(Scanner scan, Hotel hotel);
 }
