@@ -86,7 +86,6 @@ public class Hotel {
     }
 
     public void showRooms(){
-
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
@@ -94,11 +93,11 @@ public class Hotel {
         }
     }
 
-    public void showDisponibledRooms(){
+    public void showDisponibledRooms(LocalDate ingress, LocalDate exit){
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
-            rooms.stream().filter(room -> room.isAvailability()).filter(room -> room.isOccupated()).forEach(System.out::println);
+           rooms.stream().filter(room -> !room.isOcuped(ingress,exit)).forEach(System.out::println);
         }
     }
 

@@ -107,9 +107,9 @@ public class Pax {
     public void userMenu(Scanner scan) {
         int opt;
         int back = 0;
-        System.out.println("Welcome, "+name+" "+surname);
+        System.out.println("Pasajero "+name+" "+surname);
         while (back == 0){
-            System.out.println("\nSelect one option:\n[1]- Check Reserves\n[2]- Room service\n[3]- Log out");
+            System.out.println("\nSeleccione una opcion:\n[1]- Check Reserves\n[2]- Room service\n[3]- Log out");
             opt = scan.nextInt();
             switch (opt){
                 case 1:
@@ -121,7 +121,7 @@ public class Pax {
                     back++;
                     break;
                 default:
-                    System.out.println("Incorrect option");
+                    System.out.println("Opcion Michetti");
                     break;
             }
         }

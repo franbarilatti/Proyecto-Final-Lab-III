@@ -9,10 +9,13 @@ public enum BedType {
     private final String description;
     private double price;
 
+<<<<<<< HEAD
     BedType(String description) {
 
     private final double price;
 
+=======
+>>>>>>> Guido
     BedType(String description, double price) {
         this.description = description;
         this.price = price;

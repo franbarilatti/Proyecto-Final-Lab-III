@@ -3,6 +3,7 @@ package users;
 import Interface.Ingress;
 import Interface.Reserve;
 import app.Hotel;
+import enumn.Condition;
 import model.Reservation;
 import model.Room;
 
@@ -44,6 +45,7 @@ public class Recepcionist extends User implements Reserve, Ingress {
                 case 5:
                     break;
                 case 6:
+
                     break;
                 case 0:
                     back++;
@@ -72,19 +74,17 @@ public class Recepcionist extends User implements Reserve, Ingress {
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan,LocalDate.now());
-        System.out.print("\nFecha de salida(DD/MM/AAAA):");
-        LocalDate checkOut = ingressDate(scan, LocalDate.now().plusDays(1));
+        System.out.print("Cantidad de noches que se queda: ");
+        LocalDate checkOut = checkIn.plusDays(scan.nextInt());
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
-        hotel.showDisponibledRooms();
+        hotel.showDisponibledRooms(checkIn,checkOut);
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux= hotel.getRooms().stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
-        if(roomAux!=null){
-            roomAux.setAvailability(false);
-        }
         Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut);
         pax.setReserve(reservation);
+        roomAux.reservations.add(reservation);
         return reservation;
     }
 
@@ -109,7 +109,7 @@ public class Recepcionist extends User implements Reserve, Ingress {
     @Override
     public void RoomAvailable(List<Room> roomList) {
         for (Room room:roomList){
-            if (room.isAvailability()){
+            if (room.getCondition() == Condition.AVAILABLE || room.getCondition() == Condition.UNCLEAN_AVAILABLE){
                 System.out.println(room.toString());
             }
         }
@@ -131,7 +131,7 @@ public class Recepcionist extends User implements Reserve, Ingress {
         pax.setReserve(auxReserve);
         hotel.addHistoryPax(pax);
         hotel.eliminateReserve(auxReserve);
-        room.setOccupated(true);
+        room.setCondition(Condition.OCUPPED);
 
     }
 
@@ -139,8 +139,7 @@ public class Recepcionist extends User implements Reserve, Ingress {
     public void checkOut(Pax pax, Room room) {
         pax.setIngress(false);
         pax.setReserve(null);
-        room.setAvailability(true);
-        room.setOccupated(false);
+        room.setCondition(Condition.UNCLEAN_AVAILABLE);
     }
 
     @Override
