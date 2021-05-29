@@ -1,36 +1,42 @@
 package repositories;
 
-import Interface.RepositoryController;
 import com.google.gson.Gson;
 import users.User;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepository implements RepositoryController {
-    private static File userFile = new File("UserRepositori.json");
-    private BufferedReader bufferedReader;
+public class UserRepository extends RepositoryController {
 
-    {
-        try {
-            bufferedReader = new BufferedReader( new FileReader(userFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    private User user;
+    private ArrayList<User> userList;
+
+    public UserRepository(User user, ArrayList<User> userList) {
+        this.user = user;
+        this.userList = userList;
     }
 
-    private Gson userGson = new Gson();
+    public User getUser() {
+        return user;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setUserList(ArrayList<User> userList) {
+        this.userList = userList;
+    }
+
 
     @Override
     public void add(Object o) {
-        String json = userGson.toJson(o);
 
-        try{
-            FileWriter writer = new FileWriter(userFile);
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -39,12 +45,17 @@ public class UserRepository implements RepositoryController {
     }
 
     @Override
-    public void show() {
+    public void show(Object o) {
 
     }
 
     @Override
     public void modify(Object o) {
+
+    }
+
+    @Override
+    public void findById(Object o) {
 
     }
 }
