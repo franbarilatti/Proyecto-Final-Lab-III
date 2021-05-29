@@ -15,11 +15,12 @@ public class Reservation {
 
     }
 
-    public Reservation(Pax pax, Room room, LocalDate checkIn, LocalDate checkOut) {
+    public Reservation(Pax pax, Room room, LocalDate checkIn, LocalDate checkOut, int cantDays) {
         this.pax = pax;
         this.room = room;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
+        this.cantDays = cantDays;
     }
 
     public Pax getPax() {

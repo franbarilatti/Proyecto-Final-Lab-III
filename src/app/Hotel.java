@@ -101,6 +101,13 @@ public class Hotel {
         }
     }
 
+    public Room searchRoomByNumber(int number){
+        return rooms.stream().
+                filter(room1 -> room1.getNumber()==number).
+                findFirst().
+                orElse(null);
+    }
+
     public void logIn(Scanner scan){
         System.out.println("Ingrese su Nick Name");
 
@@ -111,7 +118,7 @@ public class Hotel {
         if (userAux != null){
             System.out.println("Ingrese su contrasña");
             if (userAux.getPassword().equals(scan.nextLine())){
-                userAux.userMenu(scan);
+                userAux.userMenu(scan,this);
             }else {
                 System.out.println("Contraseña incorrecta");
             }

@@ -66,7 +66,8 @@ public class Admin extends User implements Reserve, Ingress {
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan,LocalDate.now());
         System.out.print("Cantidad de noches que se queda: ");
-        LocalDate checkOut = checkIn.plusDays(scan.nextInt());
+        int cantDays = scan.nextInt();
+        LocalDate checkOut = checkIn.plusDays(cantDays);
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
         hotel.showDisponibledRooms(checkIn,checkOut);
@@ -76,7 +77,7 @@ public class Admin extends User implements Reserve, Ingress {
         if(roomAux!=null){
             roomAux.setCondition(Condition.OCUPPED);
         }
-        Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut);
+        Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut,cantDays);
         pax.setReserve(reservation);
         return reservation;
     }
@@ -151,5 +152,13 @@ public class Admin extends User implements Reserve, Ingress {
             }
         }
         return localDate;
+    }
+
+    public void changeRoomState(Hotel hotel, Scanner scan){
+        System.out.println("Elija un numero de habitacion");
+        Room room= hotel.searchRoomByNumber(scan.nextInt());
+        if(room!=null){
+            
+        }
     }
 }
