@@ -45,14 +45,10 @@ public class Recepcionist extends User implements Reserve, Ingress {
                 case 5:
                     break;
                 case 6:
-<<<<<<< HEAD
-
-=======
                     System.out.print("Ingrese el dni del pasajero que busca: ");
                     String dni = scan.next();
                     Pax srchPax = hotel.searchHistoryPax(dni);
                     srchPax.userMenu(scan,hotel);
->>>>>>> 35d9da1d483ebef7c28c26e695b8262c03e9dfa8
                     break;
                 case 0:
                     back++;

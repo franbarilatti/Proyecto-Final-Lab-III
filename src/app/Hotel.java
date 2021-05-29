@@ -111,7 +111,7 @@ public class Hotel {
         if (userAux != null){
             System.out.println("Ingrese su contrasña");
             if (userAux.getPassword().equals(scan.nextLine())){
-                userAux.userMenu(scan);
+                userAux.userMenu(scan,this);
             }else {
                 System.out.println("Contraseña incorrecta");
             }
