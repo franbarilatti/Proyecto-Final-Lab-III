@@ -34,7 +34,6 @@ public class Recepcionist extends User implements Reserve, Ingress {
             opt = scan.nextInt();
             switch (opt){
                 case 1:
-
                     break;
                 case 2:
                     break;
