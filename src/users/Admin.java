@@ -154,11 +154,23 @@ public class Admin extends User implements Reserve, Ingress {
         return localDate;
     }
 
-    public void changeRoomState(Hotel hotel, Scanner scan){
+    public void changeRoomState(Hotel hotel,Scanner scan){
         System.out.println("Elija un numero de habitacion");
-        Room room= hotel.searchRoomByNumber(scan.nextInt());
+        Room room= this.searchRoomByNumber(hotel,scan.nextInt());
         if(room!=null){
-            
+            System.out.println(room.toString());
+            System.out.println("Elija el nuevo estado de la habitacion");
+            for (Condition condition: Condition.values()){
+                System.out.println(condition.ordinal()+1 +"- " + condition.name());
+            }
+            String s=Condition.searchByOrdinal(scan.nextInt());
+            if (!s.equals("")){
+                room.setCondition(Condition.valueOf(s));
+            }else {
+                System.out.println("Condicion no encontrada");
+            }
+        }else {
+            System.out.println("Habitacion no encontrada");
         }
     }
 }
