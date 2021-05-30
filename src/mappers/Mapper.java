@@ -21,7 +21,8 @@ public class Mapper<T> {
 
     public ArrayList<T> deserialize(String json){
         Gson gson = new Gson();
-        return gson.fromJson(json, new TypeToken<ArrayList<T>>(){}.getType());
+        ArrayList<T> list = gson.fromJson(json, new TypeToken<ArrayList<T>>(){}.getType());
+        return list;
     }
 
 }

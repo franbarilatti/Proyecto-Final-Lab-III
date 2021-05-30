@@ -27,6 +27,10 @@ public class Hotel {
         return users;
     }
 
+    public List<Pax> getPaxes() {
+        return paxes;
+    }
+
     public List<Room> getRooms() {
         return rooms;
     }

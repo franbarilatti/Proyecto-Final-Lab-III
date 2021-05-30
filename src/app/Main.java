@@ -13,6 +13,7 @@ import java.io.*;
 import java.lang.reflect.Type;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -68,6 +69,8 @@ public class Main {
         userRepository.addObjet("userFile.json",recepcionist1);
 
         userRepository.addList("userFile.json", userList);
+
+        userRepository.showRepository("userFile.json");
 
     }
 

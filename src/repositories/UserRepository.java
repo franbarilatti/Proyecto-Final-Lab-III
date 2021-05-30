@@ -1,7 +1,5 @@
 package repositories;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import users.User;
 
 import java.io.*;
@@ -64,19 +62,20 @@ public class UserRepository extends RepositoryController<User> {
     }
 
     @Override
-    public List<User> throwList(String fileName) {
-        String json = "";
+    public ArrayList<User> throwList(String fileName) {
+        StringBuilder json = new StringBuilder();
         String line;
         try{
             BufferedReader userBR = new BufferedReader(new FileReader(fileName));
             while ((line = userBR.readLine())!= null){
-                json += line;
+                json.append(line);
             }
+            userBR.close();
         }catch (IOException e){
             e.printStackTrace();
         }
-        List<User> list = deserialize(json);
-        return list;
+
+        return deserialize(json.toString());
     }
 
     @Override
@@ -88,5 +87,12 @@ public class UserRepository extends RepositoryController<User> {
     public void findById(String fileName, UUID id) {
 
     }
+
+    @Override
+    public void showRepository(String fileName) {
+        ArrayList<User> userList = throwList(fileName);
+        userList.forEach(System.out::println);
+    }
+
 
 }
