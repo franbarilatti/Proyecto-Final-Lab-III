@@ -1,27 +1,19 @@
 package app;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import enumn.BedType;
-import enumn.Condition;
-import enumn.TvType;
-import model.Reservation;
-import model.Superior;
-import users.Admin;
-import users.Pax;
+import mappers.Mapper;
+import repositories.UserRepository;
 import users.Recepcionist;
+import users.User;
+import com.google.gson.internal.LinkedTreeMap;
 
-<<<<<<< HEAD
-=======
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.io.*;
 import java.lang.reflect.Type;
-import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> be43b06b6127ae35b840b8413d76982e10536f98
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,16 +21,13 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         Reservation reserve = new Reservation();
         Admin recepcionist1 = new Admin("luchossj", "1234");
-<<<<<<< HEAD
         hotel.showRooms();
 
-=======
         hotel.rooms.add(new Superior(3,1, BedType.MATRIMONIAL,2500, TvType.TV_LED_42));
         hotel.showRooms();*/
 
 
         Recepcionist recepcionist1 = new Recepcionist("luchossj", "1234");
->>>>>>> be43b06b6127ae35b840b8413d76982e10536f98
         Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
         Recepcionist recepcionist3 = new Recepcionist("L-Gante", "420");
         /*hotel.rooms.add(new Superior(101, BedType.MATRIMONIAL, Condition.AVAILABLE, TvType.TV_LED_42));
@@ -59,9 +48,6 @@ public class Main {
         System.out.println(hotel.getReserves());
         recepcionist2.makeReserve(hotel,scan);
 
-<<<<<<< HEAD
-
-=======
         //hotel.showHistoryPax();
         //hotel.addNewReserve(recepcionist1.makeReserve(hotel,scan));
        // hotel.showAllReserves();
@@ -69,30 +55,20 @@ public class Main {
         recepcionist1.userMenu(scan,hotel
          */
 
+        List<User> userList = new ArrayList<>();
+        userList.add(recepcionist1);
+        userList.add(recepcionist3);
+        userList.add(recepcionist2);
         String json = "";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("archivito.json"));
 
-            String line;
-            while ((line = br.readLine()) != null){
-                json += line;
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
+        UserRepository userRepository = new UserRepository();
 
-        System.out.println(json);
+        userRepository.createFile("userFile.json");
 
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<Recepcionist>>(){}.getType();
+        userRepository.addObjet("userFile.json",recepcionist1);
 
-        ArrayList<Recepcionist> rList = gson.fromJson(json,type);
-        System.out.println(rList);
+        userRepository.addList("userFile.json", userList);
 
->>>>>>> be43b06b6127ae35b840b8413d76982e10536f98
     }
 
 
