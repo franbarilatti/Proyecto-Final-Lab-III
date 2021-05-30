@@ -1,54 +1,20 @@
 package repositories;
 
-import com.google.gson.Gson;
 
-import java.io.*;
+import mappers.Mapper;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-public abstract class RepositoryController<T> {
-    private static File userFile = new File("UserRepositori.json");
-    private BufferedReader userBF;
-    {
-        try {
-            userBF = new BufferedReader( new FileReader(userFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    private Gson userGson = new Gson();
-
-    public static File getUserFile() {
-        return userFile;
-    }
-
-    public BufferedReader getuserBF() {
-        return userBF;
-    }
-
-    public Gson getUserGson() {
-        return userGson;
-    }
-
-
-    public static void setUserFile(File userFile) {
-        RepositoryController.userFile = userFile;
-    }
-
-
-    public void setuserBF(BufferedReader userBF) {
-        this.userBF = userBF;
-    }
-
-
-    public void setUserGson(Gson userGson) {
-        this.userGson = userGson;
-    }
-
-    public abstract void add(T t);
-    public abstract void remove(T t);
-    public abstract void show(T t);
-    public abstract void modify(T t);
-
-    public abstract void findById(T t);
+public abstract class RepositoryController<T> extends Mapper {
+    public abstract void createFile(String fileName);
+    public abstract void addObjet(String fileName, T t);
+    public abstract void addList(String fileName, List<T> tList);
+    public abstract void remove(String fileName, T t);
+    public abstract ArrayList<T> throwList(String fileName);
+    public abstract void modify(String fileName,T t);
+    public abstract void findById(String fileName, UUID id);
+    public abstract void showRepository(String fileName);
 
 }

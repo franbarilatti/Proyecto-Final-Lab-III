@@ -1,24 +1,28 @@
 package mappers;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import com.google.gson.reflect.TypeToken;
+
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Mapper<T> {
 
-    public void fileToJSON(String fileName,Gson gson, T t){
-        String json = gson.toJson(t);
-        try{
-            FileWriter writer = new FileWriter(fileName);
-            writer.write(json);
-            writer.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+    public String serialize(String json, T t){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        json = gson.toJson(t);
+        return json;
     }
 
+    public ArrayList<T> deserialize(String json){
+        Gson gson = new Gson();
+        ArrayList<T> list = gson.fromJson(json, new TypeToken<ArrayList<T>>(){}.getType());
+        return list;
+    }
 
 }
