@@ -5,8 +5,11 @@ import enumn.Condition;
 import enumn.TvType;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class Room {
     private int number;
@@ -43,10 +46,20 @@ public abstract class Room {
     }
 
     public boolean isOcuped(LocalDate ingress, LocalDate exit){
-        Reservation reservation= reservations.stream().filter(reservation1 -> (reservation1.getCheckIn().compareTo(ingress)<=0 && reservation1.getCheckOut().compareTo(exit)>=0)).findFirst().orElse(null);
-
-        return reservation != null;
+        boolean bool=false;
+        List<LocalDate> ocuppedDays = Stream.iterate(ingress,date -> date.plusDays(1)).limit(ChronoUnit.DAYS.between(ingress,exit)).collect(Collectors.toList());
+        for (Reservation reservation:reservations){
+            for (LocalDate localDate: ocuppedDays){
+                if (reservation.getCheckIn().equals(localDate) || reservation.getCheckOut().equals(localDate)) {
+                    bool = true;
+                    this.condition=Condition.OCUPPED;
+                    break;
+                }
+            }
+        }
+        return bool || (this.condition!=Condition.AVAILABLE && this.condition!=Condition.UNCLEAN_AVAILABLE) ;
     }
+
 
     public String toString() {
         return "Numero de habitacio: " + number +
@@ -54,4 +67,6 @@ public abstract class Room {
                 "Tipo de Tv" + tvType.getDescription()+
                 "Estado: " + condition.getState();
     }
+
+
 }

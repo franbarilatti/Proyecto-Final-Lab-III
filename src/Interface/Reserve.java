@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 public interface Reserve {
 
-    public Reservation makeReserve(Hotel hotel, Scanner scan);
-    public Pax newPax();
-    public void RoomAvailable(List<Room> roomList);
-    public LocalDate ingressDate(Scanner scan, LocalDate today);
+     Reservation makeReserve(Hotel hotel, Scanner scan);
+     Pax newPax();
+     void RoomAvailable(List<Room> roomList);
+     LocalDate ingressDate(Scanner scan, LocalDate today);
 
 }

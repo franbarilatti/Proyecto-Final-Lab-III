@@ -45,6 +45,10 @@ public class Recepcionist extends User implements Reserve, Ingress {
                 case 5:
                     break;
                 case 6:
+<<<<<<< HEAD
+
+=======
+>>>>>>> be43b06b6127ae35b840b8413d76982e10536f98
                     System.out.print("Ingrese el dni del pasajero que busca: ");
                     String dni = scan.next();
                     Pax srchPax = hotel.searchHistoryPax(dni);
@@ -78,16 +82,19 @@ public class Recepcionist extends User implements Reserve, Ingress {
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan,LocalDate.now());
         System.out.print("Cantidad de noches que se queda: ");
-        LocalDate checkOut = checkIn.plusDays(scan.nextInt());
+        int cantDays=scan.nextInt();
+        LocalDate checkOut = checkIn.plusDays(cantDays);
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
         hotel.showDisponibledRooms(checkIn,checkOut);
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux= hotel.getRooms().stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
-        Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut);
+        Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut,cantDays);
         pax.setReserve(reservation);
+        assert roomAux != null;
         roomAux.reservations.add(reservation);
+        hotel.addNewReserve(reservation);
         return reservation;
     }
 

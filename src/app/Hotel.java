@@ -101,6 +101,13 @@ public class Hotel {
         }
     }
 
+    public Room searchRoomByNumber(int number){
+        return rooms.stream().
+                filter(room1 -> room1.getNumber()==number).
+                findFirst().
+                orElse(null);
+    }
+
     public void logIn(Scanner scan){
         System.out.println("Ingrese su Nick Name");
 

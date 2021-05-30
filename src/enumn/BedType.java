@@ -9,7 +9,10 @@ public enum BedType {
     private final String description;
     private final double price;
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> be43b06b6127ae35b840b8413d76982e10536f98
     BedType(String description, double price) {
         this.description = description;
         this.price = price;
@@ -17,5 +20,9 @@ public enum BedType {
 
     public String getDescription() {
         return description;
+    }
+
+    public double getPrice() {
+        return price;
     }
 }

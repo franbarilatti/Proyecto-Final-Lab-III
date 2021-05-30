@@ -1,10 +1,12 @@
 package users;
 
 import app.Hotel;
-import model.Ticket;
 
+<<<<<<< HEAD
+=======
 import java.util.ArrayList;
 import java.util.List;
+>>>>>>> be43b06b6127ae35b840b8413d76982e10536f98
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -65,5 +67,9 @@ public abstract class User {
                 "\nNickName='" + nickName;
     }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> be43b06b6127ae35b840b8413d76982e10536f98
     public abstract void userMenu(Scanner scan, Hotel hotel);
 }
