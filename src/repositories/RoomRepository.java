@@ -1,13 +1,13 @@
 package repositories;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import model.Room;
-import users.User;
 
-import javax.sql.rowset.serial.SerialStruct;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class RoomRepository extends RepositoryController<Room>{
     private final String roomFileName = "roomFile.json";
@@ -29,12 +29,10 @@ public class RoomRepository extends RepositoryController<Room>{
 
     @Override
     public void addObjet(Room room) {
-        String json = "";
-        json = serialize(room);
+        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        String json = gson.toJson(room) ;
         try{
-            BufferedWriter userBW = new BufferedWriter(new FileWriter(roomFileName));
-            userBW.write(json);
-            userBW.close();
+            FileWriter writer = new FileWriter(roomFileName);
         }
         catch (IOException e){
             e.printStackTrace();

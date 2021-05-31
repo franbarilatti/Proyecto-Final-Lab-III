@@ -9,10 +9,7 @@ public enum BedType {
     private final String description;
     private final double price;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 9278ab9886280d59b2c4c597af67f35104fa91a4
     BedType(String description, double price) {
         this.description = description;
         this.price = price;
