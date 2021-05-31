@@ -5,6 +5,8 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 import model.Reservation;
+import model.Room;
+import model.Standar;
 import model.Superior;
 import repositories.RoomRepository;
 import users.Admin;
@@ -50,5 +52,21 @@ public class Main {
         RoomRepository roomRepository= new RoomRepository();
        // roomRepository.createFile();
         roomRepository.addObjet(hotel.rooms.get(0));
+
+        Pax pax1 = new Pax();
+        Pax pax2 = new Pax();
+        pax1.setName("pepe");
+        pax2.setName("lolo");
+        pax1.setSurname("pepe");
+        pax2.setSurname("lolo");
+
+        Room room1 = new Superior(101,BedType.DOBLE_TWIN,Condition.AVAILABLE,TvType.TV_LED_32);
+        Room room2 = new Standar(102,BedType.MATRIMONIAL,Condition.AVAILABLE,TvType.TV_LED_42);
+
+
+
+
+
+
     }
 }

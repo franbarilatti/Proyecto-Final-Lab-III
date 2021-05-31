@@ -14,7 +14,7 @@ import java.util.List;
 public class Mapper<T> {
 
     public String serialize(T t){
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().setDateFormat("dd/mm/yyyy").create();
         String json = gson.toJson(t);
         return json;
     }
