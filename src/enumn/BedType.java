@@ -9,6 +9,7 @@ public enum BedType {
     private final String description;
     private final double price;
 
+
     BedType(String description, double price) {
         this.description = description;
         this.price = price;
