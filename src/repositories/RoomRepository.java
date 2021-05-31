@@ -1,22 +1,20 @@
 package repositories;
 
+import model.Room;
 import users.User;
 
+import javax.sql.rowset.serial.SerialStruct;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class UserRepository extends RepositoryController<User> {
-    private final String userFileName = "userFile.json";
-
-    public UserRepository() {
-    }
-
+public class RoomRepository extends RepositoryController<Room>{
+    private final String roomFileName = "roomFile.json";
 
     @Override
     public void createFile() {
-        File userFile = new File(userFileName);
+        File userFile = new File(roomFileName);
         try {
             if (!userFile.exists()) {
                 userFile.createNewFile();
@@ -30,11 +28,11 @@ public class UserRepository extends RepositoryController<User> {
     }
 
     @Override
-    public void addObjet(User user) {
+    public void addObjet(Room room) {
         String json = "";
-        json = serialize(user);
+        json = serialize(room);
         try{
-            BufferedWriter userBW = new BufferedWriter(new FileWriter(userFileName));
+            BufferedWriter userBW = new BufferedWriter(new FileWriter(roomFileName));
             userBW.write(json);
             userBW.close();
         }
@@ -44,11 +42,11 @@ public class UserRepository extends RepositoryController<User> {
     }
 
     @Override
-    public void addList(List<User> userList) {
+    public void addList(List<Room> rooms) {
         String json = "";
-        json = serialize(userList);
+        json = serialize(rooms);
         try{
-            BufferedWriter userBW = new BufferedWriter(new FileWriter(userFileName));
+            BufferedWriter userBW = new BufferedWriter(new FileWriter(roomFileName));
             userBW.write(json);
             userBW.close();
         }
@@ -58,11 +56,11 @@ public class UserRepository extends RepositoryController<User> {
     }
 
     @Override
-    public ArrayList<User> throwList() {
+    public ArrayList<Room> throwList() {
         StringBuilder json = new StringBuilder();
         String line;
         try{
-            BufferedReader userBR = new BufferedReader(new FileReader(userFileName));
+            BufferedReader userBR = new BufferedReader(new FileReader(roomFileName));
             while ((line = userBR.readLine())!= null){
                 json.append(line);
             }
@@ -76,7 +74,7 @@ public class UserRepository extends RepositoryController<User> {
 
     @Override
     public void showRepository() {
-        ArrayList<User> userList = throwList();
+        ArrayList<Room> userList = throwList();
         userList.forEach(System.out::println);
     }
 }

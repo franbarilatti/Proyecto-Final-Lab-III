@@ -1,0 +1,33 @@
+[
+  {
+    "pax": {
+      "name": "pepe",
+      "surname": "pepe",
+      "address": "",
+      "dni": "",
+      "nationality": "",
+      "ingress": false,
+      "tickets": []
+    },
+    "cantDays": 0
+  },
+  {
+    "pax": {
+      "name": "lolo",
+      "surname": "lolo",
+      "address": "",
+      "dni": "",
+      "nationality": "",
+      "ingress": false,
+      "tickets": []
+    },
+    "room": {
+      "number": 101,
+      "bedType": "MATRIMONIAL",
+      "condition": "AVAILABLE",
+      "tvType": "TV_LED_32",
+      "reservations": []
+    },
+    "cantDays": 0
+  }
+]

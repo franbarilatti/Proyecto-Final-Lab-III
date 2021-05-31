@@ -13,9 +13,9 @@ import java.util.List;
 
 public class Mapper<T> {
 
-    public String serialize(String json, T t){
+    public String serialize(T t){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        json = gson.toJson(t);
+        String json = gson.toJson(t);
         return json;
     }
 
