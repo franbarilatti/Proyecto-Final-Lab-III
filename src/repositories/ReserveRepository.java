@@ -63,10 +63,9 @@ public class ReserveRepository extends RepositoryController<Reservation>{
                 json.append(line);
             }
             userBR.close();
-        }catch (IOException e){
+        }catch (IOException e) {
             e.printStackTrace();
         }
-
         return deserialize(json.toString());
     }
 

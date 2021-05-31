@@ -3,12 +3,13 @@ package users;
 import app.Hotel;
 import model.Room;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-public abstract class User {
+public abstract class User implements Serializable {
 
     //------ Attributes ------//
     protected UUID id;

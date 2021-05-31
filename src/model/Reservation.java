@@ -2,9 +2,10 @@ package model;
 
 import users.Pax;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Reservation {
+public class Reservation implements Serializable {
     private Pax pax;
     private Room room;
     private int cantDays;

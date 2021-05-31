@@ -4,7 +4,9 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 
-public class Superior extends Room{
+import java.io.Serializable;
+
+public class Superior extends Room implements Serializable {
     private final double extraPrice;
 
     public Superior() {

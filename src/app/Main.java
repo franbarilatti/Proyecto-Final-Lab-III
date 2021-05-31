@@ -67,7 +67,7 @@ public class Main {
         pax2.setSurname("lolo");
 
         Room room1 = new Superior(101,BedType.DOBLE_TWIN,Condition.AVAILABLE,TvType.TV_LED_32);
-        Room room2 = new Standar(101,BedType.MATRIMONIAL,Condition.AVAILABLE,TvType.TV_LED_32);
+        Room room2 = new Standar(102,BedType.MATRIMONIAL,Condition.AVAILABLE,TvType.TV_LED_42);
 
         Reservation reserve1 = new Reservation();
         Reservation reserve2 = new Reservation();
