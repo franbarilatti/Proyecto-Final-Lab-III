@@ -8,13 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class RepositoryController<T> extends Mapper {
-    public abstract void createFile(String fileName);
-    public abstract void addObjet(String fileName, T t);
-    public abstract void addList(String fileName, List<T> tList);
-    public abstract void remove(String fileName, T t);
-    public abstract ArrayList<T> throwList(String fileName);
-    public abstract void modify(String fileName,T t);
-    public abstract void findById(String fileName, UUID id);
-    public abstract void showRepository(String fileName);
+    public abstract void createFile();
+    public abstract void addObjet(T t);
+    public abstract void addList(List<T> tList);
+    public abstract ArrayList<T> throwList();
+    public abstract void showRepository();
 
 }

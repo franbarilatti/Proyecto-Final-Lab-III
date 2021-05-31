@@ -1,49 +1,43 @@
 package app;
 
-<<<<<<< HEAD
 import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
+import model.Reservation;
+import model.Room;
+import model.Standar;
 import model.Superior;
+import repositories.ReserveRepository;
+import repositories.RoomRepository;
 import users.Admin;
 import users.Pax;
-=======
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import mappers.Mapper;
 import repositories.UserRepository;
->>>>>>> e302e61d67ca2a7b27beb054dba3fa3a6fda487c
 import users.Recepcionist;
 import users.User;
 import com.google.gson.internal.LinkedTreeMap;
 
-<<<<<<< HEAD
 import java.util.Scanner;
-=======
 import java.io.*;
 import java.lang.reflect.Type;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
->>>>>>> e302e61d67ca2a7b27beb054dba3fa3a6fda487c
 
 public class Main {
     public static void main(String[] args) {
         Hotel hotel = new Hotel();
         Scanner scan = new Scanner(System.in);
-<<<<<<< HEAD
 
         hotel.showRooms();
-=======
         Reservation reserve = new Reservation();
-        Admin recepcionist1 = new Admin("luchossj", "1234");
         hotel.showRooms();
 
-        hotel.rooms.add(new Superior(3,1, BedType.MATRIMONIAL,2500, TvType.TV_LED_42));
-        hotel.showRooms();*/
->>>>>>> e302e61d67ca2a7b27beb054dba3fa3a6fda487c
+        hotel.showRooms();
 
 
         Recepcionist recepcionist1 = new Recepcionist("luchossj", "1234");
@@ -64,38 +58,46 @@ public class Main {
         hotel.paxes.add(new Pax("Rodolfo", "", "", "554565", ""));
         hotel.paxes.add(new Pax("Otto", "", "", "778754", ""));
         hotel.paxes.add(new Pax("Pololo", "", "", "212446", ""));
-        /*recepcionist2.makeReserve(hotel, scan);
-        System.out.println(hotel.getReserves());
-<<<<<<< HEAD
-        recepcionist2.makeReserve(hotel, scan);*/
-        recepcionist3.changeRoomState(hotel,scan);
-        hotel.showRooms();
-=======
-        recepcionist2.makeReserve(hotel,scan);
 
-        //hotel.showHistoryPax();
-        //hotel.addNewReserve(recepcionist1.makeReserve(hotel,scan));
-       // hotel.showAllReserves();
+        Pax pax1 = new Pax();
+        Pax pax2 = new Pax();
+        pax1.setName("pepe");
+        pax2.setName("lolo");
+        pax1.setSurname("pepe");
+        pax2.setSurname("lolo");
 
-        recepcionist1.userMenu(scan,hotel
-         */
+        Room room1 = new Superior(101,BedType.DOBLE_TWIN,Condition.AVAILABLE,TvType.TV_LED_32);
+        Room room2 = new Standar(101,BedType.MATRIMONIAL,Condition.AVAILABLE,TvType.TV_LED_32);
 
-        List<User> userList = new ArrayList<>();
-        userList.add(recepcionist1);
-        userList.add(recepcionist3);
-        userList.add(recepcionist2);
-        String json = "";
+        Reservation reserve1 = new Reservation();
+        Reservation reserve2 = new Reservation();
 
-        UserRepository userRepository = new UserRepository();
+        reserve1.setPax(pax1);
+        reserve2.setPax(pax2);
+        reserve2.setRoom(room1);
+        reserve2.setRoom(room2);
 
-        userRepository.createFile("userFile.json");
+        List<Reservation> reservationList = new ArrayList<>();
+        List<Room> roomList = new ArrayList<>();
 
-        userRepository.addObjet("userFile.json",recepcionist1);
+        reservationList.add(reserve1);
+        reservationList.add(reserve2);
 
-        userRepository.addList("userFile.json", userList);
+        roomList.add(room1);
+        roomList.add(room2);
 
-        userRepository.showRepository("userFile.json");
->>>>>>> e302e61d67ca2a7b27beb054dba3fa3a6fda487c
+        ReserveRepository reserveRepository = new ReserveRepository();
+        RoomRepository roomRepository = new RoomRepository();
+
+        reserveRepository.createFile();
+        roomRepository.createFile();
+
+        reserveRepository.addList(reservationList);
+        roomRepository.addList(roomList);
+
+
+
+
 
     }
 }

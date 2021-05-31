@@ -1,0 +1,17 @@
+[
+  {
+    "extraPrice": 1000.0,
+    "number": 101,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "reservations": []
+  },
+  {
+    "number": 101,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "reservations": []
+  }
+]

@@ -12,6 +12,7 @@ public class Standar extends Room{
         super(number, bedType, condition, tvType);
     }
 
+
     @Override
     public String toString() {
         return super.toString();
