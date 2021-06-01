@@ -1,26 +1,19 @@
 package app;
 
 
-import enumn.BedType;
-import enumn.Condition;
-import enumn.TvType;
-import model.Reservation;
-import model.Standar;
-import model.Superior;
-import repositories.RepositoryController;
-import users.Admin;
-import users.Pax;
-import users.Recepcionist;
-
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Hotel hotel = new Hotel();
-        /*Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-        Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
+        hotel.runHotel();
+        System.out.println(hotel.getRooms());
+
+
+
+        /*Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
         Admin recepcionist3 = new Admin("L-Gante", "420");
         hotel.getRooms().add(new Superior(101, BedType.MATRIMONIAL, Condition.AVAILABLE, TvType.TV_LED_42));
         hotel.getRooms().add(new Standar(102, BedType.DOBLE_TWIN, Condition.AVAILABLE, TvType.TV_LED_32));
@@ -36,17 +29,17 @@ public class Main {
         hotel.getPaxes().add(new Pax("Rodolfo", "", "", "554565", ""));
         hotel.getPaxes().add(new Pax("Otto", "", "", "778754", ""));
         hotel.getPaxes().add(new Pax("Pololo", "", "", "212446", ""));
-        RepositoryController repositoryController = new RepositoryController();
         Reservation reservation1 = new Reservation(hotel.getPaxes().get(0), hotel.getRooms().get(0), LocalDate.now(), LocalDate.now().plusDays(5), 5);
         Reservation reservation2 = new Reservation(hotel.getPaxes().get(1), hotel.getRooms().get(1), LocalDate.now(), LocalDate.now().plusDays(5), 5);
         Reservation reservation3 = new Reservation(hotel.getPaxes().get(2), hotel.getRooms().get(2), LocalDate.now(), LocalDate.now().plusDays(5), 5);
         hotel.getReserves().add(reservation1);
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
-        repositoryController.addList("paxesFile.json", hotel.getPaxes());
-        repositoryController.addList("roomsFile.json", hotel.getRooms());
-        repositoryController.addList("reservationsFile.json", hotel.getReserves());*/
-        hotel.runHotel();
+        repositoryController.addList("userFile.json", hotel.getPaxes());
+        repositoryController.addList("roomFile.json", hotel.getRooms());
+        repositoryController.addList("reserveFile.json", hotel.getReserves());
+        repositoryController.addList("paxFile.json", hotel.getReserves());
+        */
 
     }
 }

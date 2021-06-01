@@ -31,8 +31,7 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
     }
 
     public  void addList(String fileName,List<T> tList){
-        String json = "";
-        json = serialize(tList);
+        String json = serialize(tList);
         try{
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
             bw.write(json);
@@ -58,6 +57,7 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
 
         return deserialize(json);
     }
+
     public  void showRepository(String fileName){
         ArrayList<T> tList = throwList(fileName);
         tList.forEach(System.out::println);
