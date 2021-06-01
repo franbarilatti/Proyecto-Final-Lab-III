@@ -11,6 +11,10 @@ public enum BedType implements Serializable {
     private final String description;
     private final double price;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 79116f8c28c0981f0c7faed17b4696bdf5d9fd27
     BedType(String description, double price) {
         this.description = description;
         this.price = price;

@@ -2,7 +2,9 @@ package model;
 
 import users.Pax;
 
-public class Ticket {
+import java.io.Serializable;
+
+public class Ticket implements Serializable {
     private Pax pax;
     private double total;
 

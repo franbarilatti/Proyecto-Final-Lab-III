@@ -4,7 +4,9 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 
-public class Standar extends Room{
+import java.io.Serializable;
+
+public class Standar extends Room implements Serializable {
     public Standar() {
     }
 

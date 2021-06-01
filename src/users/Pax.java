@@ -4,11 +4,12 @@ import app.Hotel;
 import enumn.MiniBar;
 import model.Ticket;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Pax {
+public class Pax implements Serializable {
     //------ Attributes ------//
     private String name;
     private String surname;

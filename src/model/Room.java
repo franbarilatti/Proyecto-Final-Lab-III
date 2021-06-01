@@ -4,13 +4,14 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class Room {
+public abstract class Room implements Serializable {
     private int number;
     private BedType bedType;
     private Condition condition;
