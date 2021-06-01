@@ -7,6 +7,7 @@ import enumn.Condition;
 import model.Reservation;
 import model.Room;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +15,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Recepcionist extends User implements Reserve, Ingress, Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 8409646665189251172L;
 
     //------ Constructors ------//
     public Recepcionist() {

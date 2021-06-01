@@ -4,13 +4,17 @@ import app.Hotel;
 import enumn.MiniBar;
 import model.Ticket;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Pax implements Serializable {
+public class Pax implements Serializable  {
+
     //------ Attributes ------//
+    @Serial
+    private static final long serialVersionUID = 4186282981466276158L;
     private String name;
     private String surname;
     private String address;

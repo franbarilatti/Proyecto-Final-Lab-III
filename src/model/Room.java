@@ -4,6 +4,7 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class Room implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 7773573522139429469L;
     private int number;
     private BedType bedType;
     private Condition condition;
