@@ -5,10 +5,13 @@ import model.Room;
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 >>>>>>> 627faec70c7a64f87037f147f3254f4876d613b3
+>>>>>>> 79116f8c28c0981f0c7faed17b4696bdf5d9fd27
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -62,9 +65,9 @@ public abstract class User implements Serializable {
 
     //------ Methods ------//
 
-    public Room searchRoomByNumber(Hotel hotel,int number){
-        return hotel.rooms.stream().
-                filter(room1 -> room1.getNumber()==number).
+    public Room searchRoomByNumber(Hotel hotel, int number) {
+        return hotel.getRooms().stream().
+                filter(room1 -> room1.getNumber() == number).
                 findFirst().
                 orElse(null);
     }

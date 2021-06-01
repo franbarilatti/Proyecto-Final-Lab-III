@@ -6,16 +6,14 @@ import java.io.Serializable;
 
 public class Ticket implements Serializable {
     private Pax pax;
-    private Room room;
     private double total;
 
 
     public Ticket() {
     }
 
-    public Ticket(Pax pax, Room room, double total) {
+    public Ticket(Pax pax, double total) {
         this.pax = pax;
-        this.room = room;
         this.total = total;
     }
 
@@ -27,13 +25,7 @@ public class Ticket implements Serializable {
         this.pax = pax;
     }
 
-    public Room getRoom() {
-        return room;
-    }
 
-    public void setRoom(Room room) {
-        this.room = room;
-    }
 
     public double getTotal() {
         return total;
@@ -46,7 +38,6 @@ public class Ticket implements Serializable {
     @Override
     public String toString() {
         return "pax=" + pax.getName() +" " +pax.getSurname() +
-                ", room=" + room.getNumber() +
                 ", total=" + total;
     }
 }

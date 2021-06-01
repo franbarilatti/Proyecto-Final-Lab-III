@@ -23,4 +23,5 @@ public class Superior extends Room implements Serializable {
     public String toString() {
         return super.toString();
     }
+
 }

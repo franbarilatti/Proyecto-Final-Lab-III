@@ -2,7 +2,6 @@ package users;
 
 import app.Hotel;
 import enumn.MiniBar;
-import model.Reservation;
 import model.Ticket;
 
 import java.io.Serializable;
@@ -18,7 +17,6 @@ public class Pax implements Serializable {
     private String dni;
     private String nationality;
     private boolean ingress;
-    private Reservation reserve;
     private List<Ticket> tickets;
 
     //------ Constructors ------//
@@ -29,7 +27,6 @@ public class Pax implements Serializable {
         dni = "";
         nationality = "";
         ingress = false;
-        reserve = null;
         tickets = new ArrayList<>();
     }
 
@@ -39,7 +36,6 @@ public class Pax implements Serializable {
         this.address = location;
         this.dni = dni;
         this.nationality = nationality;
-        reserve = null;
         this.tickets = new ArrayList<>();
 
     }
@@ -69,9 +65,6 @@ public class Pax implements Serializable {
         return ingress;
     }
 
-    public Reservation getReserve() {
-        return reserve;
-    }
 
     //------ Setters ------//
 
@@ -99,9 +92,6 @@ public class Pax implements Serializable {
         this.ingress = ingress;
     }
 
-    public void setReserve(Reservation reserve) {
-        this.reserve = reserve;
-    }
 
     public List<Ticket> getTickets() { return tickets; }
     //------ Methods ------//
@@ -152,7 +142,7 @@ public class Pax implements Serializable {
                 default -> System.out.println("Opcion invalida, por favor elija una nueva");
             }
         }
-        this.tickets.add(new Ticket(this, this.reserve.getRoom(), total));
+        this.tickets.add(new Ticket(this,total));
     }
 
 

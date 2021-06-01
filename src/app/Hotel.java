@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Hotel {
-    public List<User> users;
-    public List<Room> rooms;
-    public List<Reservation> reserves;
-    public List<Pax> paxes;
+    private List<User> users;
+    private List<Room> rooms;
+    private List<Reservation> reserves;
+    private List<Pax> paxes;
 
     public Hotel() {
         users = new ArrayList<>();
@@ -39,7 +39,7 @@ public class Hotel {
         return reserves;
     }
 
-    public void addHistoryPax(Pax pax){
+    public void addHistoryPax(Pax pax) {
         paxes.add(pax);
     }
 
@@ -50,14 +50,14 @@ public class Hotel {
             throw new Exception("No hay pasajeros historicos en el sistema");
     }
 
-    public Pax searchHistoryPax(String dni){
+    public Pax searchHistoryPax(String dni) {
         return paxes.stream().
                 filter(pax -> pax.getDni().equals(dni))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void addNewReserve(Reservation newReserve){
+    public void addNewReserve(Reservation newReserve) {
         this.reserves.add(newReserve);
     }
 
@@ -71,25 +71,25 @@ public class Hotel {
     public void showTodayReserves() throws Exception {
         if (reserves != null)
             reserves.stream().
-                    filter((Reservation r)-> r.getCheckIn().equals(LocalDate.now())).
+                    filter((Reservation r) -> r.getCheckIn().equals(LocalDate.now())).
                     forEach(System.out::println);
         else
             throw new Exception("No hay reservas cargadas en el sistema");
     }
 
-    public Reservation searchReserve(Pax pax,Room room){
+    public Reservation searchReserve(Pax pax, Room room) {
         return reserves.stream().
-                filter((Reservation r)->r.getRoom().equals(room)).
-                filter(r-> r.getPax().equals(pax)).
+                filter((Reservation r) -> r.getRoom().equals(room)).
+                filter(r -> r.getPax().equals(pax)).
                 findFirst().
                 orElse(null);
     }
 
-    public void eliminateReserve(Reservation reserve){
+    public void eliminateReserve(Reservation reserve) {
         reserves.remove(reserve);
     }
 
-    public void showRooms(){
+    public void showRooms() {
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
@@ -97,31 +97,30 @@ public class Hotel {
         }
     }
 
-    public void showDisponibledRooms(LocalDate ingress, LocalDate exit){
+    public void showDisponibledRooms(LocalDate ingress, LocalDate exit) {
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
-           rooms.stream().filter(room -> !room.isOcuped(ingress,exit)).forEach(System.out::println);
+            rooms.stream().filter(room -> !room.isOcuped(reserves, ingress, exit)).forEach(System.out::println);
         }
     }
 
 
-
-    public void logIn(Scanner scan){
+    public void logIn(Scanner scan) {
         System.out.println("Ingrese su Nick Name");
 
         User userAux = users.stream().
                 filter(user -> user.getNickName().equals(scan.nextLine())).
                 findFirst().
                 orElse(null);
-        if (userAux != null){
+        if (userAux != null) {
             System.out.println("Ingrese su contrasña");
-            if (userAux.getPassword().equals(scan.nextLine())){
-                userAux.userMenu(scan,this);
-            }else {
+            if (userAux.getPassword().equals(scan.nextLine())) {
+                userAux.userMenu(scan, this);
+            } else {
                 System.out.println("Contraseña incorrecta");
             }
-        }else {
+        } else {
             System.out.println("El usuario registrado no se encuentra registrado");
         }
     }

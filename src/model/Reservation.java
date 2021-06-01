@@ -66,12 +66,12 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "\n-------------------------------\n"+
-                "Pasajero: "+ pax.getName()+" "+ pax.getSurname()+
-                "\nHabitacion: "+ room.getNumber()+
-                "\nFecha de ingreso: "+checkIn+
-                "\nFecha de retiro: "+checkOut+
-                "\nCantidad de dias: " +cantDays+
+        return "\n-------------------------------\n" +
+                "Pasajero: " + pax.getName() + " " + pax.getSurname() +
+                "\nHabitacion: " + room.getNumber() +
+                "\nFecha de ingreso: " + checkIn +
+                "\nFecha de retiro: " + checkOut +
+                "\nCantidad de dias: " + cantDays +
                 "\n---------------------------------";
     }
 }

@@ -19,4 +19,5 @@ public class Standar extends Room implements Serializable {
     public String toString() {
         return super.toString();
     }
+
 }

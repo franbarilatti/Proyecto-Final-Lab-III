@@ -7,7 +7,6 @@ import enumn.TvType;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,9 +16,8 @@ public abstract class Room implements Serializable {
     private BedType bedType;
     private Condition condition;
     private TvType tvType;
-    public List<Reservation> reservations;
+
     public Room() {
-        this.reservations= new ArrayList<>();
     }
 
     public Room(int number, BedType bedType, Condition condition, TvType tvType) {
@@ -27,7 +25,6 @@ public abstract class Room implements Serializable {
         this.bedType = bedType;
         this.condition = condition;
         this.tvType = tvType;
-        this.reservations= new ArrayList<>();
     }
 
     public Condition getCondition() {
@@ -38,36 +35,31 @@ public abstract class Room implements Serializable {
         this.condition = condition;
     }
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
 
     public int getNumber() {
         return number;
     }
 
-    public boolean isOcuped(LocalDate ingress, LocalDate exit){
-        boolean bool=false;
-        List<LocalDate> ocuppedDays = Stream.iterate(ingress,date -> date.plusDays(1)).limit(ChronoUnit.DAYS.between(ingress,exit)).collect(Collectors.toList());
-        for (Reservation reservation:reservations){
-            for (LocalDate localDate: ocuppedDays){
-                if (reservation.getCheckIn().equals(localDate) || reservation.getCheckOut().equals(localDate)) {
+    public boolean isOcuped(List<Reservation> reservations, LocalDate ingress, LocalDate exit) {
+        boolean bool = false;
+        List<LocalDate> ocuppedDays = Stream.iterate(ingress, date -> date.plusDays(1)).limit(ChronoUnit.DAYS.between(ingress, exit)).collect(Collectors.toList());
+        for (Reservation reservation : reservations) {
+            for (LocalDate localDate : ocuppedDays) {
+                if ((reservation.getCheckIn().equals(localDate) || reservation.getCheckOut().equals(localDate)) && (reservation.getRoom().getNumber() == this.number)) {
                     bool = true;
-                    this.condition=Condition.OCUPPED;
+                    this.condition = Condition.OCUPPED;
                     break;
                 }
             }
         }
-        return bool || (this.condition!=Condition.AVAILABLE && this.condition!=Condition.UNCLEAN_AVAILABLE) ;
+        return bool || (this.condition != Condition.AVAILABLE && this.condition != Condition.UNCLEAN_AVAILABLE);
     }
 
 
     public String toString() {
         return "Numero de habitacio: " + number +
                 "Tipo de cama " + bedType.getDescription() +
-                "Tipo de Tv" + tvType.getDescription()+
+                "Tipo de Tv" + tvType.getDescription() +
                 "Estado: " + condition.getState();
     }
-
-
 }
