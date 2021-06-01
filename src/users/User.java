@@ -76,5 +76,4 @@ public abstract class User implements Serializable {
                 "\nNickName='" + nickName;
     }
 
-    public abstract void userMenu(Scanner scan, Hotel hotel);
 }

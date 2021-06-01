@@ -29,40 +29,6 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
     }
 
     //------ Methods ------//
-    @Override
-    public void userMenu(Scanner scan, Hotel hotel) {
-        int opt;
-        int back = 0;
-        System.out.println("Bienvenido, " + nickName);
-        while (back == 0) {
-            System.out.println("\nIngrese el numero de la opcion a la que quiere entrar:\n[1]- Check in\n[2]-Check out\n[3]- Agregar Nueva Reserva\n[4]- Revisar Reservas\n[5]- Revisar Habitaciones\n[6]- Buscar Pasajero\n[0]- Log out");
-            opt = scan.nextInt();
-            switch (opt) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    System.out.print("Ingrese el dni del pasajero que busca: ");
-                    String dni = scan.next();
-                    Pax srchPax = hotel.searchHistoryPax(dni);
-                    srchPax.userMenu(scan, hotel);
-                    break;
-                case 0:
-                    back++;
-                    break;
-                default:
-                    System.out.println("opcion incorrecta");
-                    break;
-            }
-        }
-    }
 
     @Override
     public String toString() {

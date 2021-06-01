@@ -20,43 +20,14 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     //------ Constructors ------//
 
 
+    public Admin() {
+    }
+
     public Admin(String nickName, String password) {
         super(nickName, password);
     }
 
     //------ Methods ------//
-    @Override
-    public void userMenu(Scanner scan, Hotel hotel) {
-        int opt;
-        int back = 0;
-        System.out.println("Welcome, " + nickName);
-        while (back == 0) {
-            System.out.println("\nSelect one option:\n[1]- Add new user\n[2]- Check in\n[3]-Check out\n[4]- Add new reserve\n[5]- Check reserves\n[6]- Check Rooms[7]- Room service\n[0]- Log out");
-            opt = scan.nextInt();
-            switch (opt) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 6:
-                    break;
-                case 7:
-                    break;
-                case 0:
-                    back++;
-                    break;
-                default:
-                    System.out.println("Incorrect option");
-                    break;
-            }
-        }
-    }
 
     @Override
     public void makeReserve(List<Reservation> reservations, List<Pax> paxes, List<Room> rooms, Scanner scan) {
