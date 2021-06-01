@@ -4,15 +4,9 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 
-<<<<<<< HEAD
-import java.time.LocalDate;
-
-public class Superior extends Room{
-=======
 import java.io.Serializable;
 
 public class Superior extends Room implements Serializable {
->>>>>>> 79116f8c28c0981f0c7faed17b4696bdf5d9fd27
     private final double extraPrice;
 
     public Superior() {
