@@ -2,9 +2,12 @@ package model;
 
 import users.Pax;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Ticket implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -5786522732862477983L;
     private Pax pax;
     private double total;
 

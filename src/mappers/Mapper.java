@@ -11,18 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Mapper<T> {
+public interface Mapper<T> {
 
-    public String serialize(T t){
-        Gson gson = new GsonBuilder().setPrettyPrinting().setDateFormat("dd/mm/yyyy").create();
-        String json = gson.toJson(t);
-        return json;
-    }
+    public String serialize(List<T> tList);
 
-    public ArrayList<T> deserialize(String json){
-        Gson gson = new Gson();
-        ArrayList<T> list = gson.fromJson(json, new TypeToken<ArrayList<T>>(){}.getType());
-        return list;
-    }
+    public ArrayList<T> deserialize(String json);
 
 }

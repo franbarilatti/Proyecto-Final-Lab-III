@@ -4,9 +4,14 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class Standar extends Room implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 6545602839674728519L;
+
     public Standar() {
     }
 
