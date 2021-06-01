@@ -2,7 +2,10 @@ package app;
 
 import model.Reservation;
 import model.Room;
+import repositories.RepositoryController;
+import users.Admin;
 import users.Pax;
+import users.Recepcionist;
 import users.User;
 
 import java.time.LocalDate;
@@ -11,11 +14,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Hotel {
+    //------ Attributes ------//
     private List<User> users;
     private List<Room> rooms;
     private List<Reservation> reserves;
     private List<Pax> paxes;
+    private static Scanner scan = new Scanner(System.in);
+    private static RepositoryController repositoryController = new RepositoryController();
+    private static final String userFile = "userFile.json";
+    private static final String paxFile = "paxFile.json";
+    private static final String roomFile = "roomFile.json";
+    private static final String reserveFile = "reserveFile.json";
 
+
+    //------ Constructors ------//
     public Hotel() {
         users = new ArrayList<>();
         rooms = new ArrayList<>();
@@ -105,18 +117,56 @@ public class Hotel {
         }
     }
 
+    public void register(){
 
-    public void logIn(Scanner scan) {
-        System.out.println("Ingrese su Nick Name");
+        System.out.println(
+                "\n[1]- Administrador"+
+                "\n[2]- Recepcionista");
+        System.out.print("\nIngresar opcion");
+        int opt = scan.nextInt();
+        if(opt == 1){
+            Admin admin = new Admin();
+            System.out.print("Ingrese su Nickname: ");
+            admin.setNickName(scan.next());
+            System.out.print("Ingrese una contraseña: ");
+            admin.setPassword(scan.next());
+            users.add(admin);
+        }
+        else if (opt == 2){
+            Recepcionist recepcionist = new Recepcionist();
+            System.out.print("Ingrese su Nickname: ");
+            recepcionist.setNickName(scan.next());
+            System.out.print("Ingrese una contraseña: ");
+            recepcionist.setPassword(scan.next());
+            users.add(recepcionist);
+        }
+    }
 
+    public void runHotel(){
+        //this.users = repositoryController.throwList(userFile);
+        this.rooms = repositoryController.throwList(roomFile);
+        this.paxes = repositoryController.throwList(paxFile);
+        this.reserves = repositoryController.throwList(reserveFile);
+        firstMenu();
+    }
+
+    public void closeHotel(){
+        repositoryController.addList(userFile,this.users);
+        repositoryController.addList(roomFile,this.rooms);
+        repositoryController.addList(reserveFile,this.reserves);
+        repositoryController.addList(paxFile,this.paxes);
+    }
+
+    public void logIn() {
+        System.out.print("Ingrese su Nick Name: ");
         User userAux = users.stream().
-                filter(user -> user.getNickName().equals(scan.nextLine())).
+                filter(user -> user.getNickName().equals(scan.next())).
                 findFirst().
                 orElse(null);
         if (userAux != null) {
-            System.out.println("Ingrese su contrasña");
-            if (userAux.getPassword().equals(scan.nextLine())) {
-                userAux.userMenu(scan, this);
+            System.out.println("Ingrese su contrasña: ");
+            if (userAux.getPassword().equals(scan.next())) {
+                userMenues(userAux);
             } else {
                 System.out.println("Contraseña incorrecta");
             }
@@ -125,5 +175,149 @@ public class Hotel {
         }
     }
 
+    public void firstMenu(){
+        System.out.println("========== BIENVENIDO A NUESTRO HOTEL ==========");
+        int back = 0;
+        while (back == 0){
+            System.out.println(
+                    "\n\n[1]- Ingresar" +
+                    "\n[2]- Registrarse" +
+                    "\n[0]- Salir");
+            System.out.print("Ingrese una opción: ");
+            int opt = scan.nextInt();
+            switch (opt){
+                case 1:
+                    logIn();
+                    break;
+                case 2:
+                    register();
+                    break;
+                case 0:
+                    back++;
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta");
+            }
+        }
+        closeHotel();
+    }
 
+    public void paxMenu(Pax pax,User user){
+        System.out.println("========== "+pax.getName()+" "+pax.getSurname()+" ==========");
+        int back = 0;
+        while (back == 0){
+            System.out.println(
+                    "\n\n[1]- Ingresar" +
+                    "\n[2]- Registrarse" +
+                    "\n[0]- Salir");
+            System.out.print("Ingrese una opción: ");
+            int opt = scan.nextInt();
+            switch (opt){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 0:
+                    back++;
+                    break;
+                default:
+                    System.out.println("Opcion incorrecta");
+            }
+        }
+        userMenues(user);
+    }
+
+    public void userMenues(User user){
+        if (user instanceof Admin){
+            adminMenu((Admin) user);
+        }else{
+            recepcionistMenu((Recepcionist) user);
+        }
+    }
+
+    public void recepcionistMenu(Recepcionist recepcionist) {
+        int opt;
+        int back = 0;
+        System.out.println("Bienvenido, "+recepcionist.getNickName());
+        while (back == 0) {
+            System.out.println(
+                    "\n\n[1]- Check in" +
+                    "\n[2]-Check out" +
+                    "\n[3]- Agregar Nueva Reserva" +
+                    "\n[4]- Revisar Reservas" +
+                    "\n[5]- Revisar Habitaciones" +
+                    "\n[6]- Buscar Pasajero" +
+                    "\n[0]- Salir");
+            System.out.print("\n\nIngrese el numero de la opcion a la que quiere entrar: ");
+            opt = scan.nextInt();
+            switch (opt) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    System.out.print("Ingrese el dni del pasajero que busca: ");
+                    String dni = scan.next();
+                    Pax srchPax = searchHistoryPax(dni);
+                    paxMenu(srchPax,recepcionist);
+                    break;
+                case 0:
+
+                    back++;
+                    break;
+                default:
+                    System.out.println("opcion incorrecta");
+                    break;
+            }
+        }
+        firstMenu();
+    }
+    public void adminMenu(Admin admin) {
+        int opt;
+        int back = 0;
+        System.out.println("Bienvenido, "+ admin.getNickName());
+        while (back == 0) {
+            System.out.println(
+                    "\n[1]- Añadir nuevo usuario" +
+                    "\n[2]- Check in" +
+                    "\n[3]- Check out" +
+                    "\n[4]- Añadir nueva reserva" +
+                    "\n[5]- Ver Reservas" +
+                    "\n[6]- Ver Habitaciones" +
+                    "\n[7]- Servicio a la Habitacion" +
+                    "\n[0]- Log out");
+            System.out.print("\n\nIngrese el numero de la opcion a la que quiere entrar: ");
+            opt = scan.nextInt();
+            switch (opt) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+                case 0:
+
+                    back++;
+                    break;
+                default:
+                    System.out.println("Incorrect option");
+                    break;
+            }
+        }
+        firstMenu();
+    }
 }
