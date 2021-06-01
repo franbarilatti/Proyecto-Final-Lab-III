@@ -4,6 +4,8 @@ import enumn.BedType;
 import enumn.Condition;
 import enumn.TvType;
 
+import java.time.LocalDate;
+
 public class Superior extends Room{
     private final double extraPrice;
 
@@ -21,4 +23,5 @@ public class Superior extends Room{
     public String toString() {
         return super.toString();
     }
+
 }

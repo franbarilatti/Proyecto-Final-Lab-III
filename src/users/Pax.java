@@ -2,7 +2,6 @@ package users;
 
 import app.Hotel;
 import enumn.MiniBar;
-import model.Reservation;
 import model.Ticket;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ public class Pax {
     private String dni;
     private String nationality;
     private boolean ingress;
-    private Reservation reserve;
     private List<Ticket> tickets;
 
     //------ Constructors ------//
@@ -28,7 +26,6 @@ public class Pax {
         dni = "";
         nationality = "";
         ingress = false;
-        reserve = null;
         tickets = new ArrayList<>();
     }
 
@@ -38,7 +35,6 @@ public class Pax {
         this.address = location;
         this.dni = dni;
         this.nationality = nationality;
-        reserve = null;
         this.tickets = new ArrayList<>();
 
     }
@@ -68,9 +64,6 @@ public class Pax {
         return ingress;
     }
 
-    public Reservation getReserve() {
-        return reserve;
-    }
 
     //------ Setters ------//
 
@@ -98,9 +91,6 @@ public class Pax {
         this.ingress = ingress;
     }
 
-    public void setReserve(Reservation reserve) {
-        this.reserve = reserve;
-    }
 
     public List<Ticket> getTickets() { return tickets; }
     //------ Methods ------//
@@ -151,7 +141,7 @@ public class Pax {
                 default -> System.out.println("Opcion invalida, por favor elija una nueva");
             }
         }
-        this.tickets.add(new Ticket(this, this.reserve.getRoom(), total));
+        this.tickets.add(new Ticket(this,total));
     }
 
 

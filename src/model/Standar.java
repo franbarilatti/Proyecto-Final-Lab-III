@@ -17,4 +17,5 @@ public class Standar extends Room{
     public String toString() {
         return super.toString();
     }
+
 }

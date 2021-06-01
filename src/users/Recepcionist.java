@@ -25,14 +25,14 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
     //------ Methods ------//
     @Override
-    public void userMenu(Scanner scan,Hotel hotel) {
+    public void userMenu(Scanner scan, Hotel hotel) {
         int opt;
         int back = 0;
-        System.out.println("Bienvenido, "+nickName);
-        while (back == 0){
+        System.out.println("Bienvenido, " + nickName);
+        while (back == 0) {
             System.out.println("\nIngrese el numero de la opcion a la que quiere entrar:\n[1]- Check in\n[2]-Check out\n[3]- Agregar Nueva Reserva\n[4]- Revisar Reservas\n[5]- Revisar Habitaciones\n[6]- Buscar Pasajero\n[0]- Log out");
             opt = scan.nextInt();
-            switch (opt){
+            switch (opt) {
                 case 1:
                     break;
                 case 2:
@@ -47,7 +47,7 @@ public class Recepcionist extends User implements Reserve, Ingress {
                     System.out.print("Ingrese el dni del pasajero que busca: ");
                     String dni = scan.next();
                     Pax srchPax = hotel.searchHistoryPax(dni);
-                    srchPax.userMenu(scan,hotel);
+                    srchPax.userMenu(scan, hotel);
                     break;
                 case 0:
                     back++;
@@ -61,42 +61,43 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
     @Override
     public String toString() {
-        return "Recepcionist: "+nickName;
+        return "Recepcionist: " + nickName;
     }
 
 
     @Override
-    public Reservation makeReserve(Hotel hotel,Scanner scan) {
+    public void makeReserve(List<Reservation> reservations, List<Pax> paxes, List<Room> rooms, Scanner scan) {
         System.out.print("Ingrese el dni del pasajero: ");
         String dni = scan.next();
-        Pax pax = hotel.searchHistoryPax(dni);
-        if (pax == null){
+        Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dni)).findFirst().orElse(null);
+        if (pax == null) {
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             pax = newPax();
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
-        LocalDate checkIn = ingressDate(scan,LocalDate.now());
+        LocalDate checkIn = ingressDate(scan, LocalDate.now());
         System.out.print("Cantidad de noches que se queda: ");
-        int cantDays=scan.nextInt();
+        int cantDays = scan.nextInt();
         LocalDate checkOut = checkIn.plusDays(cantDays);
         System.out.print("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
-        hotel.showDisponibledRooms(checkIn,checkOut);
+        for (Room room : rooms) {
+            if (!room.isOcuped(reservations, checkIn, checkOut)) {
+                System.out.println(room.getNumber() + " " + room.getCondition().getState());
+            }
+        }
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
-        Room roomAux= hotel.getRooms().stream().filter(room -> room.getNumber()==roomNumber).findFirst().orElse(null);
-        Reservation reservation = new Reservation(pax,roomAux,checkIn,checkOut,cantDays);
-        pax.setReserve(reservation);
-        assert roomAux != null;
-        roomAux.reservations.add(reservation);
-        hotel.addNewReserve(reservation);
-        return reservation;
+        Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
+        Reservation reservation = new Reservation(pax, roomAux, checkIn, checkOut, cantDays);
+
+        reservations.add(reservation);
     }
 
 
     @Override
     public Pax newPax() {
-        Pax pax=new Pax();
+        Pax pax = new Pax();
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nombre: ");
         pax.setName(scanner.nextLine());
@@ -113,8 +114,8 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
     @Override
     public void RoomAvailable(List<Room> roomList) {
-        for (Room room:roomList){
-            if (room.getCondition() == Condition.AVAILABLE || room.getCondition() == Condition.UNCLEAN_AVAILABLE){
+        for (Room room : roomList) {
+            if (room.getCondition() == Condition.AVAILABLE || room.getCondition() == Condition.UNCLEAN_AVAILABLE) {
                 System.out.println(room.toString());
             }
         }
@@ -122,18 +123,18 @@ public class Recepcionist extends User implements Reserve, Ingress {
 
     @Override
     public void checkIn(List<Pax> paxes, Room room, Hotel hotel) {
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese un DNI o Pasaporte: ");
-        String dniAux=scanner.nextLine();
+        String dniAux = scanner.nextLine();
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dniAux)).findFirst().orElse(null);
-        if(pax==null){
+        if (pax == null) {
             System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
-            pax=newPax();
+            pax = newPax();
         }
         paxes.add(pax);
-        Reservation auxReserve = hotel.searchReserve(pax,room);
+        Reservation auxReserve = hotel.searchReserve(pax, room);
         pax.setIngress(true);
-        pax.setReserve(auxReserve);
+
         hotel.addHistoryPax(pax);
         hotel.eliminateReserve(auxReserve);
         room.setCondition(Condition.OCUPPED);
@@ -143,7 +144,6 @@ public class Recepcionist extends User implements Reserve, Ingress {
     @Override
     public void checkOut(Pax pax, Room room) {
         pax.setIngress(false);
-        pax.setReserve(null);
         room.setCondition(Condition.UNCLEAN_AVAILABLE);
     }
 
@@ -151,14 +151,14 @@ public class Recepcionist extends User implements Reserve, Ingress {
     public LocalDate ingressDate(Scanner scan, LocalDate today) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String date = scan.next();
-        LocalDate localDate = LocalDate.parse(date,formatter);
-        int exit=0;
-        while (exit==0){
-            if(!formatter.format(localDate).equals(date) || localDate.compareTo(today)<0){
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        int exit = 0;
+        while (exit == 0) {
+            if (!formatter.format(localDate).equals(date) || localDate.compareTo(today) < 0) {
                 System.out.println("\nFecha invalida. Ingrese una nueva fecha");
                 date = scan.next();
-                localDate = LocalDate.parse(date,formatter);
-            }else {
+                localDate = LocalDate.parse(date, formatter);
+            } else {
                 exit++;
             }
         }

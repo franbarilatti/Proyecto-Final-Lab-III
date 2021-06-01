@@ -1,6 +1,5 @@
 package Interface;
 
-import app.Hotel;
 import model.Reservation;
 import model.Room;
 import users.Pax;
@@ -11,9 +10,12 @@ import java.util.Scanner;
 
 public interface Reserve {
 
-     Reservation makeReserve(Hotel hotel, Scanner scan);
-     Pax newPax();
-     void RoomAvailable(List<Room> roomList);
-     LocalDate ingressDate(Scanner scan, LocalDate today);
+    void makeReserve(List<Reservation> reservations, List<Pax> paxes, List<Room> rooms, Scanner scan);
+
+    Pax newPax();
+
+    void RoomAvailable(List<Room> roomList);
+
+    LocalDate ingressDate(Scanner scan, LocalDate today);
 
 }

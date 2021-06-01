@@ -3,11 +3,6 @@ package users;
 import app.Hotel;
 import model.Room;
 
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
-import java.util.List;
->>>>>>> 9278ab9886280d59b2c4c597af67f35104fa91a4
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -61,9 +56,9 @@ public abstract class User {
 
     //------ Methods ------//
 
-    public Room searchRoomByNumber(Hotel hotel,int number){
-        return hotel.rooms.stream().
-                filter(room1 -> room1.getNumber()==number).
+    public Room searchRoomByNumber(Hotel hotel, int number) {
+        return hotel.getRooms().stream().
+                filter(room1 -> room1.getNumber() == number).
                 findFirst().
                 orElse(null);
     }
@@ -74,9 +69,5 @@ public abstract class User {
                 "\nNickName='" + nickName;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9278ab9886280d59b2c4c597af67f35104fa91a4
     public abstract void userMenu(Scanner scan, Hotel hotel);
 }
