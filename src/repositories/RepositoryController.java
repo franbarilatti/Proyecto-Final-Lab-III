@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import mappers.Mapper;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
 
     @Override
     public String serialize(List<T> tList) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         String json = gson.toJson(tList);
         return json;
     }
