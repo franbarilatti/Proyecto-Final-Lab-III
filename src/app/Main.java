@@ -7,23 +7,19 @@ import enumn.TvType;
 import model.Reservation;
 import model.Standar;
 import model.Superior;
-import repositories.RepositoryController;
 import users.Admin;
 import users.Pax;
 import users.Recepcionist;
-import users.User;
 
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Hotel hotel = new Hotel();
         Scanner scan = new Scanner(System.in);
 
-
-        RepositoryController<User> repositoryController = new RepositoryController<>();
 
 
         Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
@@ -48,10 +44,6 @@ public class Main {
         hotel.getReserves().add(reservation1);
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
-        repositoryController.addList("userFile.json", hotel.getUsers());
-        repositoryController.addList("roomFile.json", hotel.getRooms());
-        repositoryController.addList("reserveFile.json", hotel.getReserves());
-        repositoryController.addList("paxFile.json", hotel.getReserves());
         hotel.runHotel();
 
     }

@@ -143,6 +143,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
                 orElse(null);
 
     }
+
     @Override
     public void eliminateReserve(List<Reservation> reserves, Reservation reserve) {
         reserves.remove(reserve);

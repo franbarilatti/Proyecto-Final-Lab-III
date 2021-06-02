@@ -10,7 +10,6 @@ import users.Pax;
 import users.Recepcionist;
 import users.User;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +41,18 @@ public class Hotel {
     }
 
     //------ Getters ------//
-    public List<User> getUsers() {return users;}
+    public List<User> getUsers() {
+        return users;
+    }
 
-    public List<Pax> getPaxes() {return paxes;}
+    public List<Pax> getPaxes() {
+        return paxes;
+    }
 
-    public List<Room> getRooms() { return rooms; }
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
     public List<Reservation> getReserves() {
         return reserves;
     }
@@ -108,9 +114,9 @@ public class Hotel {
                 orElse(null);
     }
 
-    public User searchUserByNickName(String nickname){
+    public User searchUserByNickName(String nickname) {
         return users.stream().
-                filter((User u)->u.getNickName().equals(nickname)).
+                filter((User u) -> u.getNickName().equals(nickname)).
                 findFirst().
                 orElse(null);
     }
@@ -119,7 +125,7 @@ public class Hotel {
 
     //------ Functional Methods ------//
 
-    public void runHotel() throws IOException {
+    public void runHotel() {
         this.users = userRepository.throwList(userFile);
         this.rooms = roomRepository.throwList(roomFile);
         this.paxes = paxRepository.throwList(paxFile);
@@ -157,7 +163,7 @@ public class Hotel {
         User auxUser;
         System.out.println(
                 "[1]- Administrador\n" +
-                "[2]- Recepcionista");
+                        "[2]- Recepcionista");
         System.out.print("\nIngresar opcion");
         int opt = scan.nextInt();
         if (opt == 1) {
@@ -165,7 +171,7 @@ public class Hotel {
             System.out.print("Ingrese su Nickname: ");
             nickName = scan.next();
             auxUser = searchUserByNickName(nickName);
-            if (auxUser == null){
+            if (auxUser == null) {
                 admin.setNickName(nickName);
                 System.out.print("Ingrese una contraseña: ");
                 admin.setPassword(scan.next());
@@ -176,7 +182,7 @@ public class Hotel {
             System.out.print("Ingrese su Nickname: ");
             nickName = scan.next();
             auxUser = searchUserByNickName(nickName);
-            if (auxUser == null){
+            if (auxUser == null) {
                 recepcionist.setNickName(nickName);
                 System.out.print("Ingrese una contraseña: ");
                 recepcionist.setPassword(scan.next());
@@ -245,9 +251,9 @@ public class Hotel {
             System.out.print("Ingrese una opción: ");
             int opt = scan.nextInt();
             switch (opt) {
-                case 2 -> roomServiceMenu(scan,pax);
+                case 2 -> roomServiceMenu(scan, pax);
                 case 0 -> back++;
-                default->System.out.println("Opcion incorrecta");
+                default -> System.out.println("Opcion incorrecta");
 
             }
         }
@@ -352,16 +358,16 @@ public class Hotel {
         firstMenu();
     }
 
-    public void roomServiceMenu(Scanner scan,Pax pax){
-        int op=0;
-        int exit=0;
-        double total=0;
-        while (exit==0){
+    public void roomServiceMenu(Scanner scan, Pax pax) {
+        int op;
+        int exit = 0;
+        double total = 0;
+        while (exit == 0) {
             System.out.println("Elija un producto, 0 para cancelar");
-            for(MiniBar m : MiniBar.values()){
-                System.out.println(m.ordinal()+1 +" "+ m.getProduct() + ": $" + m.getPrice());
+            for (MiniBar m : MiniBar.values()) {
+                System.out.println(m.ordinal() + 1 + " " + m.getProduct() + ": $" + m.getPrice());
             }
-            op=scan.nextInt();
+            op = scan.nextInt();
             switch (op) {
                 case 1 -> total += MiniBar.COCA_COLA.getPrice();
                 case 2 -> total += MiniBar.SPRITE.getPrice();
@@ -374,7 +380,7 @@ public class Hotel {
                 default -> System.out.println("Opcion invalida, por favor elija una nueva");
             }
         }
-        pax.getTickets().add(new Ticket(pax.getName(),pax.getSurname(),total));
+        pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), total));
     }
 }
 
