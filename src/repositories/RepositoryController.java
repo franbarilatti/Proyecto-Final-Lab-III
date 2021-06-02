@@ -7,9 +7,9 @@ import com.google.gson.reflect.TypeToken;
 import mappers.Mapper;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -57,7 +57,7 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
             e.printStackTrace();
         }
 
-        return deserialize(json.toString(),T[].class);
+        return (ArrayList<T>) deserialize(json, new TypeToken<List<T>>(){}.getType());
     }
 
     public  void showRepository(String fileName){
@@ -72,7 +72,7 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
     }
 
     @Override
-    public List<T> deserialize(String json,Class<T[]> clazz) {
-        return Arrays.asList(new Gson().fromJson(json,clazz));
+    public List<T> deserialize(StringBuilder json, Type clazz) {
+        return new Gson().fromJson(json.toString(), (Type) clazz);
     }
 }
