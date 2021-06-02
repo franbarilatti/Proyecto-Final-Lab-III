@@ -20,7 +20,7 @@ public class Hotel {
     private List<Reservation> reserves;
     private List<Pax> paxes;
     private static Scanner scan = new Scanner(System.in);
-    private RepositoryController repositoryController;
+    private RepositoryController<User> repositoryController;
     private static final String userFile = "userFile.json";
     private static final String paxFile = "paxFile.json";
     private static final String roomFile = "roomFile.json";
@@ -52,10 +52,6 @@ public class Hotel {
         return reserves;
     }
 
-    public void addHistoryPax(Pax pax) {
-        paxes.add(pax);
-    }
-
     public void showHistoryPax() throws Exception {
         if (paxes != null)
             paxes.stream().forEach(System.out::println);
@@ -68,10 +64,6 @@ public class Hotel {
                 filter(pax -> pax.getDni().equals(dni))
                 .findFirst()
                 .orElse(null);
-    }
-
-    public void addNewReserve(Reservation newReserve) {
-        this.reserves.add(newReserve);
     }
 
     public void showAllReserves() throws Exception {
@@ -90,18 +82,6 @@ public class Hotel {
             throw new Exception("No hay reservas cargadas en el sistema");
     }
 
-    public Reservation searchReserve(Pax pax, Room room) {
-        return reserves.stream().
-                filter((Reservation r) -> r.getRoom().equals(room)).
-                filter(r -> r.getPax().equals(pax)).
-                findFirst().
-                orElse(null);
-    }
-
-    public void eliminateReserve(Reservation reserve) {
-        reserves.remove(reserve);
-    }
-
     public void showRooms() {
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
@@ -110,13 +90,6 @@ public class Hotel {
         }
     }
 
-    public void showDisponibledRooms(LocalDate ingress, LocalDate exit) {
-        if (rooms == null) {
-            System.out.println("No hay habitaciones disponibles");
-        } else {
-            rooms.stream().filter(room -> !room.isOcuped(reserves, ingress, exit)).forEach(System.out::println);
-        }
-    }
 
     public void register() {
 
@@ -145,7 +118,7 @@ public class Hotel {
     }
 
     public void runHotel() {
-        //this.users = repositoryController.throwList(userFile);
+        this.users = repositoryController.throwList(userFile);
         this.rooms = repositoryController.throwList(roomFile);
         this.paxes = repositoryController.throwList(paxFile);
         this.reserves = repositoryController.throwList(reserveFile);
@@ -162,8 +135,9 @@ public class Hotel {
 
     public void logIn() {
         System.out.print("Ingrese su Nick Name: ");
+        String s=scan.next();
         User userAux = users.stream().
-                filter(user -> user.getNickName().equals(scan.next())).
+                filter(user -> user.getNickName().equals(s)).
                 findFirst().
                 orElse(null);
         if (userAux != null) {
