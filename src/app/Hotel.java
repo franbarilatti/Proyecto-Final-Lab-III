@@ -1,13 +1,16 @@
 package app;
 
+import enumn.MiniBar;
 import model.Reservation;
 import model.Room;
+import model.Ticket;
 import repositories.RepositoryController;
 import users.Admin;
 import users.Pax;
 import users.Recepcionist;
 import users.User;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +22,11 @@ public class Hotel {
     private List<Room> rooms;
     private List<Reservation> reserves;
     private List<Pax> paxes;
-    private static Scanner scan = new Scanner(System.in);
-    private RepositoryController repositoryController;
+    private static final Scanner scan = new Scanner(System.in);
+    private final RepositoryController<User> userRepository = new RepositoryController<>();
+    private final RepositoryController<Pax> paxRepository = new RepositoryController<>();
+    private final RepositoryController<Room> roomRepository = new RepositoryController<>();
+    private final RepositoryController<Reservation> reserveRepository = new RepositoryController<>();
     private static final String userFile = "userFile.json";
     private static final String paxFile = "paxFile.json";
     private static final String roomFile = "roomFile.json";
@@ -29,25 +35,18 @@ public class Hotel {
 
     //------ Constructors ------//
     public Hotel() {
-        repositoryController = new RepositoryController();
         users = new ArrayList<>();
         rooms = new ArrayList<>();
         reserves = new ArrayList<>();
         paxes = new ArrayList<>();
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
+    //------ Getters ------//
+    public List<User> getUsers() {return users;}
 
-    public List<Pax> getPaxes() {
-        return paxes;
-    }
+    public List<Pax> getPaxes() {return paxes;}
 
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
+    public List<Room> getRooms() { return rooms; }
     public List<Reservation> getReserves() {
         return reserves;
     }
@@ -56,29 +55,14 @@ public class Hotel {
         paxes.add(pax);
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //------ Show Methods ------//
     public void showHistoryPax() throws Exception {
         if (paxes != null)
             paxes.stream().forEach(System.out::println);
         else
             throw new Exception("No hay pasajeros historicos en el sistema");
-    }
-
-    public Pax searchHistoryPax(String dni) {
-        return paxes.stream().
-                filter(pax -> pax.getDni().equals(dni))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public void addNewReserve(Reservation newReserve) {
-        this.reserves.add(newReserve);
-    }
-
-    public void showAllReserves() throws Exception {
-        if (reserves != null)
-            reserves.stream().forEach(System.out::println);
-        else
-            throw new Exception("No hay reservas cargadas en el sistema");
     }
 
     public void showTodayReserves() throws Exception {
@@ -90,12 +74,69 @@ public class Hotel {
             throw new Exception("No hay reservas cargadas en el sistema");
     }
 
+    public void showDisponibledRooms(LocalDate ingress, LocalDate exit) {
+        if (rooms == null) {
+            System.out.println("No hay habitaciones disponibles");
+        } else {
+            rooms.stream().filter(room -> !room.isOcuped(reserves, ingress, exit)).forEach(System.out::println);
+        }
+    }
+
+    public void showAllReserves() throws Exception {
+        if (reserves != null)
+            reserves.stream().forEach(System.out::println);
+        else
+            throw new Exception("No hay reservas cargadas en el sistema");
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //------ Search Methods ------//
+
+    public Pax searchHistoryPax(String dni) {
+        return paxes.stream().
+                filter(pax -> pax.getDni().equals(dni))
+                .findFirst()
+                .orElse(null);
+    }
+
     public Reservation searchReserve(Pax pax, Room room) {
         return reserves.stream().
                 filter((Reservation r) -> r.getRoom().equals(room)).
                 filter(r -> r.getPax().equals(pax)).
                 findFirst().
                 orElse(null);
+    }
+
+    public User searchUserByNickName(String nickname){
+        return users.stream().
+                filter((User u)->u.getNickName().equals(nickname)).
+                findFirst().
+                orElse(null);
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //------ Functional Methods ------//
+
+    public void runHotel() throws IOException {
+        this.users = userRepository.throwList(userFile);
+        this.rooms = roomRepository.throwList(roomFile);
+        this.paxes = paxRepository.throwList(paxFile);
+        this.reserves = reserveRepository.throwList(reserveFile);
+        firstMenu();
+    }
+
+    public void closeHotel() {
+        userRepository.addList(userFile, this.users);
+        roomRepository.addList(roomFile, this.rooms);
+        reserveRepository.addList(reserveFile, this.reserves);
+        paxRepository.addList(paxFile, this.paxes);
+
+    }
+
+    public void addNewReserve(Reservation newReserve) {
+        this.reserves.add(newReserve);
     }
 
     public void eliminateReserve(Reservation reserve) {
@@ -106,34 +147,30 @@ public class Hotel {
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
-            rooms.stream().forEach(System.out::println);
-        }
-    }
-
-    public void showDisponibledRooms(LocalDate ingress, LocalDate exit) {
-        if (rooms == null) {
-            System.out.println("No hay habitaciones disponibles");
-        } else {
-            rooms.stream().filter(room -> !room.isOcuped(reserves, ingress, exit)).forEach(System.out::println);
+            rooms.forEach(System.out::println);
         }
     }
 
     public void register() {
-
+        String nickName;
+        String password;
+        User auxUser;
         System.out.println(
-                """
-
-                        [1]- Administrador
-                        [2]- Recepcionista""");
+                "[1]- Administrador\n" +
+                "[2]- Recepcionista");
         System.out.print("\nIngresar opcion");
         int opt = scan.nextInt();
         if (opt == 1) {
             Admin admin = new Admin();
             System.out.print("Ingrese su Nickname: ");
-            admin.setNickName(scan.next());
-            System.out.print("Ingrese una contraseña: ");
-            admin.setPassword(scan.next());
-            users.add(admin);
+            nickName = scan.next();
+            auxUser = searchUserByNickName(nickName);
+            if (auxUser == null){
+                admin.setNickName(nickName);
+                System.out.print("Ingrese una contraseña: ");
+                admin.setPassword(scan.next());
+                users.add(admin);
+            }
         } else if (opt == 2) {
             Recepcionist recepcionist = new Recepcionist();
             System.out.print("Ingrese su Nickname: ");
@@ -144,24 +181,8 @@ public class Hotel {
         }
     }
 
-    public void runHotel() {
-        //this.users = repositoryController.throwList(userFile);
-        this.rooms = repositoryController.throwList(roomFile);
-        this.paxes = repositoryController.throwList(paxFile);
-        this.reserves = repositoryController.throwList(reserveFile);
-        firstMenu();
-    }
-
-    public void closeHotel() {
-        repositoryController.addList(userFile, this.users);
-        repositoryController.addList(roomFile, this.rooms);
-        repositoryController.addList(reserveFile, this.reserves);
-        repositoryController.addList(paxFile, this.paxes);
-
-    }
-
     public void logIn() {
-        System.out.print("Ingrese su Nick Name: ");
+        System.out.print("Ingrese su Nickname: ");
         User userAux = users.stream().
                 filter(user -> user.getNickName().equals(scan.next())).
                 findFirst().
@@ -178,14 +199,16 @@ public class Hotel {
         }
     }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //------ Menu Methods ------//
+
     public void firstMenu() {
         System.out.println("========== BIENVENIDO A NUESTRO HOTEL ==========");
         int back = 0;
         while (back == 0) {
             System.out.println(
                     """
-
-
                             [1]- Ingresar
                             [2]- Registrarse
                             [0]- Salir""");
@@ -207,23 +230,18 @@ public class Hotel {
         while (back == 0) {
             System.out.println(
                     """
-
-
-                            [1]- Ingresar
-                            [2]- Registrarse
+                            [1]- Ver Reservas
+                            [2]- Añadir consumo
+                            [3]- Ver consumos
+                            [4]- Cobrar
                             [0]- Salir""");
             System.out.print("Ingrese una opción: ");
             int opt = scan.nextInt();
             switch (opt) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 0:
-                    back++;
-                    break;
-                default:
-                    System.out.println("Opcion incorrecta");
+                case 2 -> roomServiceMenu(scan,pax);
+                case 0 -> back++;
+                default->System.out.println("Opcion incorrecta");
+
             }
         }
         userMenues(user);
@@ -244,10 +262,8 @@ public class Hotel {
         while (back == 0) {
             System.out.println(
                     """
-
-
                             [1]- Check in
-                            [2]-Check out
+                            [2]- Check out
                             [3]- Agregar Nueva Reserva
                             [4]- Revisar Reservas
                             [5]- Revisar Habitaciones
@@ -328,4 +344,31 @@ public class Hotel {
         }
         firstMenu();
     }
+
+    public void roomServiceMenu(Scanner scan,Pax pax){
+        int op=0;
+        int exit=0;
+        double total=0;
+        while (exit==0){
+            System.out.println("Elija un producto, 0 para cancelar");
+            for(MiniBar m : MiniBar.values()){
+                System.out.println(m.ordinal()+1 +" "+ m.getProduct() + ": $" + m.getPrice());
+            }
+            op=scan.nextInt();
+            switch (op) {
+                case 1 -> total += MiniBar.COCA_COLA.getPrice();
+                case 2 -> total += MiniBar.SPRITE.getPrice();
+                case 3 -> total += MiniBar.VINO_TINTO.getPrice();
+                case 4 -> total += MiniBar.VINO_BLANCO.getPrice();
+                case 5 -> total += MiniBar.PAPAS_LAYS.getPrice();
+                case 6 -> total += MiniBar.TABLETA_CHOCOLATE.getPrice();
+                case 7 -> total += MiniBar.BOLSA_MANI.getPrice();
+                case 0 -> exit++;
+                default -> System.out.println("Opcion invalida, por favor elija una nueva");
+            }
+        }
+        pax.getTickets().add(new Ticket(pax.getName(),pax.getSurname(),total));
+    }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

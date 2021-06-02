@@ -8,27 +8,19 @@ import java.io.Serializable;
 public class Ticket implements Serializable {
     @Serial
     private static final long serialVersionUID = -5786522732862477983L;
-    private Pax pax;
+    private String paxName;
+    private String paxSurname;
     private double total;
 
 
     public Ticket() {
     }
 
-    public Ticket(Pax pax, double total) {
-        this.pax = pax;
+    public Ticket(String paxName,String paxSurname ,double total) {
+        this.paxName = paxName;
+        this.paxSurname = paxSurname;
         this.total = total;
     }
-
-    public Pax getPax() {
-        return pax;
-    }
-
-    public void setPax(Pax pax) {
-        this.pax = pax;
-    }
-
-
 
     public double getTotal() {
         return total;
@@ -40,7 +32,7 @@ public class Ticket implements Serializable {
 
     @Override
     public String toString() {
-        return "pax=" + pax.getName() +" " +pax.getSurname() +
+        return "pax=" + paxName +" " +paxSurname+
                 ", total=" + total;
     }
 }
