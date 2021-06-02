@@ -2,7 +2,6 @@ package users;
 
 import Interface.Ingress;
 import Interface.Reserve;
-import app.Hotel;
 import enumn.Condition;
 import model.Reservation;
 import model.Room;
@@ -93,7 +92,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
     }
 
     @Override
-    public void checkIn(List<Pax> paxes, Room room, Hotel hotel) {
+    public void checkIn(List<Pax> paxes, Room room, List<Reservation> reservations) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese un DNI o Pasaporte: ");
         String dniAux = scanner.nextLine();
@@ -103,11 +102,10 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
             pax = newPax();
         }
         paxes.add(pax);
-        Reservation auxReserve = hotel.searchReserve(pax, room);
+        Reservation auxReserve = searchReserve(pax, room, reservations);
         pax.setIngress(true);
-
-        hotel.addHistoryPax(pax);
-        hotel.eliminateReserve(auxReserve);
+        paxes.add(pax);
+        eliminateReserve(reservations, auxReserve);
         room.setCondition(Condition.OCUPPED);
 
     }
@@ -134,5 +132,19 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
             }
         }
         return localDate;
+    }
+
+    @Override
+    public Reservation searchReserve(Pax pax, Room room, List<Reservation> reserves) {
+        return reserves.stream().
+                filter((Reservation r) -> r.getRoom().equals(room)).
+                filter(r -> r.getPax().equals(pax)).
+                findFirst().
+                orElse(null);
+
+    }
+    @Override
+    public void eliminateReserve(List<Reservation> reserves, Reservation reserve) {
+        reserves.remove(reserve);
     }
 }

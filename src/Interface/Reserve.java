@@ -18,4 +18,8 @@ public interface Reserve {
 
     LocalDate ingressDate(Scanner scan, LocalDate today);
 
+    Reservation searchReserve(Pax pax, Room room, List<Reservation> reservations);
+
+    void eliminateReserve(List<Reservation> reservations, Reservation reserve);
+
 }
