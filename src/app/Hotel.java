@@ -174,7 +174,14 @@ public class Hotel {
         } else if (opt == 2) {
             Recepcionist recepcionist = new Recepcionist();
             System.out.print("Ingrese su Nickname: ");
-            recepcionist.setNickName(scan.next());
+            nickName = scan.next();
+            auxUser = searchUserByNickName(nickName);
+            if (auxUser == null){
+                recepcionist.setNickName(nickName);
+                System.out.print("Ingrese una contraseña: ");
+                recepcionist.setPassword(scan.next());
+                users.add(recepcionist);
+            }
             System.out.print("Ingrese una contraseña: ");
             recepcionist.setPassword(scan.next());
             users.add(recepcionist);
