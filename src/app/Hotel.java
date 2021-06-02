@@ -125,12 +125,16 @@ public class Hotel {
 
     //------ Functional Methods ------//
 
+<<<<<<< HEAD
     public void runHotel() {
+=======
+    public void runHotel() throws ClassCastException {
+>>>>>>> 8d5d0bffa6fb73fc9e971a924e4303c6a680b8ea
         this.users = userRepository.throwList(userFile);
         this.rooms = roomRepository.throwList(roomFile);
         this.paxes = paxRepository.throwList(paxFile);
         this.reserves = reserveRepository.throwList(reserveFile);
-        firstMenu();
+        //firstMenu();
     }
 
     public void closeHotel() {
@@ -154,6 +158,24 @@ public class Hotel {
             System.out.println("No hay habitaciones disponibles");
         } else {
             rooms.forEach(System.out::println);
+        }
+    }
+
+    public void logIn() {
+        System.out.print("Ingrese su Nickname: ");
+        User userAux = users.stream().
+                filter(user -> user.getNickName().equals(scan.next())).
+                findFirst().
+                orElse(null);
+        if (userAux != null) {
+            System.out.println("Ingrese su contrasña: ");
+            if (userAux.getPassword().equals(scan.next())) {
+                userMenues(userAux);
+            } else {
+                System.out.println("Contraseña incorrecta");
+            }
+        } else {
+            System.out.println("El usuario registrado no se encuentra registrado");
         }
     }
 
@@ -194,23 +216,7 @@ public class Hotel {
         }
     }
 
-    public void logIn() {
-        System.out.print("Ingrese su Nickname: ");
-        User userAux = users.stream().
-                filter(user -> user.getNickName().equals(scan.next())).
-                findFirst().
-                orElse(null);
-        if (userAux != null) {
-            System.out.println("Ingrese su contrasña: ");
-            if (userAux.getPassword().equals(scan.next())) {
-                userMenues(userAux);
-            } else {
-                System.out.println("Contraseña incorrecta");
-            }
-        } else {
-            System.out.println("El usuario registrado no se encuentra registrado");
-        }
-    }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

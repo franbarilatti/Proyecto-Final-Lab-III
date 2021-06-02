@@ -15,6 +15,6 @@ public interface Mapper<T> {
 
     public String serialize(List<T> tList);
 
-    public ArrayList<T> deserialize(String json);
+    public List<T> deserialize(String json,Class<T[]> clazz);
 
 }

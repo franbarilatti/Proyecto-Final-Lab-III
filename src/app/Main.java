@@ -20,8 +20,11 @@ public class Main {
         Hotel hotel = new Hotel();
         Scanner scan = new Scanner(System.in);
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8d5d0bffa6fb73fc9e971a924e4303c6a680b8ea
         Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
         Admin recepcionist3 = new Admin("L-Gante", "420");
         hotel.getRooms().add(new Superior(101, BedType.MATRIMONIAL, Condition.AVAILABLE, TvType.TV_LED_42));
@@ -44,7 +47,17 @@ public class Main {
         hotel.getReserves().add(reservation1);
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
+<<<<<<< HEAD
         hotel.runHotel();
+=======
+
+        try {
+            hotel.runHotel();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+        hotel.showRooms();
+>>>>>>> 8d5d0bffa6fb73fc9e971a924e4303c6a680b8ea
 
     }
 }

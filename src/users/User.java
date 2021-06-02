@@ -13,12 +13,12 @@ import java.util.UUID;
 
 public abstract class User implements Serializable {
 
+    //------ Attributes ------//
     @Serial
     private static final long serialVersionUID = 6124898757881206654L;
-    //------ Attributes ------//
     protected UUID id;
     protected String nickName;
-    protected transient String password;
+    protected String password;
 
 
     //------ Constructors ------//
