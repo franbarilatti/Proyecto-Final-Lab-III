@@ -9,11 +9,13 @@ import mappers.Mapper;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public  class RepositoryController<T> extends LocalDateAdapter implements Mapper<T> {
     public RepositoryController() {
+        super();
     }
 
     public  void createFile(String fileName){
@@ -41,12 +43,12 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
         }
     }
     public  ArrayList<T> throwList(String fileName){
-        String json = "";
+        StringBuilder json = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             while ((line = br.readLine())!= null){
-                json+=line;
+                json.append(line);
             }
             br.close();
         }catch (FileNotFoundException e){
@@ -55,7 +57,7 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
             e.printStackTrace();
         }
 
-        return deserialize(json);
+        return deserialize(json.toString(),T[].class);
     }
 
     public  void showRepository(String fileName){
@@ -66,13 +68,11 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
     @Override
     public String serialize(List<T> tList) {
         Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        String json = gson.toJson(tList);
-        return json;
+        return gson.toJson(tList);
     }
 
     @Override
-    public ArrayList<T> deserialize(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json,new TypeToken<ArrayList<T>>(){}.getType());
+    public List<T> deserialize(String json,Class<T[]> clazz) {
+        return Arrays.asList(new Gson().fromJson(json,clazz));
     }
 }
