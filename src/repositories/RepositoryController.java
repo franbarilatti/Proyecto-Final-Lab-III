@@ -8,15 +8,18 @@ import users.User;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RepositoryController<T> extends LocalDateAdapter{
-    public RepositoryController() {
-        super();
-    }
+public class RepositoryController<T> extends LocalDateAdapter {
+
+    List<T> data = new ArrayList<>();
+    T myClass;
 
     public void createFile(String fileName) {
         File file = new File(fileName);
@@ -32,52 +35,53 @@ public class RepositoryController<T> extends LocalDateAdapter{
         }
     }
 
+
     public void addList(String fileName, List<T> tList) {
         String json = serialize(tList);
-<<<<<<< HEAD
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
             bw.write(json);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
-=======
-        if(!tList.equals(json)){
-            try{
-                BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-                bw.write(json);
-                bw.close();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
->>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0
         }
     }
 
-    public void throwList(String fileName, List<T> list) {
 
+    public List<T> throwList(String fileName, List<T> list) throws FileNotFoundException {
 
+       /*File file = new File(fileName);
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        Gson gson = new Gson();
+        data =  gson.fromJson(bufferedReader, (Type) myClass.getClass());
+       // System.out.println(list);
+        return data;*/
         StringBuilder json = new StringBuilder();
-        Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
-            while ((line = br.readLine()) != null) {
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));
+            List<User> users = new Gson().fromJson(reader,new TypeToken<List<User>>(){}.getType());
+            users.forEach(System.out::println);
+            System.out.println(users.get(1).getClass());
+            reader.close();
+           /* while ((line = br.readLine()) != null) {
                 json.append(line);
             }
-            JsonArray jsonArray = new JsonParser().parse(json.toString()).getAsJsonArray();
-            for (JsonElement jsonElement:jsonArray){
-                Type fooType = new TypeToken<List<T>>(){}.getType();
-                list.add(gson.fromJson(jsonElement,fooType));
-            }
-            br.close();
+            JsonArray arry = new JsonParser().parse(json.toString()).getAsJsonArray();
+            for (JsonElement jsonElement : arry)
+                list.add(gson.fromJson(json.toString(), new TypeToken<List<T>>() {
+                }.getType()));*/
+
         } catch (FileNotFoundException e) {
             e.getCause();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(list.get(0).getClass());
-        System.out.println(list);
+
+
+        return list;
     }
 
     /*public  void showRepository(String fileName){
@@ -95,4 +99,6 @@ public class RepositoryController<T> extends LocalDateAdapter{
     public List<T> deserialize(StringBuilder json, Type clazz) {
         return new Gson().fromJson(json.toString(), clazz);
     }
+
 }
+

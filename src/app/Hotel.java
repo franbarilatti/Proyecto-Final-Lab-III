@@ -10,6 +10,7 @@ import users.Pax;
 import users.Recepcionist;
 import users.User;
 
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,9 @@ public class Hotel {
         paxes.add(pax);
     }
 
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //------ Show Methods ------//
@@ -138,18 +142,20 @@ public class Hotel {
 
     //------ Functional Methods ------//
 
-    public void runHotel() throws ClassCastException {
-        userRepository.throwList(userFile, users);
+    public void runHotel() throws ClassCastException, FileNotFoundException {
+
+//        Admin recepcionist3 = new Admin("LGante", "420");
+//        userList.add(recepcionist3);
+
+        this.setUsers(userRepository.throwList(userFile,this.getUsers()));
         /*roomRepository.throwList(roomFile, rooms);
         paxRepository.throwList(paxFile, paxes);
-<<<<<<< HEAD
-        reserveRepository.throwList(reserveFile, reserves);*/
-        System.out.println(this.getUsers().getClass());
-=======
         reserveRepository.throwList(reserveFile, reserves);
+        reserveRepository.throwList(reserveFile, reserves);*/
+        //System.out.println( this.getUsers().get(0).getClass());
         //System.out.println(this.getUsers().get(1));
->>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0
-        firstMenu();
+//        logIn();
+
     }
 
     public void saveHotel() {
@@ -179,7 +185,7 @@ public class Hotel {
         System.out.print("Ingrese su Nickname: ");
         String name = scan.next();
         User userAux = null;
-        for (User user : users) {
+        for (User user : this.getUsers()) {
             if (user.getNickName().equals(name)) {
                 userAux = user;
                 break;
@@ -197,7 +203,7 @@ public class Hotel {
         }
     }
 
-    public void registerAdmin(){
+    public void registerAdmin() {
         String nickName;
         String password;
         User auxUser;
@@ -213,7 +219,7 @@ public class Hotel {
         }
     }
 
-    public void registerRecepcionist(){
+    public void registerRecepcionist() {
         String nickName;
         String password;
         User auxUser;
@@ -229,8 +235,8 @@ public class Hotel {
         }
     }
 
-    public void chargue(Pax pax){
-        System.out.println("El total de su recibo en de: $"+pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum());
+    public void chargue(Pax pax) {
+        System.out.println("El total de su recibo en de: $" + pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum());
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -280,25 +286,12 @@ public class Hotel {
             System.out.print("Ingrese una opción: ");
             int opt = scan.nextInt();
             switch (opt) {
-                case 1 -> {
-                    showPaxReserve(pax);
-                    break;
-                }
-                case 2 -> {
-                    roomServiceMenu(scan, pax);
-                    break;
-                }
-                case 3 -> {
-                    showPaxTickets(pax);
-                    break;
-                }
-                case 4 -> {
-                    chargue(pax);
-                    break;
-                }
+                case 1 -> showPaxReserve(pax);
+                case 2 -> roomServiceMenu(scan, pax);
+                case 3 -> showPaxTickets(pax);
+                case 4 -> chargue(pax);
                 case 0 -> back++;
                 default -> System.out.println("Opcion incorrecta");
-
             }
         }
         userMenues(user);
@@ -332,12 +325,12 @@ public class Hotel {
             opt = scan.nextInt();
             switch (opt) {
                 case 1:
-                    recepcionist.checkIn(paxes,rooms,reserves);
+                    recepcionist.checkIn(paxes, rooms, reserves);
                     break;
                 case 2:
-                    if(recepcionist.checkOut(paxes,rooms)){
+                    if (recepcionist.checkOut(paxes, rooms)) {
                         System.out.println("Check out exitoso.");
-                    }else {
+                    } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");
                     }
                     break;
@@ -388,12 +381,12 @@ public class Hotel {
                 case 1:
                     break;
                 case 2:
-                    admin.checkIn(paxes,rooms,reserves);
+                    admin.checkIn(paxes, rooms, reserves);
                     break;
                 case 3:
-                    if(admin.checkOut(paxes,rooms)){
+                    if (admin.checkOut(paxes, rooms)) {
                         System.out.println("Check out exitoso.");
-                    }else {
+                    } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");
                     }
                     break;
@@ -465,16 +458,16 @@ public class Hotel {
         }
     }
 
-    public void registerMenu(){
+    public void registerMenu() {
         int opt;
         int exit = 0;
-        while (exit == 0){
+        while (exit == 0) {
             System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n\nElija una opcion: ");
             opt = scan.nextInt();
-            switch (opt){
-                case 1-> registerAdmin();
-                case 2-> registerRecepcionist();
-                case 0-> exit++;
+            switch (opt) {
+                case 1 -> registerAdmin();
+                case 2 -> registerRecepcionist();
+                case 0 -> exit++;
                 default -> System.out.println("opcion incorrecta");
             }
         }

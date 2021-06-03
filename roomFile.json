@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-[]
-=======
 [
   {
     "extraPrice": 1000.0,
@@ -28,36 +25,5 @@
     "bedType": "MATRIMONIAL",
     "condition": "UNCLEAN_OCUPPED",
     "tvType": "TV_LED_42"
-  },
-  [
-    {
-      "extraPrice": 1000.0,
-      "number": 101.0,
-      "bedType": "MATRIMONIAL",
-      "condition": "AVAILABLE",
-      "tvType": "TV_LED_42"
-    },
-    {
-      "number": 102.0,
-      "bedType": "DOBLE_TWIN",
-      "condition": "AVAILABLE",
-      "tvType": "TV_LED_32"
-    },
-    {
-      "extraPrice": 1000.0,
-      "number": 103.0,
-      "bedType": "CUADRUPLE",
-      "condition": "MAINTENANCE",
-      "tvType": "TV_LED_42"
-    },
-    {
-      "extraPrice": 1000.0,
-      "number": 104.0,
-      "bedType": "MATRIMONIAL",
-      "condition": "UNCLEAN_OCUPPED",
-      "tvType": "TV_LED_42"
-    },
-    null
-  ]
+  }
 ]
->>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0

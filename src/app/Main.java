@@ -21,7 +21,6 @@ public class Main {
         Hotel hotel = new Hotel();
        /*Scanner scan = new Scanner(System.in);
         Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
-        Admin recepcionist3 = new Admin("LGante", "420");
         hotel.getRooms().add(new Superior(101, BedType.MATRIMONIAL, Condition.AVAILABLE, TvType.TV_LED_42));
         hotel.getRooms().add(new Standar(102, BedType.DOBLE_TWIN, Condition.AVAILABLE, TvType.TV_LED_32));
         hotel.getRooms().add(new Superior(103, BedType.CUADRUPLE, Condition.MAINTENANCE, TvType.TV_LED_42));
@@ -42,11 +41,9 @@ public class Main {
         hotel.getReserves().add(reservation1);
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
-<<<<<<< HEAD
-        hotel.saveHotel();*/
-=======
->>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0
-        hotel.runHotel();
         hotel.saveHotel();
+        hotel.saveHotel();*/
+        hotel.runHotel();
+
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-public abstract class User implements Serializable {
+public class User implements Serializable {
 
     //------ Attributes ------//
     @Serial
