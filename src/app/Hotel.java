@@ -133,6 +133,7 @@ public class Hotel {
                 orElse(null);
     }
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //------ Functional Methods ------//
@@ -326,8 +327,14 @@ public class Hotel {
             opt = scan.nextInt();
             switch (opt) {
                 case 1:
+                    recepcionist.checkIn(paxes,rooms,reserves);
                     break;
                 case 2:
+                    if(recepcionist.checkOut(paxes,rooms)){
+                        System.out.println("Check out exitoso.");
+                    }else {
+                        System.out.println("El pasajero todavia tiene cargos en su cuenta.");
+                    }
                     break;
                 case 3:
                     recepcionist.makeReserve(reserves, paxes, rooms, scan);
@@ -376,8 +383,14 @@ public class Hotel {
                 case 1:
                     break;
                 case 2:
+                    admin.checkIn(paxes,rooms,reserves);
                     break;
                 case 3:
+                    if(admin.checkOut(paxes,rooms)){
+                        System.out.println("Check out exitoso.");
+                    }else {
+                        System.out.println("El pasajero todavia tiene cargos en su cuenta.");
+                    }
                     break;
                 case 4:
                     break;

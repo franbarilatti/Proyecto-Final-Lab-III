@@ -6,6 +6,7 @@ import app.Hotel;
 import enumn.Condition;
 import model.Reservation;
 import model.Room;
+import model.Ticket;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -85,7 +86,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     }
 
     @Override
-    public void checkIn(List<Pax> paxes, Room room, List<Reservation> reservations) {
+    public void checkIn(List<Pax> paxes, List<Room> rooms, List<Reservation> reservations) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese un DNI o Pasaporte: ");
         String dniAux = scanner.nextLine();
@@ -95,18 +96,40 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             pax = newPax();
         }
         paxes.add(pax);
+        System.out.print("Ingrese el numero de habitacion: ");
+        int roomNumber = scanner.nextInt();
+        Room room = rooms.stream().filter((Room r)-> ((Integer) r.getNumber()).equals(roomNumber)).findFirst().orElse(null);
         Reservation auxReserve = searchReserve(pax, room, reservations);
-        pax.setIngress(true);
-        paxes.add(pax);
-        eliminateReserve(reservations,auxReserve);
-        room.setCondition(Condition.OCUPPED);
-
+        if(auxReserve != null){
+            pax.setIngress(true);
+            paxes.add(pax);
+            eliminateReserve(reservations, auxReserve);
+            room.setCondition(Condition.OCUPPED);
+        }else {
+            pax.setIngress(true);
+            paxes.add(pax);
+            room.setCondition(Condition.OCUPPED);
+        }
     }
 
     @Override
-    public void checkOut(Pax pax, Room room) {
-        pax.setIngress(false);
-        room.setCondition(Condition.UNCLEAN_AVAILABLE);
+    public boolean checkOut(List<Pax> paxes, List<Room> rooms) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el dni del pasajero: ");
+        Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(scanner.next())).findFirst().orElse(null);
+        System.out.print("Ingrese el numero de habitacion: ");
+        Room room = searchRoomByNumber(rooms,scanner.nextInt());
+        if(pax == null){
+            System.out.println("El dni ingresado no esta registrado en el sistema.");
+        }
+        else {
+            if ((pax.getTickets().stream().mapToDouble((Ticket t)->t.getTotal()).sum()) == 0){
+                pax.setIngress(false);
+                room.setCondition(Condition.UNCLEAN_AVAILABLE);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -127,9 +150,9 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         return localDate;
     }
 
-    public void changeRoomState(Hotel hotel, Scanner scan) {
+    public void changeRoomState(List<Room> rooms, Scanner scan) {
         System.out.println("Elija un numero de habitacion");
-        Room room = this.searchRoomByNumber(hotel, scan.nextInt());
+        Room room = this.searchRoomByNumber(rooms, scan.nextInt());
         if (room != null) {
             System.out.println(room.toString());
             System.out.println("Elija el nuevo estado de la habitacion");

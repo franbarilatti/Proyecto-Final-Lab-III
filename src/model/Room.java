@@ -65,9 +65,11 @@ public abstract class Room implements Serializable {
 
 
     public String toString() {
-        return "Numero de habitacio: " + number +
+        return "Numero de habitacion: " + number +
                 "Tipo de cama " + bedType.getDescription() +
                 "Tipo de Tv" + tvType.getDescription() +
                 "Estado: " + condition.getState();
     }
+
+
 }

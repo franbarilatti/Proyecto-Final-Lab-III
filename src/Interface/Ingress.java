@@ -8,8 +8,8 @@ import java.util.List;
 
 
 public interface Ingress {
-    void checkIn(List<Pax> paxes, Room room, List<Reservation> reservations);
+    void checkIn(List<Pax> paxes, List<Room> rooms, List<Reservation> reservations);
 
-    void checkOut(Pax pax, Room room);
+    public boolean checkOut(List<Pax> paxes, List<Room> rooms);
 
 }
