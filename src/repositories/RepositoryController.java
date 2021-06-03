@@ -34,12 +34,23 @@ public class RepositoryController<T> extends LocalDateAdapter{
 
     public void addList(String fileName, List<T> tList) {
         String json = serialize(tList);
+<<<<<<< HEAD
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
             bw.write(json);
             bw.close();
         } catch (IOException e) {
             e.printStackTrace();
+=======
+        if(!tList.equals(json)){
+            try{
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+                bw.write(json);
+                bw.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+>>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0
         }
     }
 

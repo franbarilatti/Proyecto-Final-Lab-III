@@ -60,8 +60,8 @@ public abstract class User implements Serializable {
 
     //------ Methods ------//
 
-    public Room searchRoomByNumber(Hotel hotel,int number){
-        return hotel.getRooms().stream().
+    public Room searchRoomByNumber(List<Room> rooms,int number){
+        return rooms.stream().
                 filter(room1 -> room1.getNumber()==number).
                 findFirst().
                 orElse(null);

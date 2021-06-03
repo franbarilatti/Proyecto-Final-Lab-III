@@ -1,12 +1,33 @@
 [
   {
+<<<<<<< HEAD
     "id": "41b54c8e-e456-44b8-a229-f8ed941aa5ab",
+=======
+    "id": "bc848a52-326b-4410-a6ad-ed0c20ba31c5",
+>>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0
     "nickName": "ElDuko",
     "password": "9821"
   },
   {
+<<<<<<< HEAD
     "id": "aac71297-0330-4816-ad66-1a825750b576",
+=======
+    "id": "d241e03e-6e1e-4edb-8184-80143e33d1a5",
+>>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0
     "nickName": "LGante",
     "password": "420"
-  }
+  },
+  [
+    {
+      "id": "336f6f20-7f94-43f4-b3c6-114c7ee7c7d9",
+      "nickName": "ElDuko",
+      "password": "9821"
+    },
+    {
+      "id": "73cabb17-f2ca-4711-af78-bce7ddaf9230",
+      "nickName": "LGante",
+      "password": "420"
+    },
+    null
+  ]
 ]

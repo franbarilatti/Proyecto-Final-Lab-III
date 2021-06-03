@@ -128,10 +128,11 @@ public class Hotel {
 
     public User searchUserByNickName(String nickname) {
         return users.stream().
-                filter((User u) -> u.getNickName().equals(nickname)).
+                filter(user -> user.getNickName().equals(nickname)).
                 findFirst().
                 orElse(null);
     }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -141,8 +142,13 @@ public class Hotel {
         userRepository.throwList(userFile, users);
         /*roomRepository.throwList(roomFile, rooms);
         paxRepository.throwList(paxFile, paxes);
+<<<<<<< HEAD
         reserveRepository.throwList(reserveFile, reserves);*/
         System.out.println(this.getUsers().getClass());
+=======
+        reserveRepository.throwList(reserveFile, reserves);
+        //System.out.println(this.getUsers().get(1));
+>>>>>>> fc51c60994459d2ba227e66b6f93f8ee15ca73f0
         firstMenu();
     }
 
@@ -191,43 +197,41 @@ public class Hotel {
         }
     }
 
-    public void register() {
+    public void registerAdmin(){
         String nickName;
         String password;
         User auxUser;
-        System.out.println(
-                "[1]- Administrador\n" +
-                        "[2]- Recepcionista");
-        System.out.print("\nIngresar opcion");
-        int opt = scan.nextInt();
-        if (opt == 1) {
-            Admin admin = new Admin();
-            System.out.print("Ingrese su Nickname: ");
-            nickName = scan.next();
-            auxUser = searchUserByNickName(nickName);
-            if (auxUser == null) {
-                admin.setNickName(nickName);
-                System.out.print("Ingrese una contraseña: ");
-                admin.setPassword(scan.next());
-                users.add(admin);
-            }
-        } else if (opt == 2) {
-            Recepcionist recepcionist = new Recepcionist();
-            System.out.print("Ingrese su Nickname: ");
-            nickName = scan.next();
-            auxUser = searchUserByNickName(nickName);
-            if (auxUser == null) {
-                recepcionist.setNickName(nickName);
-                System.out.print("Ingrese una contraseña: ");
-                recepcionist.setPassword(scan.next());
-                users.add(recepcionist);
-            }
+        Admin admin = new Admin();
+        System.out.print("Ingrese su Nickname: ");
+        nickName = scan.next();
+        auxUser = searchUserByNickName(nickName);
+        if (auxUser == null) {
+            admin.setNickName(nickName);
+            System.out.print("Ingrese una contraseña: ");
+            admin.setPassword(scan.next());
+            users.add(admin);
+        }
+    }
+
+    public void registerRecepcionist(){
+        String nickName;
+        String password;
+        User auxUser;
+        Recepcionist recepcionist = new Recepcionist();
+        System.out.print("Ingrese su Nickname: ");
+        nickName = scan.next();
+        auxUser = searchUserByNickName(nickName);
+        if (auxUser == null) {
+            recepcionist.setNickName(nickName);
             System.out.print("Ingrese una contraseña: ");
             recepcionist.setPassword(scan.next());
             users.add(recepcionist);
         }
     }
 
+    public void chargue(Pax pax){
+        System.out.println("El total de su recibo en de: $"+pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum());
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -248,7 +252,7 @@ public class Hotel {
             switch (opt) {
                 case 1 -> logIn();
                 case 2 -> {
-                    register();
+                    registerMenu();
                     saveHotel();
                 }
                 case 0 -> {
@@ -289,6 +293,7 @@ public class Hotel {
                     break;
                 }
                 case 4 -> {
+                    chargue(pax);
                     break;
                 }
                 case 0 -> back++;
@@ -327,8 +332,14 @@ public class Hotel {
             opt = scan.nextInt();
             switch (opt) {
                 case 1:
+                    recepcionist.checkIn(paxes,rooms,reserves);
                     break;
                 case 2:
+                    if(recepcionist.checkOut(paxes,rooms)){
+                        System.out.println("Check out exitoso.");
+                    }else {
+                        System.out.println("El pasajero todavia tiene cargos en su cuenta.");
+                    }
                     break;
                 case 3:
                     recepcionist.makeReserve(reserves, paxes, rooms, scan);
@@ -377,8 +388,14 @@ public class Hotel {
                 case 1:
                     break;
                 case 2:
+                    admin.checkIn(paxes,rooms,reserves);
                     break;
                 case 3:
+                    if(admin.checkOut(paxes,rooms)){
+                        System.out.println("Check out exitoso.");
+                    }else {
+                        System.out.println("El pasajero todavia tiene cargos en su cuenta.");
+                    }
                     break;
                 case 4:
                     break;
@@ -414,31 +431,31 @@ public class Hotel {
             op = scan.nextInt();
             switch (op) {
                 case 1 -> {
-                    total += MiniBar.COCA_COLA.getPrice();
+                    total = MiniBar.COCA_COLA.getPrice();
                     detail = MiniBar.COCA_COLA.getProduct();
                 }
                 case 2 -> {
-                    total += MiniBar.SPRITE.getPrice();
+                    total = MiniBar.SPRITE.getPrice();
                     detail = MiniBar.SPRITE.getProduct();
                 }
                 case 3 -> {
-                    total += MiniBar.VINO_TINTO.getPrice();
+                    total = MiniBar.VINO_TINTO.getPrice();
                     detail = MiniBar.VINO_TINTO.getProduct();
                 }
                 case 4 -> {
-                    total += MiniBar.VINO_BLANCO.getPrice();
+                    total = MiniBar.VINO_BLANCO.getPrice();
                     detail = MiniBar.VINO_BLANCO.getProduct();
                 }
                 case 5 -> {
-                    total += MiniBar.PAPAS_LAYS.getPrice();
+                    total = MiniBar.PAPAS_LAYS.getPrice();
                     detail = MiniBar.PAPAS_LAYS.getProduct();
                 }
                 case 6 -> {
-                    total += MiniBar.TABLETA_CHOCOLATE.getPrice();
+                    total = MiniBar.TABLETA_CHOCOLATE.getPrice();
                     detail = MiniBar.TABLETA_CHOCOLATE.getProduct();
                 }
                 case 7 -> {
-                    total += MiniBar.BOLSA_MANI.getPrice();
+                    total = MiniBar.BOLSA_MANI.getPrice();
                     detail = MiniBar.BOLSA_MANI.getProduct();
                 }
                 case 0 -> exit++;
@@ -447,6 +464,23 @@ public class Hotel {
             pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), detail, total));
         }
     }
+
+    public void registerMenu(){
+        int opt;
+        int exit = 0;
+        while (exit == 0){
+            System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n\nElija una opcion: ");
+            opt = scan.nextInt();
+            switch (opt){
+                case 1-> registerAdmin();
+                case 2-> registerRecepcionist();
+                case 0-> exit++;
+                default -> System.out.println("opcion incorrecta");
+            }
+        }
+
+    }
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
