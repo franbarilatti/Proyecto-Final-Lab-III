@@ -142,7 +142,7 @@ public class Hotel {
         roomRepository.throwList(roomFile, rooms);
         paxRepository.throwList(paxFile, paxes);
         reserveRepository.throwList(reserveFile, reserves);
-        System.out.println(this.getUsers().get(1));
+        //System.out.println(this.getUsers().get(1));
         firstMenu();
     }
 
@@ -228,6 +228,9 @@ public class Hotel {
         }
     }
 
+    public void chargue(Pax pax){
+        System.out.println("El total de su recibo en de: $"+pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum());
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -289,6 +292,7 @@ public class Hotel {
                     break;
                 }
                 case 4 -> {
+                    chargue(pax);
                     break;
                 }
                 case 0 -> back++;
@@ -414,31 +418,31 @@ public class Hotel {
             op = scan.nextInt();
             switch (op) {
                 case 1 -> {
-                    total += MiniBar.COCA_COLA.getPrice();
+                    total = MiniBar.COCA_COLA.getPrice();
                     detail = MiniBar.COCA_COLA.getProduct();
                 }
                 case 2 -> {
-                    total += MiniBar.SPRITE.getPrice();
+                    total = MiniBar.SPRITE.getPrice();
                     detail = MiniBar.SPRITE.getProduct();
                 }
                 case 3 -> {
-                    total += MiniBar.VINO_TINTO.getPrice();
+                    total = MiniBar.VINO_TINTO.getPrice();
                     detail = MiniBar.VINO_TINTO.getProduct();
                 }
                 case 4 -> {
-                    total += MiniBar.VINO_BLANCO.getPrice();
+                    total = MiniBar.VINO_BLANCO.getPrice();
                     detail = MiniBar.VINO_BLANCO.getProduct();
                 }
                 case 5 -> {
-                    total += MiniBar.PAPAS_LAYS.getPrice();
+                    total = MiniBar.PAPAS_LAYS.getPrice();
                     detail = MiniBar.PAPAS_LAYS.getProduct();
                 }
                 case 6 -> {
-                    total += MiniBar.TABLETA_CHOCOLATE.getPrice();
+                    total = MiniBar.TABLETA_CHOCOLATE.getPrice();
                     detail = MiniBar.TABLETA_CHOCOLATE.getProduct();
                 }
                 case 7 -> {
-                    total += MiniBar.BOLSA_MANI.getPrice();
+                    total = MiniBar.BOLSA_MANI.getPrice();
                     detail = MiniBar.BOLSA_MANI.getProduct();
                 }
                 case 0 -> exit++;

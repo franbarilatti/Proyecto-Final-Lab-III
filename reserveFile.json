@@ -7,7 +7,38 @@
       "dni": "123232",
       "nationality": "",
       "ingress": false,
-      "tickets": []
+      "tickets": [
+        {
+          "paxName": "Pocho",
+          "paxSurname": "",
+          "description": "Sprite 500ml",
+          "total": 150.0
+        },
+        {
+          "paxName": "Pocho",
+          "paxSurname": "",
+          "description": "Vino Tinto 750ml",
+          "total": 400.0
+        },
+        {
+          "paxName": "Pocho",
+          "paxSurname": "",
+          "description": "Papas Lays 145grs",
+          "total": 200.0
+        },
+        {
+          "paxName": "Pocho",
+          "paxSurname": "",
+          "description": "Tableta de Chocolae 100grs",
+          "total": 175.0
+        },
+        {
+          "paxName": "Pocho",
+          "paxSurname": "",
+          "description": "Tableta de Chocolae 100grs",
+          "total": 175.0
+        }
+      ]
     },
     "room": {
       "extraPrice": 1000.0,
@@ -60,5 +91,222 @@
     "cantDays": 5,
     "checkIn": "2021-06-03",
     "checkOut": "2021-06-08"
-  }
+  },
+  [
+    {
+      "pax": {
+        "name": "Pocho",
+        "surname": "",
+        "address": "",
+        "dni": "123232",
+        "nationality": "",
+        "ingress": false,
+        "tickets": []
+      },
+      "room": {
+        "extraPrice": 1000.0,
+        "number": 101.0,
+        "bedType": "MATRIMONIAL",
+        "condition": "AVAILABLE",
+        "tvType": "TV_LED_42"
+      },
+      "cantDays": 5.0,
+      "checkIn": "2021-06-03",
+      "checkOut": "2021-06-08"
+    },
+    {
+      "pax": {
+        "name": "Toto",
+        "surname": "",
+        "address": "",
+        "dni": "655475",
+        "nationality": "",
+        "ingress": false,
+        "tickets": []
+      },
+      "room": {
+        "number": 102.0,
+        "bedType": "DOBLE_TWIN",
+        "condition": "AVAILABLE",
+        "tvType": "TV_LED_32"
+      },
+      "cantDays": 5.0,
+      "checkIn": "2021-06-03",
+      "checkOut": "2021-06-08"
+    },
+    {
+      "pax": {
+        "name": "Cholo",
+        "surname": "",
+        "address": "",
+        "dni": "998878",
+        "nationality": "",
+        "ingress": false,
+        "tickets": []
+      },
+      "room": {
+        "extraPrice": 1000.0,
+        "number": 103.0,
+        "bedType": "CUADRUPLE",
+        "condition": "MAINTENANCE",
+        "tvType": "TV_LED_42"
+      },
+      "cantDays": 5.0,
+      "checkIn": "2021-06-03",
+      "checkOut": "2021-06-08"
+    },
+    [
+      {
+        "pax": {
+          "name": "Pocho",
+          "surname": "",
+          "address": "",
+          "dni": "123232",
+          "nationality": "",
+          "ingress": false,
+          "tickets": [
+            {
+              "paxName": "Pocho",
+              "paxSurname": "",
+              "description": "Sprite 500ml",
+              "total": 150.0
+            },
+            {
+              "paxName": "Pocho",
+              "paxSurname": "",
+              "description": "Vino Tinto 750ml",
+              "total": 550.0
+            },
+            {
+              "paxName": "Pocho",
+              "paxSurname": "",
+              "description": "Vino Blanco 750ml",
+              "total": 950.0
+            },
+            {
+              "paxName": "Pocho",
+              "paxSurname": "",
+              "description": "Vino Blanco 750ml",
+              "total": 950.0
+            }
+          ]
+        },
+        "room": {
+          "extraPrice": 1000.0,
+          "number": 101.0,
+          "bedType": "MATRIMONIAL",
+          "condition": "AVAILABLE",
+          "tvType": "TV_LED_42"
+        },
+        "cantDays": 5.0,
+        "checkIn": "2021-06-03",
+        "checkOut": "2021-06-08"
+      },
+      {
+        "pax": {
+          "name": "Toto",
+          "surname": "",
+          "address": "",
+          "dni": "655475",
+          "nationality": "",
+          "ingress": false,
+          "tickets": []
+        },
+        "room": {
+          "number": 102.0,
+          "bedType": "DOBLE_TWIN",
+          "condition": "AVAILABLE",
+          "tvType": "TV_LED_32"
+        },
+        "cantDays": 5.0,
+        "checkIn": "2021-06-03",
+        "checkOut": "2021-06-08"
+      },
+      {
+        "pax": {
+          "name": "Cholo",
+          "surname": "",
+          "address": "",
+          "dni": "998878",
+          "nationality": "",
+          "ingress": false,
+          "tickets": []
+        },
+        "room": {
+          "extraPrice": 1000.0,
+          "number": 103.0,
+          "bedType": "CUADRUPLE",
+          "condition": "MAINTENANCE",
+          "tvType": "TV_LED_42"
+        },
+        "cantDays": 5.0,
+        "checkIn": "2021-06-03",
+        "checkOut": "2021-06-08"
+      },
+      [
+        {
+          "pax": {
+            "name": "Pocho",
+            "surname": "",
+            "address": "",
+            "dni": "123232",
+            "nationality": "",
+            "ingress": false,
+            "tickets": []
+          },
+          "room": {
+            "extraPrice": 1000.0,
+            "number": 101.0,
+            "bedType": "MATRIMONIAL",
+            "condition": "AVAILABLE",
+            "tvType": "TV_LED_42"
+          },
+          "cantDays": 5.0,
+          "checkIn": "2021-06-03",
+          "checkOut": "2021-06-08"
+        },
+        {
+          "pax": {
+            "name": "Toto",
+            "surname": "",
+            "address": "",
+            "dni": "655475",
+            "nationality": "",
+            "ingress": false,
+            "tickets": []
+          },
+          "room": {
+            "number": 102.0,
+            "bedType": "DOBLE_TWIN",
+            "condition": "AVAILABLE",
+            "tvType": "TV_LED_32"
+          },
+          "cantDays": 5.0,
+          "checkIn": "2021-06-03",
+          "checkOut": "2021-06-08"
+        },
+        {
+          "pax": {
+            "name": "Cholo",
+            "surname": "",
+            "address": "",
+            "dni": "998878",
+            "nationality": "",
+            "ingress": false,
+            "tickets": []
+          },
+          "room": {
+            "extraPrice": 1000.0,
+            "number": 103.0,
+            "bedType": "CUADRUPLE",
+            "condition": "MAINTENANCE",
+            "tvType": "TV_LED_42"
+          },
+          "cantDays": 5.0,
+          "checkIn": "2021-06-03",
+          "checkOut": "2021-06-08"
+        }
+      ]
+    ]
+  ]
 ]
