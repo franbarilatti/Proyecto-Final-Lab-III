@@ -43,6 +43,6 @@ public class Main {
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
         hotel.runHotel();
-
+        hotel.saveHotel();
     }
 }

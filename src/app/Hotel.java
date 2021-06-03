@@ -128,7 +128,7 @@ public class Hotel {
 
     public User searchUserByNickName(String nickname) {
         return users.stream().
-                filter((User u) -> u.getNickName().equals(nickname)).
+                filter(user -> user.getNickName().equals(nickname)).
                 findFirst().
                 orElse(null);
     }
@@ -191,37 +191,32 @@ public class Hotel {
         }
     }
 
-    public void register() {
+    public void registerAdmin(){
         String nickName;
         String password;
         User auxUser;
-        System.out.println(
-                "[1]- Administrador\n" +
-                        "[2]- Recepcionista");
-        System.out.print("\nIngresar opcion");
-        int opt = scan.nextInt();
-        if (opt == 1) {
-            Admin admin = new Admin();
-            System.out.print("Ingrese su Nickname: ");
-            nickName = scan.next();
-            auxUser = searchUserByNickName(nickName);
-            if (auxUser == null) {
-                admin.setNickName(nickName);
-                System.out.print("Ingrese una contraseña: ");
-                admin.setPassword(scan.next());
-                users.add(admin);
-            }
-        } else if (opt == 2) {
-            Recepcionist recepcionist = new Recepcionist();
-            System.out.print("Ingrese su Nickname: ");
-            nickName = scan.next();
-            auxUser = searchUserByNickName(nickName);
-            if (auxUser == null) {
-                recepcionist.setNickName(nickName);
-                System.out.print("Ingrese una contraseña: ");
-                recepcionist.setPassword(scan.next());
-                users.add(recepcionist);
-            }
+        Admin admin = new Admin();
+        System.out.print("Ingrese su Nickname: ");
+        nickName = scan.next();
+        auxUser = searchUserByNickName(nickName);
+        if (auxUser == null) {
+            admin.setNickName(nickName);
+            System.out.print("Ingrese una contraseña: ");
+            admin.setPassword(scan.next());
+            users.add(admin);
+        }
+    }
+
+    public void registerRecepcionist(){
+        String nickName;
+        String password;
+        User auxUser;
+        Recepcionist recepcionist = new Recepcionist();
+        System.out.print("Ingrese su Nickname: ");
+        nickName = scan.next();
+        auxUser = searchUserByNickName(nickName);
+        if (auxUser == null) {
+            recepcionist.setNickName(nickName);
             System.out.print("Ingrese una contraseña: ");
             recepcionist.setPassword(scan.next());
             users.add(recepcionist);
@@ -251,7 +246,7 @@ public class Hotel {
             switch (opt) {
                 case 1 -> logIn();
                 case 2 -> {
-                    register();
+                    registerMenu();
                     saveHotel();
                 }
                 case 0 -> {
@@ -451,6 +446,23 @@ public class Hotel {
             pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), detail, total));
         }
     }
+
+    public void registerMenu(){
+        int opt;
+        int exit = 0;
+        while (exit == 0){
+            System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n\nElija una opcion: ");
+            opt = scan.nextInt();
+            switch (opt){
+                case 1-> registerAdmin();
+                case 2-> registerRecepcionist();
+                case 0-> exit++;
+                default -> System.out.println("opcion incorrecta");
+            }
+        }
+
+    }
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

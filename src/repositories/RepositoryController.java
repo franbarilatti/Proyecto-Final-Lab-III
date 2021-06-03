@@ -34,12 +34,14 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
 
     public  void addList(String fileName,List<T> tList){
         String json = serialize(tList);
-        try{
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-            bw.write(json);
-            bw.close();
-        }catch (IOException e){
-            e.printStackTrace();
+        if(!tList.equals(json)){
+            try{
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+                bw.write(json);
+                bw.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
     public  void throwList(String fileName, List<T> list){
