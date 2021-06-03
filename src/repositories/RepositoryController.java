@@ -42,8 +42,10 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
             e.printStackTrace();
         }
     }
-    public  ArrayList<T> throwList(String fileName){
+    public  void throwList(String fileName, List<T> list){
         StringBuilder json = new StringBuilder();
+        Gson gson= new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
@@ -56,14 +58,13 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
         }catch (IOException e){
             e.printStackTrace();
         }
-
-        return (ArrayList<T>) deserialize(json, new TypeToken<List<T>>(){}.getType());
+        list.add(gson.fromJson(json.toString(), new TypeToken<List<T>>(){}.getType()));
     }
 
-    public  void showRepository(String fileName){
+    /*public  void showRepository(String fileName){
         ArrayList<T> tList = throwList(fileName);
         tList.forEach(System.out::println);
-    }
+    }*/
 
     @Override
     public String serialize(List<T> tList) {
@@ -73,6 +74,6 @@ public  class RepositoryController<T> extends LocalDateAdapter implements Mapper
 
     @Override
     public List<T> deserialize(StringBuilder json, Type clazz) {
-        return new Gson().fromJson(json.toString(), (Type) clazz);
+        return new Gson().fromJson(json.toString(),  clazz);
     }
 }

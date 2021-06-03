@@ -17,8 +17,8 @@
       "tvType": "TV_LED_42"
     },
     "cantDays": 5,
-    "checkIn": "2021-06-01",
-    "checkOut": "2021-06-06"
+    "checkIn": "2021-06-02",
+    "checkOut": "2021-06-07"
   },
   {
     "pax": {
@@ -37,8 +37,8 @@
       "tvType": "TV_LED_32"
     },
     "cantDays": 5,
-    "checkIn": "2021-06-01",
-    "checkOut": "2021-06-06"
+    "checkIn": "2021-06-02",
+    "checkOut": "2021-06-07"
   },
   {
     "pax": {
@@ -58,7 +58,71 @@
       "tvType": "TV_LED_42"
     },
     "cantDays": 5,
-    "checkIn": "2021-06-01",
-    "checkOut": "2021-06-06"
-  }
+    "checkIn": "2021-06-02",
+    "checkOut": "2021-06-07"
+  },
+  [
+    {
+      "pax": {
+        "name": "Pocho",
+        "surname": "",
+        "address": "",
+        "dni": "123232",
+        "nationality": "",
+        "ingress": false,
+        "tickets": []
+      },
+      "room": {
+        "extraPrice": 1000.0,
+        "number": 101.0,
+        "bedType": "MATRIMONIAL",
+        "condition": "AVAILABLE",
+        "tvType": "TV_LED_42"
+      },
+      "cantDays": 5.0,
+      "checkIn": "2021-06-02",
+      "checkOut": "2021-06-07"
+    },
+    {
+      "pax": {
+        "name": "Toto",
+        "surname": "",
+        "address": "",
+        "dni": "655475",
+        "nationality": "",
+        "ingress": false,
+        "tickets": []
+      },
+      "room": {
+        "number": 102.0,
+        "bedType": "DOBLE_TWIN",
+        "condition": "AVAILABLE",
+        "tvType": "TV_LED_32"
+      },
+      "cantDays": 5.0,
+      "checkIn": "2021-06-02",
+      "checkOut": "2021-06-07"
+    },
+    {
+      "pax": {
+        "name": "Cholo",
+        "surname": "",
+        "address": "",
+        "dni": "998878",
+        "nationality": "",
+        "ingress": false,
+        "tickets": []
+      },
+      "room": {
+        "extraPrice": 1000.0,
+        "number": 103.0,
+        "bedType": "CUADRUPLE",
+        "condition": "MAINTENANCE",
+        "tvType": "TV_LED_42"
+      },
+      "cantDays": 5.0,
+      "checkIn": "2021-06-02",
+      "checkOut": "2021-06-07"
+    }
+  ]
 ]

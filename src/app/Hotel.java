@@ -126,11 +126,12 @@ public class Hotel {
     //------ Functional Methods ------//
 
     public void runHotel() throws ClassCastException {
-        this.users = userRepository.throwList(userFile);
-        this.rooms = roomRepository.throwList(roomFile);
-        this.paxes = paxRepository.throwList(paxFile);
-        this.reserves = reserveRepository.throwList(reserveFile);
-        //firstMenu();
+        userRepository.throwList(userFile, users);
+       roomRepository.throwList(roomFile, rooms);
+        paxRepository.throwList(paxFile, paxes);
+        reserveRepository.throwList(reserveFile, reserves);
+        System.out.println(this.getUsers().get(1));
+        firstMenu();
     }
 
     public void closeHotel() {
@@ -159,12 +160,16 @@ public class Hotel {
 
     public void logIn() {
         System.out.print("Ingrese su Nickname: ");
-        User userAux = users.stream().
-                filter(user -> user.getNickName().equals(scan.next())).
-                findFirst().
-                orElse(null);
+        String name= scan.next();
+        User userAux = null;
+        for (User user : users) {
+            if (user.getNickName().equals(name)) {
+                userAux = user;
+                break;
+            }
+        }
         if (userAux != null) {
-            System.out.println("Ingrese su contrasña: ");
+            System.out.println("Ingrese su contraseña: ");
             if (userAux.getPassword().equals(scan.next())) {
                 userMenues(userAux);
             } else {
@@ -211,7 +216,6 @@ public class Hotel {
             users.add(recepcionist);
         }
     }
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
