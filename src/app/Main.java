@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
         Hotel hotel = new Hotel();
-        Scanner scan = new Scanner(System.in);
+       /*Scanner scan = new Scanner(System.in);
         Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
         Admin recepcionist3 = new Admin("LGante", "420");
         hotel.getRooms().add(new Superior(101, BedType.MATRIMONIAL, Condition.AVAILABLE, TvType.TV_LED_42));
@@ -42,7 +42,7 @@ public class Main {
         hotel.getReserves().add(reservation1);
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
-        hotel.saveHotel();
+        hotel.saveHotel();*/
         hotel.runHotel();
 
     }

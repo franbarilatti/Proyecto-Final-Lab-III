@@ -139,10 +139,10 @@ public class Hotel {
 
     public void runHotel() throws ClassCastException {
         userRepository.throwList(userFile, users);
-        roomRepository.throwList(roomFile, rooms);
+        /*roomRepository.throwList(roomFile, rooms);
         paxRepository.throwList(paxFile, paxes);
-        reserveRepository.throwList(reserveFile, reserves);
-        System.out.println(this.getUsers().get(1));
+        reserveRepository.throwList(reserveFile, reserves);*/
+        System.out.println(this.getUsers().getClass());
         firstMenu();
     }
 
