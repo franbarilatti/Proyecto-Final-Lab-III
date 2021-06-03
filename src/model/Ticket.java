@@ -10,15 +10,17 @@ public class Ticket implements Serializable {
     private static final long serialVersionUID = -5786522732862477983L;
     private String paxName;
     private String paxSurname;
+    private String description;
     private double total;
 
 
     public Ticket() {
     }
 
-    public Ticket(String paxName,String paxSurname ,double total) {
+    public Ticket(String paxName,String paxSurname,String description,double total) {
         this.paxName = paxName;
         this.paxSurname = paxSurname;
+        this.description = description;
         this.total = total;
     }
 
@@ -32,7 +34,7 @@ public class Ticket implements Serializable {
 
     @Override
     public String toString() {
-        return "pax=" + paxName +" " +paxSurname+
-                ", total=" + total;
+        return "Detalle: " + description +
+                "\nImporte=" + total;
     }
 }

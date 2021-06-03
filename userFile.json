@@ -1,24 +1,12 @@
 [
   {
-    "id": "6dd2d869-9c7d-4e96-8ecc-8fb6ff7e40b5",
+    "id": "147c0f5d-2342-480b-a389-f7cda8001f85",
     "nickName": "ElDuko",
     "password": "9821"
   },
   {
-    "id": "d53c3061-af4a-4638-92d9-f4e181e697fc",
+    "id": "ab13c70e-2dec-4d61-aa9e-b8edede4e09d",
     "nickName": "LGante",
     "password": "420"
-  },
-  [
-    {
-      "id": "6dd2d869-9c7d-4e96-8ecc-8fb6ff7e40b5",
-      "nickName": "ElDuko",
-      "password": "9821"
-    },
-    {
-      "id": "d53c3061-af4a-4638-92d9-f4e181e697fc",
-      "nickName": "LGante",
-      "password": "420"
-    }
-  ]
+  }
 ]

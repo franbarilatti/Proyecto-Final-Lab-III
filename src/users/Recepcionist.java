@@ -5,6 +5,7 @@ import Interface.Reserve;
 import enumn.Condition;
 import model.Reservation;
 import model.Room;
+import model.Ticket;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -60,7 +61,8 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         int roomNumber = scan.nextInt();
         Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
         Reservation reservation = new Reservation(pax, roomAux, checkIn, checkOut, cantDays);
-
+        Ticket ticket = new Ticket(pax.getName(),pax.getSurname(),roomAux.toString(),roomAux.getBedType().getPrice());
+        pax.getTickets().add(ticket);
         reservations.add(reservation);
     }
 

@@ -64,9 +64,13 @@ public class Hotel {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //------ Show Methods ------//
+    public void spaces() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
     public void showHistoryPax() throws Exception {
         if (paxes != null)
-            paxes.stream().forEach(System.out::println);
+            paxes.forEach(System.out::println);
         else
             throw new Exception("No hay pasajeros historicos en el sistema");
     }
@@ -90,9 +94,17 @@ public class Hotel {
 
     public void showAllReserves() throws Exception {
         if (reserves != null)
-            reserves.stream().forEach(System.out::println);
+            reserves.forEach(System.out::println);
         else
             throw new Exception("No hay reservas cargadas en el sistema");
+    }
+
+    public void showPaxReserve(Pax pax) {
+        System.out.println(reserves.stream().filter((Reservation r) -> r.getPax().equals(pax)).findFirst());
+    }
+
+    public void showPaxTickets(Pax pax) {
+        pax.getTickets().forEach(System.out::println);
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -127,19 +139,18 @@ public class Hotel {
 
     public void runHotel() throws ClassCastException {
         userRepository.throwList(userFile, users);
-       roomRepository.throwList(roomFile, rooms);
+        roomRepository.throwList(roomFile, rooms);
         paxRepository.throwList(paxFile, paxes);
         reserveRepository.throwList(reserveFile, reserves);
         System.out.println(this.getUsers().get(1));
         firstMenu();
     }
 
-    public void closeHotel() {
+    public void saveHotel() {
         userRepository.addList(userFile, this.users);
         roomRepository.addList(roomFile, this.rooms);
         reserveRepository.addList(reserveFile, this.reserves);
         paxRepository.addList(paxFile, this.paxes);
-
     }
 
     public void addNewReserve(Reservation newReserve) {
@@ -160,7 +171,7 @@ public class Hotel {
 
     public void logIn() {
         System.out.print("Ingrese su Nickname: ");
-        String name= scan.next();
+        String name = scan.next();
         User userAux = null;
         for (User user : users) {
             if (user.getNickName().equals(name)) {
@@ -223,6 +234,7 @@ public class Hotel {
     //------ Menu Methods ------//
 
     public void firstMenu() {
+        spaces();
         System.out.println("========== BIENVENIDO A NUESTRO HOTEL ==========");
         int back = 0;
         while (back == 0) {
@@ -235,15 +247,22 @@ public class Hotel {
             int opt = scan.nextInt();
             switch (opt) {
                 case 1 -> logIn();
-                case 2 -> register();
-                case 0 -> back++;
+                case 2 -> {
+                    register();
+                    saveHotel();
+                }
+                case 0 -> {
+                    back++;
+                    break;
+                }
                 default -> System.out.println("Opcion incorrecta");
             }
         }
-        closeHotel();
+        saveHotel();
     }
 
     public void paxMenu(Pax pax, User user) {
+        spaces();
         System.out.println("========== " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
         while (back == 0) {
@@ -257,7 +276,21 @@ public class Hotel {
             System.out.print("Ingrese una opción: ");
             int opt = scan.nextInt();
             switch (opt) {
-                case 2 -> roomServiceMenu(scan, pax);
+                case 1 -> {
+                    showPaxReserve(pax);
+                    break;
+                }
+                case 2 -> {
+                    roomServiceMenu(scan, pax);
+                    break;
+                }
+                case 3 -> {
+                    showPaxTickets(pax);
+                    break;
+                }
+                case 4 -> {
+                    break;
+                }
                 case 0 -> back++;
                 default -> System.out.println("Opcion incorrecta");
 
@@ -267,6 +300,7 @@ public class Hotel {
     }
 
     public void userMenues(User user) {
+        spaces();
         if (user instanceof Admin) {
             adminMenu((Admin) user);
         } else {
@@ -275,6 +309,7 @@ public class Hotel {
     }
 
     public void recepcionistMenu(Recepcionist recepcionist) {
+        spaces();
         int opt;
         int back = 0;
         System.out.println("Bienvenido, " + recepcionist.getNickName());
@@ -296,6 +331,7 @@ public class Hotel {
                 case 2:
                     break;
                 case 3:
+                    recepcionist.makeReserve(reserves, paxes, rooms, scan);
                     break;
                 case 4:
                     break;
@@ -320,13 +356,13 @@ public class Hotel {
     }
 
     public void adminMenu(Admin admin) {
+        spaces();
         int opt;
         int back = 0;
         System.out.println("Bienvenido, " + admin.getNickName());
         while (back == 0) {
             System.out.println(
                     """
-
                             [1]- Añadir nuevo usuario
                             [2]- Check in
                             [3]- Check out
@@ -365,9 +401,11 @@ public class Hotel {
     }
 
     public void roomServiceMenu(Scanner scan, Pax pax) {
+        spaces();
         int op;
         int exit = 0;
         double total = 0;
+        String detail = "";
         while (exit == 0) {
             System.out.println("Elija un producto, 0 para cancelar");
             for (MiniBar m : MiniBar.values()) {
@@ -375,18 +413,39 @@ public class Hotel {
             }
             op = scan.nextInt();
             switch (op) {
-                case 1 -> total += MiniBar.COCA_COLA.getPrice();
-                case 2 -> total += MiniBar.SPRITE.getPrice();
-                case 3 -> total += MiniBar.VINO_TINTO.getPrice();
-                case 4 -> total += MiniBar.VINO_BLANCO.getPrice();
-                case 5 -> total += MiniBar.PAPAS_LAYS.getPrice();
-                case 6 -> total += MiniBar.TABLETA_CHOCOLATE.getPrice();
-                case 7 -> total += MiniBar.BOLSA_MANI.getPrice();
+                case 1 -> {
+                    total += MiniBar.COCA_COLA.getPrice();
+                    detail = MiniBar.COCA_COLA.getProduct();
+                }
+                case 2 -> {
+                    total += MiniBar.SPRITE.getPrice();
+                    detail = MiniBar.SPRITE.getProduct();
+                }
+                case 3 -> {
+                    total += MiniBar.VINO_TINTO.getPrice();
+                    detail = MiniBar.VINO_TINTO.getProduct();
+                }
+                case 4 -> {
+                    total += MiniBar.VINO_BLANCO.getPrice();
+                    detail = MiniBar.VINO_BLANCO.getProduct();
+                }
+                case 5 -> {
+                    total += MiniBar.PAPAS_LAYS.getPrice();
+                    detail = MiniBar.PAPAS_LAYS.getProduct();
+                }
+                case 6 -> {
+                    total += MiniBar.TABLETA_CHOCOLATE.getPrice();
+                    detail = MiniBar.TABLETA_CHOCOLATE.getProduct();
+                }
+                case 7 -> {
+                    total += MiniBar.BOLSA_MANI.getPrice();
+                    detail = MiniBar.BOLSA_MANI.getProduct();
+                }
                 case 0 -> exit++;
                 default -> System.out.println("Opcion invalida, por favor elija una nueva");
             }
+            pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), detail, total));
         }
-        pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), total));
     }
 }
 

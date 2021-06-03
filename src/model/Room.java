@@ -31,6 +31,10 @@ public abstract class Room implements Serializable {
         this.tvType = tvType;
     }
 
+    public BedType getBedType() {
+        return bedType;
+    }
+
     public Condition getCondition() {
         return condition;
     }
