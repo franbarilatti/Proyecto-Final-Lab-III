@@ -62,11 +62,26 @@ public class Hotel {
     public void addHistoryPax(Pax pax) {
         paxes.add(pax);
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //------ Setters ------//
 
     public void setUsers(List<User> users) {
         this.users = users;
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public void setReserves(List<Reservation> reserves) {
+        this.reserves = reserves;
+    }
+
+    public void setPaxes(List<Pax> paxes) {
+        this.paxes = paxes;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //------ Show Methods ------//
     public void spaces() {
@@ -105,7 +120,7 @@ public class Hotel {
     }
 
     public void showPaxReserve(Pax pax) {
-        System.out.println(reserves.stream().filter((Reservation r) -> r.getPax().equals(pax)).findFirst());
+        System.out.println(reserves.stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).findFirst());
     }
 
     public void showPaxTickets(Pax pax) {
@@ -126,7 +141,7 @@ public class Hotel {
     public Reservation searchReserve(Pax pax, Room room) {
         return reserves.stream().
                 filter((Reservation r) -> r.getRoom().equals(room)).
-                filter(r -> r.getPax().equals(pax)).
+                filter(r -> r.getPaxDni().equals(pax.getDni())).
                 findFirst().
                 orElse(null);
     }
@@ -148,14 +163,16 @@ public class Hotel {
 //        Admin recepcionist3 = new Admin("LGante", "420");
 //        userList.add(recepcionist3);
 
-        this.setUsers(userRepository.throwList(userFile, Path.PAX.getPath()));
-        /*roomRepository.throwList(roomFile, rooms);
-        paxRepository.throwList(paxFile, paxes);
-        reserveRepository.throwList(reserveFile, reserves);
-        reserveRepository.throwList(reserveFile, reserves);*/
-        System.out.println(this.getUsers().get(0).getClass());
+        this.setUsers(userRepository.throwList(userFile, Path.USER.getPath()));
+        this.setRooms(roomRepository.throwList(roomFile, Path.ROOM.getPath()));
+        this.setPaxes(paxRepository.throwList(paxFile, Path.PAX.getPath()));
+        this.setReserves(reserveRepository.throwList(reserveFile,Path.RESERVATION.getPath()));
+        System.out.println(this.getRooms());
+        System.out.println(this.getUsers());
+        System.out.println(this.getPaxes());
+        System.out.println(this.getReserves());
         //System.out.println(this.getUsers().get(1));
-        logIn();
+      //  logIn();
 
     }
 

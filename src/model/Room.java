@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class Room implements Serializable {
+public class Room implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 7773573522139429469L;

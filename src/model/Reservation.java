@@ -2,34 +2,47 @@ package model;
 
 import users.Pax;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Reservation implements Serializable {
-    private Pax pax;
+    @Serial
+    private static final long serialVersionUID = 214941093807371581L;
+    private String paxName;
+    private String paxDni;
     private Room room;
     private int cantDays;
-    private LocalDate checkIn;
-    private LocalDate checkOut;
+    private  LocalDate checkIn;
+    private  LocalDate checkOut;
 
     public Reservation() {
 
     }
 
-    public Reservation(Pax pax, Room room, LocalDate checkIn, LocalDate checkOut, int cantDays) {
-        this.pax = pax;
+    public Reservation(String paxName, String paxDni, Room room, int cantDays, LocalDate checkIn, LocalDate checkOut) {
+        this.paxName = paxName;
+        this.paxDni = paxDni;
         this.room = room;
+        this.cantDays = cantDays;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        this.cantDays = cantDays;
     }
 
-    public Pax getPax() {
-        return pax;
+    public String getPaxName() {
+        return paxName;
     }
 
-    public void setPax(Pax pax) {
-        this.pax = pax;
+    public void setPaxName(String paxName) {
+        this.paxName = paxName;
+    }
+
+    public String getPaxDni() {
+        return paxDni;
+    }
+
+    public void setPaxDni(String paxDni) {
+        this.paxDni = paxDni;
     }
 
     public Room getRoom() {
@@ -67,7 +80,7 @@ public class Reservation implements Serializable {
     @Override
     public String toString() {
         return "\n-------------------------------\n" +
-                "Pasajero: " + pax.getName() + " " + pax.getSurname() +
+                "Pasajero: " + getPaxName() +
                 "\nHabitacion: " + room.getNumber() +
                 "\nFecha de ingreso: " + checkIn +
                 "\nFecha de retiro: " + checkOut +

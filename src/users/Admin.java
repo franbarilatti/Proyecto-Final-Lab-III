@@ -54,7 +54,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
-        Reservation reservation = new Reservation(pax, roomAux, checkIn, checkOut, cantDays);
+        Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
         reservations.add(reservation);
     }
 
@@ -98,14 +98,14 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         paxes.add(pax);
         System.out.print("Ingrese el numero de habitacion: ");
         int roomNumber = scanner.nextInt();
-        Room room = rooms.stream().filter((Room r)-> ((Integer) r.getNumber()).equals(roomNumber)).findFirst().orElse(null);
+        Room room = rooms.stream().filter((Room r) -> ((Integer) r.getNumber()).equals(roomNumber)).findFirst().orElse(null);
         Reservation auxReserve = searchReserve(pax, room, reservations);
-        if(auxReserve != null){
+        if (auxReserve != null) {
             pax.setIngress(true);
             paxes.add(pax);
             eliminateReserve(reservations, auxReserve);
             room.setCondition(Condition.OCUPPED);
-        }else {
+        } else {
             pax.setIngress(true);
             paxes.add(pax);
             room.setCondition(Condition.OCUPPED);
@@ -118,12 +118,11 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         System.out.print("Ingrese el dni del pasajero: ");
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(scanner.next())).findFirst().orElse(null);
         System.out.print("Ingrese el numero de habitacion: ");
-        Room room = searchRoomByNumber(rooms,scanner.nextInt());
-        if(pax == null){
+        Room room = searchRoomByNumber(rooms, scanner.nextInt());
+        if (pax == null) {
             System.out.println("El dni ingresado no esta registrado en el sistema.");
-        }
-        else {
-            if ((pax.getTickets().stream().mapToDouble((Ticket t)->t.getTotal()).sum()) == 0){
+        } else {
+            if ((pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum()) == 0) {
                 pax.setIngress(false);
                 room.setCondition(Condition.UNCLEAN_AVAILABLE);
                 return true;
@@ -174,7 +173,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     public Reservation searchReserve(Pax pax, Room room, List<Reservation> reserves) {
         return reserves.stream().
                 filter((Reservation r) -> r.getRoom().equals(room)).
-                filter(r -> r.getPax().equals(pax)).
+                filter(r -> r.getPaxDni().equals(pax.getDni())).
                 findFirst().
                 orElse(null);
 

@@ -3,16 +3,15 @@ package repositories;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import mappers.Mapper;
 import model.Reservation;
 import model.Room;
-import users.Admin;
+
 import users.Pax;
 import users.User;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,9 +19,6 @@ import java.util.List;
 
 
 public class RepositoryController<T> extends LocalDateAdapter {
-
-    List<T> data = new ArrayList<>();
-    T myClass;
 
     public void createFile(String fileName) {
         File file = new File(fileName);
@@ -51,31 +47,52 @@ public class RepositoryController<T> extends LocalDateAdapter {
     }
 
 
-    public List<T> throwList(String fileName,String filePath) throws FileNotFoundException {
+    public List<T> throwList(String fileName, String filePath) throws FileNotFoundException {
 
-        List<User> usersData = new ArrayList<>();
-        List<Reservation> reservationsData = new ArrayList<>();
-        List<Pax> paxesData = new ArrayList<>();
-        List<Room> roomsData = new ArrayList<>();
-        StringBuilder json = new StringBuilder();
+        List<User> usersData;
+        List<Reservation> reservationsData;
+        List<Pax> paxesData;
+        List<Room> roomsData;
+        List<T> returnList = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(fileName));
-            String line;
-            Gson gson = new Gson();
-            Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));
-            usersData = new Gson().fromJson(reader, new TypeToken<List<User>>(){}.getType());
+            Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateDeserializer()).create();
 
-           // System.out.println(usersData.get(1));
-            /*Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));*/
-
-            reader.close();
-
+            switch (fileName) {
+                case "userFile.json" -> {
+                    Reader reader = Files.newBufferedReader(Paths.get(filePath));
+                    usersData = gson.fromJson(reader, new TypeToken<List<User>>() {
+                    }.getType());
+                    reader.close();
+                    returnList= (List<T>) usersData;
+                }
+                case "roomFile.json" -> {
+                    Reader reader1 = Files.newBufferedReader(Paths.get(filePath));
+                    roomsData = gson.fromJson(reader1, new TypeToken<List<Room>>() {
+                    }.getType());
+                    reader1.close();
+                    returnList= (List<T>) roomsData;
+                }
+                case "reserveFile.json" -> {
+                    BufferedReader reader2 = new BufferedReader(new FileReader(fileName));
+                    reservationsData = gson.fromJson(reader2, new TypeToken<List<Reservation>>(){}.getType());
+                    reader2.close();
+                    returnList = (List<T>) reservationsData;
+                }
+                case "paxFile.json" -> {
+                    Reader reader3 = Files.newBufferedReader(Paths.get(filePath));
+                    paxesData = gson.fromJson(reader3, new TypeToken<List<Pax>>() {
+                    }.getType());
+                    reader3.close();
+                    returnList = (List<T>) paxesData;
+                }
+                default -> {return null;}
+            }
         } catch (FileNotFoundException e) {
             e.getCause();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return (List<T>) usersData;
+        return returnList;
     }
 
     /*public  void showRepository(String fileName){

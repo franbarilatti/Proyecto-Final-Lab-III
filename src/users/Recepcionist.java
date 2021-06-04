@@ -60,7 +60,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
-        Reservation reservation = new Reservation(pax, roomAux, checkIn, checkOut, cantDays);
+        Reservation reservation = new Reservation(pax.getName(),pax.getDni(),roomAux,cantDays,checkIn,checkOut);
         assert roomAux != null;
         Ticket ticket = new Ticket(pax.getName(),pax.getSurname(),roomAux.toString(),roomAux.getBedType().getPrice());
         pax.getTickets().add(ticket);
@@ -163,7 +163,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
     public Reservation searchReserve(Pax pax, Room room, List<Reservation> reserves) {
         return reserves.stream().
                 filter((Reservation r) -> r.getRoom().equals(room)).
-                filter(r -> r.getPax().equals(pax)).
+                filter(r -> r.getPaxDni().equals(pax.getDni())).
                 findFirst().
                 orElse(null);
 

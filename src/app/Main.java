@@ -21,8 +21,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Hotel hotel = new Hotel();
-        Scanner scan = new Scanner(System.in);
-        User recepcionist1 = new User("LGante", "420", "Administrador");
+       /* User recepcionist1 = new Admin("LGante", "420", "Administrador");
         User recepcionist2 = new Recepcionist("ElDuko", "9821", "Recepcionista");
         hotel.getRooms().add(new Superior(101, BedType.MATRIMONIAL, Condition.AVAILABLE, TvType.TV_LED_42));
         hotel.getRooms().add(new Standar(102, BedType.DOBLE_TWIN, Condition.AVAILABLE, TvType.TV_LED_32));
@@ -38,14 +37,13 @@ public class Main {
         hotel.getPaxes().add(new Pax("Rodolfo", "", "", "554565", ""));
         hotel.getPaxes().add(new Pax("Otto", "", "", "778754", ""));
         hotel.getPaxes().add(new Pax("Pololo", "", "", "212446", ""));
-        Reservation reservation1 = new Reservation(hotel.getPaxes().get(0), hotel.getRooms().get(0), LocalDate.now(), LocalDate.now().plusDays(5), 5);
-        Reservation reservation2 = new Reservation(hotel.getPaxes().get(1), hotel.getRooms().get(1), LocalDate.now(), LocalDate.now().plusDays(5), 5);
-        Reservation reservation3 = new Reservation(hotel.getPaxes().get(2), hotel.getRooms().get(2), LocalDate.now(), LocalDate.now().plusDays(5), 5);
+        Reservation reservation1 = new Reservation(hotel.getPaxes().get(0).getName(),hotel.getPaxes().get(0).getDni(), hotel.getRooms().get(0),5, LocalDate.now(), LocalDate.now().plusDays(5));
+        Reservation reservation2 = new Reservation(hotel.getPaxes().get(1).getName(),hotel.getPaxes().get(1).getDni(), hotel.getRooms().get(1),5, LocalDate.now().plusDays(25), LocalDate.now().plusDays(5));
+        Reservation reservation3 = new Reservation(hotel.getPaxes().get(2).getName(),hotel.getPaxes().get(2).getDni(), hotel.getRooms().get(2),5, LocalDate.now(), LocalDate.now().plusDays(10).plusDays(5));
         hotel.getReserves().add(reservation1);
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
-        System.out.println(hotel.getUsers().get(0).getClass());
-        //hotel.saveHotel();
+        hotel.saveHotel();*/
         hotel.runHotel();
 
     }

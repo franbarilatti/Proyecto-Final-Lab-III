@@ -1,14 +1,14 @@
 [
   {
-    "id": "b59031a6-5964-4b69-a684-bb68ebd6d94c",
-    "nickName": "ElDuko",
-    "password": "9821",
-    "jobTitle": "Recepcionista"
-  },
-  {
-    "id": "63732daa-4e17-4005-a4ae-286892a23793",
+    "id": "8e046dc9-4492-4111-857f-c790bb190c4c",
     "nickName": "LGante",
     "password": "420",
     "jobTitle": "Administrador"
+  },
+  {
+    "id": "788361aa-2db1-4c90-9d96-6b18a89787dc",
+    "nickName": "ElDuko",
+    "password": "9821",
+    "jobTitle": "Recepcionista"
   }
 ]

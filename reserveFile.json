@@ -1,14 +1,7 @@
 [
   {
-    "pax": {
-      "name": "Pocho",
-      "surname": "",
-      "address": "",
-      "dni": "123232",
-      "nationality": "",
-      "ingress": false,
-      "tickets": []
-    },
+    "paxName": "Pocho",
+    "paxDni": "123232",
     "room": {
       "extraPrice": 1000.0,
       "number": 101,
@@ -21,15 +14,8 @@
     "checkOut": "2021-06-09"
   },
   {
-    "pax": {
-      "name": "Toto",
-      "surname": "",
-      "address": "",
-      "dni": "655475",
-      "nationality": "",
-      "ingress": false,
-      "tickets": []
-    },
+    "paxName": "Toto",
+    "paxDni": "655475",
     "room": {
       "number": 102,
       "bedType": "DOBLE_TWIN",
@@ -37,19 +23,12 @@
       "tvType": "TV_LED_32"
     },
     "cantDays": 5,
-    "checkIn": "2021-06-04",
+    "checkIn": "2021-06-29",
     "checkOut": "2021-06-09"
   },
   {
-    "pax": {
-      "name": "Cholo",
-      "surname": "",
-      "address": "",
-      "dni": "998878",
-      "nationality": "",
-      "ingress": false,
-      "tickets": []
-    },
+    "paxName": "Cholo",
+    "paxDni": "998878",
     "room": {
       "extraPrice": 1000.0,
       "number": 103,
@@ -59,6 +38,6 @@
     },
     "cantDays": 5,
     "checkIn": "2021-06-04",
-    "checkOut": "2021-06-09"
+    "checkOut": "2021-06-19"
   }
 ]
