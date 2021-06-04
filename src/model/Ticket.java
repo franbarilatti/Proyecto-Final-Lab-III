@@ -24,6 +24,31 @@ public class Ticket implements Serializable {
         this.total = total;
     }
 
+
+    public String getPaxName() {
+        return paxName;
+    }
+
+    public void setPaxName(String paxName) {
+        this.paxName = paxName;
+    }
+
+    public String getPaxSurname() {
+        return paxSurname;
+    }
+
+    public void setPaxSurname(String paxSurname) {
+        this.paxSurname = paxSurname;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public double getTotal() {
         return total;
     }
@@ -34,7 +59,8 @@ public class Ticket implements Serializable {
 
     @Override
     public String toString() {
-        return "Detalle: " + description +
+        return "Nombre: " + this.getPaxName() + " " + this.getPaxSurname() +
+                "\nDetalle: " + this.getDescription() +
                 "\nImporte=" + total;
     }
 }

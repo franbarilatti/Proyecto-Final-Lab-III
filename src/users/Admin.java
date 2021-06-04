@@ -54,11 +54,11 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
-        if(roomAux!=null){
+        if (roomAux != null) {
             roomAux.setCondition(Condition.RESERVED);
             Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
             reservations.add(reservation);
-        }else {
+        } else {
             System.out.println("Habitacion no encontrada");
         }
 
@@ -100,21 +100,23 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         if (pax == null) {
             System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
             pax = newPax();
+            paxes.add(pax);
         }
-        paxes.add(pax);
         System.out.print("Ingrese el numero de habitacion: ");
         int roomNumber = scanner.nextInt();
         Room room = rooms.stream().filter((Room r) -> ((Integer) r.getNumber()).equals(roomNumber)).findFirst().orElse(null);
-        Reservation auxReserve = searchReserve(pax, room, reservations);
-        if (auxReserve != null) {
-            pax.setIngress(true);
-            paxes.add(pax);
-            eliminateReserve(reservations, auxReserve);
-            room.setCondition(Condition.OCUPPED);
-        } else {
-            pax.setIngress(true);
-            paxes.add(pax);
-            room.setCondition(Condition.OCUPPED);
+        if (room != null) {
+            Reservation auxReserve = searchReserve(pax, room, reservations);
+            if (auxReserve != null) {
+                pax.setIngress(true);
+                paxes.add(pax);
+                eliminateReserve(reservations, auxReserve);
+                room.setCondition(Condition.OCUPPED);
+            } else {
+                pax.setIngress(true);
+                paxes.add(pax);
+                room.setCondition(Condition.OCUPPED);
+            }
         }
     }
 
@@ -159,7 +161,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         System.out.println("Elija un numero de habitacion");
         Room room = this.searchRoomByNumber(rooms, scan.nextInt());
         if (room != null) {
-            System.out.println(room.toString());
+            System.out.println(room);
             System.out.println("Elija el nuevo estado de la habitacion");
             for (Condition condition : Condition.values()) {
                 System.out.println(condition.ordinal() + 1 + "- " + condition.name());

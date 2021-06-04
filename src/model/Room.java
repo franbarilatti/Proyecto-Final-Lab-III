@@ -59,7 +59,7 @@ public class Room implements Serializable {
                 }
             }
         }
-        return bool || (this.condition != Condition.AVAILABLE && this.condition != Condition.UNCLEAN_AVAILABLE);
+        return bool || (this.getCondition() != Condition.AVAILABLE && this.getCondition() != Condition.UNCLEAN_AVAILABLE);
     }
 
 

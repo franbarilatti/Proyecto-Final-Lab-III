@@ -401,6 +401,7 @@ public class Hotel {
                             [5]- Reservas
                             [6]- Habitaciones
                             [7]- Buscar Pasajero
+                            [8]- Cambiar estado de habitacion
                             [0]- Log out""");
             System.out.print("\n\nIngrese el numero de la opcion a la que quiere entrar: ");
             opt = scan.nextInt();
@@ -432,6 +433,9 @@ public class Hotel {
                     String dni = scan.next();
                     Pax srchPax = searchHistoryPax(dni);
                     paxMenu(srchPax, admin);
+                    break;
+                case 8:
+                    admin.changeRoomState(this.getRooms(),scan);
                     break;
                 case 0:
                     back++;

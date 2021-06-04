@@ -81,4 +81,5 @@ public  class User implements Serializable {
                 "\nNickName='" + nickName;
     }
 
+
 }
