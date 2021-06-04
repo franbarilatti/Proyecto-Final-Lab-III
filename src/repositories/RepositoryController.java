@@ -6,7 +6,10 @@ import com.google.gson.reflect.TypeToken;
 import mappers.Mapper;
 import model.Reservation;
 import model.Room;
+<<<<<<< HEAD
 import users.Admin;
+=======
+>>>>>>> 2a5d3f4aaf61a9b51bcbb93facd6785d41d9fe98
 import users.Pax;
 import users.User;
 
@@ -63,10 +66,24 @@ public class RepositoryController<T> extends LocalDateAdapter {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             Gson gson = new Gson();
+<<<<<<< HEAD
             Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));
             usersData = new Gson().fromJson(reader, new TypeToken<List<User>>(){}.getType());
 
            // System.out.println(usersData.get(1));
+=======
+            /*Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));*/
+            Reader reader = Files.newBufferedReader(Paths.get(fileName));
+            if(fileName.equals("userFile.json")) {
+                List<User> users = new Gson().fromJson(reader, new TypeToken<List<User>>() {}.getType());
+            }else if(fileName.equals("paxFile.json")){
+                List<Pax> paxes = new Gson().fromJson(reader, new TypeToken<List<Pax>>() {}.getType());
+            }else if(fileName.equals("roomFile.json")){
+                List<Room> rooms = new Gson().fromJson(reader, new TypeToken<List<Room>>() {}.getType());
+            }else if(fileName.equals("reserveFile.json")){
+                List<Reservation> reserves = new Gson().fromJson(reader, new TypeToken<List<Reservation>>() {}.getType());
+            }
+>>>>>>> 2a5d3f4aaf61a9b51bcbb93facd6785d41d9fe98
             reader.close();
 
         } catch (FileNotFoundException e) {
@@ -74,7 +91,11 @@ public class RepositoryController<T> extends LocalDateAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+<<<<<<< HEAD
         return (List<T>) usersData;
+=======
+        return list;
+>>>>>>> 2a5d3f4aaf61a9b51bcbb93facd6785d41d9fe98
     }
 
     /*public  void showRepository(String fileName){
