@@ -11,14 +11,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class User implements Serializable {
+public  class User implements Serializable {
 
     //------ Attributes ------//
     @Serial
     private static final long serialVersionUID = 6124898757881206654L;
-    protected UUID id;
-    protected String nickName;
-    protected String password;
+    private final UUID id;
+    private String nickName;
+    private String password;
+    private String jobTitle;
 
 
     //------ Constructors ------//
@@ -26,13 +27,13 @@ public class User implements Serializable {
         id = UUID.randomUUID();
         nickName = "";
         password = "";
-
     }
 
-    public User(String nickName, String password) {
+    public User(String nickName, String password, String jobTitle) {
         id = UUID.randomUUID();
         this.nickName = nickName;
         this.password = password;
+        this.jobTitle = jobTitle;
     }
 
     //------ Getters ------//
@@ -46,6 +47,10 @@ public class User implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
     }
 
     //------ Setters ------//

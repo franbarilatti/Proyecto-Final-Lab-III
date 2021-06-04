@@ -11,22 +11,25 @@ import repositories.RepositoryController;
 import users.Admin;
 import users.Pax;
 import users.Recepcionist;
+import users.User;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws FileNotFoundException {
         Hotel hotel = new Hotel();
-       /*Scanner scan = new Scanner(System.in);
-        Recepcionist recepcionist2 = new Recepcionist("ElDuko", "9821");
+        Scanner scan = new Scanner(System.in);
+        User recepcionist1 = new User("LGante", "420", "Administrador");
+        User recepcionist2 = new Recepcionist("ElDuko", "9821", "Recepcionista");
         hotel.getRooms().add(new Superior(101, BedType.MATRIMONIAL, Condition.AVAILABLE, TvType.TV_LED_42));
         hotel.getRooms().add(new Standar(102, BedType.DOBLE_TWIN, Condition.AVAILABLE, TvType.TV_LED_32));
         hotel.getRooms().add(new Superior(103, BedType.CUADRUPLE, Condition.MAINTENANCE, TvType.TV_LED_42));
         hotel.getRooms().add(new Superior(104, BedType.MATRIMONIAL, Condition.UNCLEAN_OCUPPED, TvType.TV_LED_42));
+        hotel.getUsers().add(recepcionist1);
         hotel.getUsers().add(recepcionist2);
-        hotel.getUsers().add(recepcionist3);
         hotel.getPaxes().add(new Pax("Pocho", "", "", "123232", ""));
         hotel.getPaxes().add(new Pax("Toto", "", "", "655475", ""));
         hotel.getPaxes().add(new Pax("Cholo", "", "", "998878", ""));
@@ -41,8 +44,8 @@ public class Main {
         hotel.getReserves().add(reservation1);
         hotel.getReserves().add(reservation2);
         hotel.getReserves().add(reservation3);
-        hotel.saveHotel();
-        hotel.saveHotel();*/
+        System.out.println(hotel.getUsers().get(0).getClass());
+        //hotel.saveHotel();
         hotel.runHotel();
 
     }

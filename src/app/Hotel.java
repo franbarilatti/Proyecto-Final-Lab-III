@@ -1,6 +1,7 @@
 package app;
 
 import enumn.MiniBar;
+import enumn.Path;
 import model.Reservation;
 import model.Room;
 import model.Ticket;
@@ -147,14 +148,14 @@ public class Hotel {
 //        Admin recepcionist3 = new Admin("LGante", "420");
 //        userList.add(recepcionist3);
 
-        this.setUsers(userRepository.throwList(userFile,this.getUsers()));
+        this.setUsers(userRepository.throwList(userFile, Path.PAX.getPath()));
         /*roomRepository.throwList(roomFile, rooms);
         paxRepository.throwList(paxFile, paxes);
         reserveRepository.throwList(reserveFile, reserves);
         reserveRepository.throwList(reserveFile, reserves);*/
-        //System.out.println( this.getUsers().get(0).getClass());
+        System.out.println(this.getUsers().get(0).getClass());
         //System.out.println(this.getUsers().get(1));
-//        logIn();
+        logIn();
 
     }
 
@@ -244,7 +245,6 @@ public class Hotel {
     //------ Menu Methods ------//
 
     public void firstMenu() {
-        spaces();
         System.out.println("========== BIENVENIDO A NUESTRO HOTEL ==========");
         int back = 0;
         while (back == 0) {
@@ -261,10 +261,7 @@ public class Hotel {
                     registerMenu();
                     saveHotel();
                 }
-                case 0 -> {
-                    back++;
-                    break;
-                }
+                case 0 -> back++;
                 default -> System.out.println("Opcion incorrecta");
             }
         }
@@ -298,16 +295,16 @@ public class Hotel {
     }
 
     public void userMenues(User user) {
-        spaces();
-        if (user instanceof Admin) {
-            adminMenu((Admin) user);
+
+        if (user.getJobTitle().equals("Administrador")) {
+            adminMenu(user);
         } else {
-            recepcionistMenu((Recepcionist) user);
+            recepcionistMenu(user);
         }
     }
 
-    public void recepcionistMenu(Recepcionist recepcionist) {
-        spaces();
+    public void recepcionistMenu(User user) {
+        Recepcionist recepcionist = new Recepcionist(user.getNickName(), user.getPassword(), user.getJobTitle());
         int opt;
         int back = 0;
         System.out.println("Bienvenido, " + recepcionist.getNickName());
@@ -359,8 +356,8 @@ public class Hotel {
         firstMenu();
     }
 
-    public void adminMenu(Admin admin) {
-        spaces();
+    public void adminMenu(User user) {
+        Admin admin = new Admin(user.getNickName(), user.getPassword(), user.getJobTitle());
         int opt;
         int back = 0;
         System.out.println("Bienvenido, " + admin.getNickName());

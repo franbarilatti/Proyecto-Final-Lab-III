@@ -4,6 +4,10 @@ package repositories;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import mappers.Mapper;
+import model.Reservation;
+import model.Room;
+import users.Admin;
+import users.Pax;
 import users.User;
 
 import java.io.*;
@@ -48,40 +52,29 @@ public class RepositoryController<T> extends LocalDateAdapter {
     }
 
 
-    public List<T> throwList(String fileName, List<T> list) throws FileNotFoundException {
+    public List<T> throwList(String fileName,String filePath) throws FileNotFoundException {
 
-       /*File file = new File(fileName);
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        Gson gson = new Gson();
-        data =  gson.fromJson(bufferedReader, (Type) myClass.getClass());
-       // System.out.println(list);
-        return data;*/
+        List<User> usersData = new ArrayList<>();
+        List<Reservation> reservationsData = new ArrayList<>();
+        List<Pax> paxesData = new ArrayList<>();
+        List<Room> roomsData = new ArrayList<>();
         StringBuilder json = new StringBuilder();
         try {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));
-            List<User> users = new Gson().fromJson(reader,new TypeToken<List<User>>(){}.getType());
-            users.forEach(System.out::println);
-            System.out.println(users.get(1).getClass());
+            usersData = new Gson().fromJson(reader, new TypeToken<List<User>>(){}.getType());
+
+           // System.out.println(usersData.get(1));
             reader.close();
-           /* while ((line = br.readLine()) != null) {
-                json.append(line);
-            }
-            JsonArray arry = new JsonParser().parse(json.toString()).getAsJsonArray();
-            for (JsonElement jsonElement : arry)
-                list.add(gson.fromJson(json.toString(), new TypeToken<List<T>>() {
-                }.getType()));*/
 
         } catch (FileNotFoundException e) {
             e.getCause();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        return list;
+        return (List<T>) usersData;
     }
 
     /*public  void showRepository(String fileName){

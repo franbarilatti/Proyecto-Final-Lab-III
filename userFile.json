@@ -1,12 +1,14 @@
 [
   {
-    "id": "778c996c-eeef-40bd-9e52-08079a21c4ac",
+    "id": "b59031a6-5964-4b69-a684-bb68ebd6d94c",
     "nickName": "ElDuko",
-    "password": "9821"
+    "password": "9821",
+    "jobTitle": "Recepcionista"
   },
   {
-    "id": "00df100e-0e92-407a-bab4-20907455b250",
+    "id": "63732daa-4e17-4005-a4ae-286892a23793",
     "nickName": "LGante",
-    "password": "420"
+    "password": "420",
+    "jobTitle": "Administrador"
   }
 ]

@@ -24,8 +24,8 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     public Admin() {
     }
 
-    public Admin(String nickName, String password) {
-        super(nickName, password);
+    public Admin(String nickName, String password, String jobTitle) {
+        super(nickName, password, jobTitle);
     }
 
     //------ Methods ------//

@@ -24,15 +24,15 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
 
     }
 
-    public Recepcionist(String nickName, String password) {
-        super(nickName, password);
+    public Recepcionist(String nickName, String password, String jobTitle) {
+        super(nickName, password, jobTitle);
     }
 
     //------ Methods ------//
 
     @Override
     public String toString() {
-        return "Recepcionist: " + nickName;
+        return "Recepcionist: " + this.getNickName();
     }
 
 
