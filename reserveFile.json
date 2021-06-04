@@ -9,8 +9,8 @@
       "tvType": "TV_LED_42"
     },
     "cantDays": 5,
-    "checkIn": "2021-06-04",
-    "checkOut": "2021-06-09"
+    "checkIn": "04-06-2021",
+    "checkOut": "09-06-2021"
   },
   {
     "paxName": "Toto",
@@ -22,8 +22,8 @@
       "tvType": "TV_LED_32"
     },
     "cantDays": 5,
-    "checkIn": "2021-06-29",
-    "checkOut": "2021-06-09"
+    "checkIn": "29-06-2021",
+    "checkOut": "09-06-2021"
   },
   {
     "paxName": "Cholo",
@@ -35,7 +35,7 @@
       "tvType": "TV_LED_42"
     },
     "cantDays": 5,
-    "checkIn": "2021-06-04",
-    "checkOut": "2021-06-19"
+    "checkIn": "04-06-2021",
+    "checkOut": "19-06-2021"
   }
 ]
