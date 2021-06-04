@@ -1,7 +1,6 @@
 package app;
 
 import enumn.MiniBar;
-import enumn.Path;
 import model.Reservation;
 import model.Room;
 import model.Ticket;
@@ -177,10 +176,10 @@ public class Hotel {
 //        Admin recepcionist3 = new Admin("LGante", "420");
 //        userList.add(recepcionist3);
 
-        this.setUsers(userRepository.throwList(userFile, userFile));
-        this.setRooms(roomRepository.throwList(roomFile, roomFile));
-        this.setPaxes(paxRepository.throwList(paxFile, paxFile));
-        this.setReserves(reserveRepository.throwList(reserveFile,reserveFile));
+        this.setUsers(userRepository.throwList(userFile));
+        this.setRooms(roomRepository.throwList(roomFile));
+        this.setPaxes(paxRepository.throwList(paxFile));
+        this.setReserves(reserveRepository.throwList(reserveFile));
         System.out.println(this.getRooms().get(0).getClass());
         System.out.println(this.getUsers().get(1).getClass());
         System.out.println(this.getPaxes().get(3).getClass());

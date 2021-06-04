@@ -53,7 +53,7 @@ public class RepositoryController<T> extends LocalDateAdapter {
     }
 
 
-    public List<T> throwList(String fileName, String filePath) throws FileNotFoundException {
+    public List<T> throwList(String fileName) throws FileNotFoundException {
 
         List<User> usersData;
         List<Reservation> reservationsData;
