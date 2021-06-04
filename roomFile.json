@@ -9,18 +9,18 @@
     "number": 102,
     "bedType": "DOBLE_TWIN",
     "condition": "AVAILABLE",
-    "tvType": "TV_LED_32"
+    "tvType": "TV_TUBO"
   },
   {
     "number": 103,
     "bedType": "CUADRUPLE",
-    "condition": "MAINTENANCE",
-    "tvType": "TV_LED_42"
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO"
   },
   {
     "number": 104,
     "bedType": "MATRIMONIAL",
-    "condition": "UNCLEAN_OCUPPED",
+    "condition": "AVAILABLE",
     "tvType": "TV_LED_42"
   }
 ]

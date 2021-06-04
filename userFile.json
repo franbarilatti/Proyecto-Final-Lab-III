@@ -1,35 +1,26 @@
 [
   {
-    "id": "b76f6e78-2ac7-40d5-888f-3e994abf9484",
-    "nickName": "LGante",
-    "password": "420",
+    "id": "ff37a382-a7b1-4722-8f42-4085b64fd6ac",
+    "nickName": "L-Gante",
+    "password": "Keloke",
     "jobTitle": "Administrador"
   },
   {
-    "id": "06b87ef6-6896-4e12-8477-8e6be9fd4381",
+    "id": "947b525a-eee7-457a-bc4b-2e346e9b1518",
     "nickName": "ElDuko",
     "password": "9821",
     "jobTitle": "Recepcionista"
   },
   {
-    "id": "82c8eb8d-6054-425f-987a-24946404e0ac",
-    "nickName": "cacho",
-    "password": "123"
-  },
-  {
-    "id": "9718d3a4-9c9b-4b9c-a1d7-678a79b7929e",
-    "nickName": "pepo",
-    "password": "1234"
-  },
-  {
-    "id": "f421b29f-56a6-4e07-b418-d60fdcf4ee81",
-    "nickName": "Khea",
-    "password": "123"
-  },
-  {
-    "id": "f251f59e-4175-4d43-b1e0-2c998bf8a2e3",
-    "nickName": "Wosito",
-    "password": "2020",
+    "id": "7bebfaa2-bddd-4c24-b350-142fb32eb891",
+    "nickName": "ELDoctor",
+    "password": "LaMasPiola",
     "jobTitle": "Administrador"
+  },
+  {
+    "id": "b1f3f194-3c97-4e58-ba49-78fb091c1d49",
+    "nickName": "Dillom",
+    "password": "247",
+    "jobTitle": "Recepcionista"
   }
 ]

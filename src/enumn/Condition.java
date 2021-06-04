@@ -2,7 +2,7 @@ package enumn;
 
 public enum Condition {
     AVAILABLE("Disponible"), OCUPPED("Ocupada"), MAINTENANCE("En Mantenimiento"), UNCLEAN_AVAILABLE("Sucia Disponible"),
-    UNCLEAN_OCUPPED("Sucia Ocupada");
+    UNCLEAN_OCUPPED("Sucia Ocupada"), RESERVED("Reservada");
     private String state;
 
     Condition(String status) {

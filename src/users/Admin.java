@@ -54,8 +54,14 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
-        Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
-        reservations.add(reservation);
+        if(roomAux!=null){
+            roomAux.setCondition(Condition.RESERVED);
+            Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
+            reservations.add(reservation);
+        }else {
+            System.out.println("Habitacion no encontrada");
+        }
+
     }
 
 

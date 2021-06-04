@@ -180,11 +180,7 @@ public class Hotel {
         this.setRooms(roomRepository.throwList(roomFile));
         this.setPaxes(paxRepository.throwList(paxFile));
         this.setReserves(reserveRepository.throwList(reserveFile));
-        System.out.println(this.getRooms().get(0).getClass());
-        System.out.println(this.getUsers().get(1).getClass());
-        System.out.println(this.getPaxes().get(3).getClass());
-        System.out.println(this.getReserves().get(1).getClass());
-        //System.out.println(this.getUsers().get(1));
+        System.out.println(this.getUsers().get(2).toString());
         firstMenu();
 
     }

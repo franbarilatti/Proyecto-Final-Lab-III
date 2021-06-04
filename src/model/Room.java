@@ -55,7 +55,6 @@ public class Room implements Serializable {
             for (LocalDate localDate : ocuppedDays) {
                 if ((reservation.getCheckIn().equals(localDate) || reservation.getCheckOut().equals(localDate)) && (reservation.getRoom().getNumber() == this.number)) {
                     bool = true;
-                    this.condition = Condition.OCUPPED;
                     break;
                 }
             }
