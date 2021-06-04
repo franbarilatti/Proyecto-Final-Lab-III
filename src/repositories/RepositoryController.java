@@ -4,6 +4,9 @@ package repositories;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import mappers.Mapper;
+import model.Reservation;
+import model.Room;
+import users.Pax;
 import users.User;
 
 import java.io.*;
@@ -61,10 +64,17 @@ public class RepositoryController<T> extends LocalDateAdapter {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             String line;
             Gson gson = new Gson();
-            Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));
-            List<User> users = new Gson().fromJson(reader,new TypeToken<List<User>>(){}.getType());
-            users.forEach(System.out::println);
-            System.out.println(users.get(1).getClass());
+            /*Reader reader = Files.newBufferedReader(Paths.get("C:\\FACU\\3 Cuatrimestre\\Labo III\\Proyecto-Final-Lab-III\\userFile.json"));*/
+            Reader reader = Files.newBufferedReader(Paths.get(fileName));
+            if(fileName.equals("userFile.json")) {
+                List<User> users = new Gson().fromJson(reader, new TypeToken<List<User>>() {}.getType());
+            }else if(fileName.equals("paxFile.json")){
+                List<Pax> paxes = new Gson().fromJson(reader, new TypeToken<List<Pax>>() {}.getType());
+            }else if(fileName.equals("roomFile.json")){
+                List<Room> rooms = new Gson().fromJson(reader, new TypeToken<List<Room>>() {}.getType());
+            }else if(fileName.equals("reserveFile.json")){
+                List<Reservation> reserves = new Gson().fromJson(reader, new TypeToken<List<Reservation>>() {}.getType());
+            }
             reader.close();
            /* while ((line = br.readLine()) != null) {
                 json.append(line);
@@ -79,8 +89,6 @@ public class RepositoryController<T> extends LocalDateAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return list;
     }
 
