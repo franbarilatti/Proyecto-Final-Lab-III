@@ -37,13 +37,19 @@ public class RepositoryController<T> extends LocalDateAdapter {
 
     public void addList(String fileName, List<T> tList) {
         String json = serialize(tList);
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-            bw.write(json);
-            bw.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        File file = new File(fileName);
+        if (file.delete()){
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+                bw.write(json);
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println("El archivo no fue eliminado");
         }
+
     }
 
 
