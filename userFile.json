@@ -25,5 +25,11 @@
     "id": "f421b29f-56a6-4e07-b418-d60fdcf4ee81",
     "nickName": "Khea",
     "password": "123"
+  },
+  {
+    "id": "f251f59e-4175-4d43-b1e0-2c998bf8a2e3",
+    "nickName": "Wosito",
+    "password": "2020",
+    "jobTitle": "Administrador"
   }
 ]

@@ -65,10 +65,12 @@ public class Room implements Serializable {
 
 
     public String toString() {
-        return "Numero de habitacion: " + number +
-                "Tipo de cama " + bedType.getDescription() +
-                "Tipo de Tv" + tvType.getDescription() +
-                "Estado: " + condition.getState();
+        return "-------------------------------------------"+
+                "Numero de habitacion: " + number +
+                "\nTipo de cama " + bedType.getDescription() +
+                "\nTipo de Tv" + tvType.getDescription() +
+                "\nEstado: " + condition.getState()+
+                "--------------------------------------------";
     }
 
 
