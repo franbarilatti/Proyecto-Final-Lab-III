@@ -3,7 +3,6 @@
     "paxName": "Pocho",
     "paxDni": "123232",
     "room": {
-      "extraPrice": 1000.0,
       "number": 101,
       "bedType": "MATRIMONIAL",
       "condition": "AVAILABLE",
@@ -30,7 +29,6 @@
     "paxName": "Cholo",
     "paxDni": "998878",
     "room": {
-      "extraPrice": 1000.0,
       "number": 103,
       "bedType": "CUADRUPLE",
       "condition": "MAINTENANCE",

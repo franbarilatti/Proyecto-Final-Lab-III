@@ -45,6 +45,6 @@ public class Main {
         hotel.getReserves().add(reservation3);
         hotel.saveHotel();*/
         hotel.runHotel();
-
+        hotel.saveHotel();
     }
 }

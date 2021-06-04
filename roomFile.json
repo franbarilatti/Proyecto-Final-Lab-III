@@ -1,6 +1,5 @@
 [
   {
-    "extraPrice": 1000.0,
     "number": 101,
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
@@ -13,14 +12,12 @@
     "tvType": "TV_LED_32"
   },
   {
-    "extraPrice": 1000.0,
     "number": 103,
     "bedType": "CUADRUPLE",
     "condition": "MAINTENANCE",
     "tvType": "TV_LED_42"
   },
   {
-    "extraPrice": 1000.0,
     "number": 104,
     "bedType": "MATRIMONIAL",
     "condition": "UNCLEAN_OCUPPED",

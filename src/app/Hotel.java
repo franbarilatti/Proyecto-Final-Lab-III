@@ -163,16 +163,16 @@ public class Hotel {
 //        Admin recepcionist3 = new Admin("LGante", "420");
 //        userList.add(recepcionist3);
 
-        this.setUsers(userRepository.throwList(userFile, Path.USER.getPath()));
-        this.setRooms(roomRepository.throwList(roomFile, Path.ROOM.getPath()));
-        this.setPaxes(paxRepository.throwList(paxFile, Path.PAX.getPath()));
-        this.setReserves(reserveRepository.throwList(reserveFile,Path.RESERVATION.getPath()));
-        System.out.println(this.getRooms());
-        System.out.println(this.getUsers());
-        System.out.println(this.getPaxes());
-        System.out.println(this.getReserves());
+        this.setUsers(userRepository.throwList(userFile, userFile));
+        this.setRooms(roomRepository.throwList(roomFile, roomFile));
+        this.setPaxes(paxRepository.throwList(paxFile, paxFile));
+        this.setReserves(reserveRepository.throwList(reserveFile,reserveFile));
+        System.out.println(this.getRooms().get(0).getClass());
+        System.out.println(this.getUsers().get(1).getClass());
+        System.out.println(this.getPaxes().get(3).getClass());
+        System.out.println(this.getReserves().get(1).getClass());
         //System.out.println(this.getUsers().get(1));
-      //  logIn();
+        firstMenu();
 
     }
 
@@ -233,8 +233,11 @@ public class Hotel {
             admin.setNickName(nickName);
             System.out.print("Ingrese una contraseña: ");
             admin.setPassword(scan.next());
+            admin.setJobTitle("Administrador");
             users.add(admin);
+            System.out.println("\n\nUsuario creado con exito");
         }
+
     }
 
     public void registerRecepcionist() {
@@ -249,12 +252,14 @@ public class Hotel {
             recepcionist.setNickName(nickName);
             System.out.print("Ingrese una contraseña: ");
             recepcionist.setPassword(scan.next());
+            recepcionist.setJobTitle("Recepcionista");
             users.add(recepcionist);
+            System.out.println("Usuario creado con exito");
         }
     }
 
     public void chargue(Pax pax) {
-        System.out.println("El total de su recibo en de: $" + pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum());
+        System.out.println("El total de su recibo en de: $" + pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum());
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

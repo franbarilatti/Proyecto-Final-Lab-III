@@ -10,5 +10,20 @@
     "nickName": "ElDuko",
     "password": "9821",
     "jobTitle": "Recepcionista"
+  },
+  {
+    "id": "82c8eb8d-6054-425f-987a-24946404e0ac",
+    "nickName": "cacho",
+    "password": "123"
+  },
+  {
+    "id": "9718d3a4-9c9b-4b9c-a1d7-678a79b7929e",
+    "nickName": "pepo",
+    "password": "1234"
+  },
+  {
+    "id": "f421b29f-56a6-4e07-b418-d60fdcf4ee81",
+    "nickName": "Khea",
+    "password": "123"
   }
 ]

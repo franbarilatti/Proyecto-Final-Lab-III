@@ -63,6 +63,9 @@ public  class User implements Serializable {
         this.password = password;
     }
 
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
     //------ Methods ------//
 
     public Room searchRoomByNumber(List<Room> rooms,int number){
