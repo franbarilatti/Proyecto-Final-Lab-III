@@ -11,8 +11,6 @@ import users.User;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +21,7 @@ public class RepositoryController<T> extends LocalDateAdapter {
     public void createFile(String fileName) {
         File file = new File(fileName);
         try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
+            if (!file.exists()) file.createNewFile();
             if (!file.canWrite()) {
                 file.setWritable(true);
             }

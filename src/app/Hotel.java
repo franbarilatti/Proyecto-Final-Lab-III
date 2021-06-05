@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Hotel {
     //------ Attributes ------//
@@ -119,8 +120,8 @@ public class Hotel {
             throw new Exception("No hay reservas cargadas en el sistema");
     }
 
-    public void showPaxReserve(Pax pax) {
-        System.out.println(reserves.stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).findFirst());
+    public void showPaxReserves(Pax pax) {
+        System.out.println(reserves.stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).collect(Collectors.toList()));
     }
 
     public void showPaxTickets(Pax pax) {
@@ -148,12 +149,23 @@ public class Hotel {
                 .orElse(null);
     }
 
-    public Reservation searchReserve(Pax pax, Room room) {
-        return reserves.stream().
-                filter((Reservation r) -> r.getRoom().equals(room)).
-                filter(r -> r.getPaxDni().equals(pax.getDni())).
-                findFirst().
-                orElse(null);
+    public Reservation searchPaxReserve() {
+        Pax srchPax = searchHistoryPax();
+        if(srchPax != null){
+            System.out.println("Ingrese el numero de habitación: ");
+            Room srchRoom = searchRoomByNumber(scan.nextInt());
+            if(srchRoom != null){
+                return reserves.stream().
+                        filter((Reservation r) -> r.getRoom().equals(srchRoom)).
+                        filter(r -> r.getPaxDni().equals(srchPax.getDni())).
+                        findFirst().orElse(null);
+            }else {
+                System.out.println("Habitación no encontrada.");
+            }
+        }else {
+            System.out.println("Pasajero no encontrado.");
+        }
+        return null;
     }
 
     public User searchUserByNickName(String nickname) {
@@ -173,17 +185,18 @@ public class Hotel {
 
     //------ Functional Methods ------//
 
-    public void runHotel() throws ClassCastException, FileNotFoundException {
+    public void runHotel() throws ClassCastException {
+        try{
+            this.setUsers(userRepository.throwList(userFile));
+            this.setRooms(roomRepository.throwList(roomFile));
+            this.setPaxes(paxRepository.throwList(paxFile));
+            this.setReserves(reserveRepository.throwList(reserveFile));
+            System.out.println(this.getUsers().get(2).toString());
+            firstMenu();
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
 
-//        Admin recepcionist3 = new Admin("LGante", "420");
-//        userList.add(recepcionist3);
-
-        this.setUsers(userRepository.throwList(userFile));
-        this.setRooms(roomRepository.throwList(roomFile));
-        this.setPaxes(paxRepository.throwList(paxFile));
-        this.setReserves(reserveRepository.throwList(reserveFile));
-        System.out.println(this.getUsers().get(2).toString());
-        firstMenu();
 
     }
 
@@ -192,10 +205,6 @@ public class Hotel {
         roomRepository.addList(roomFile, this.rooms);
         reserveRepository.addList(reserveFile, this.reserves);
         paxRepository.addList(paxFile, this.paxes);
-    }
-
-    public void addNewReserve(Reservation newReserve) {
-        this.reserves.add(newReserve);
     }
 
     public void eliminateReserve(Reservation reserve) {
@@ -221,13 +230,28 @@ public class Hotel {
                 System.out.println("Contraseña incorrecta");
             }
         } else {
-            System.out.println("El usuario registrado no se encuentra registrado");
+            System.out.println("El usuario no se encuentra registrado");
         }
+    }
+
+    public Pax registerPax() {
+        Pax pax = new Pax();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Nombre: ");
+        pax.setName(scanner.nextLine());
+        System.out.print("Apellido: ");
+        pax.setSurname(scanner.nextLine());
+        System.out.print("Direccion: ");
+        pax.setAddress(scanner.nextLine());
+        System.out.print("DNI o Pasaporte: ");
+        pax.setDni(scanner.nextLine());
+        System.out.print("Nacionalidad: ");
+        pax.setNationality(scanner.nextLine());
+        return pax;
     }
 
     public void registerAdmin() {
         String nickName;
-        String password;
         User auxUser;
         Admin admin = new Admin();
         System.out.print("Ingrese su Nickname: ");
@@ -246,7 +270,6 @@ public class Hotel {
 
     public void registerRecepcionist() {
         String nickName;
-        String password;
         User auxUser;
         Recepcionist recepcionist = new Recepcionist();
         System.out.print("Ingrese su Nickname: ");
@@ -295,7 +318,42 @@ public class Hotel {
         saveHotel();
     }
 
-    public void paxMenu(Pax pax, User user) {
+    public void paxMenu(User user){
+        spaces();
+        int opt;
+        int exit = 0;
+        while (exit == 0) {
+            System.out.println("\n\n[1]- Lista de pasajeros\n[2]- Nuevo Pasajero\n[3]- Buscar Pasajero\n[0]- Salir\n\nElija una opcion: ");
+            opt = scan.nextInt();
+            switch (opt) {
+                case 1 -> {
+                    try {
+                        showHistoryPax();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case 2 -> {
+                    Pax newPax = registerPax();
+                    addHistoryPax(newPax);
+                }
+                case 3 ->{
+                    Pax srchPax = searchHistoryPax();
+                    if (srchPax != null) {
+                        paxMenuBis(srchPax,user);
+
+                    } else {
+                        System.out.println("Pasajero no encnontrado");
+                    }
+                }
+                case 0 -> exit++;
+                default -> System.out.println("opcion incorrecta");
+            }
+        }
+        userMenues(user);
+    }
+
+    public void paxMenuBis(Pax pax, User user) {
         spaces();
         System.out.println("========== " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
@@ -310,7 +368,7 @@ public class Hotel {
             System.out.print("Ingrese una opción: ");
             int opt = scan.nextInt();
             switch (opt) {
-                case 1 -> showPaxReserve(pax);
+                case 1 -> showPaxReserves(pax);
                 case 2 -> roomServiceMenu(scan, pax);
                 case 3 -> showPaxTickets(pax);
                 case 4 -> chargue(pax);
@@ -318,7 +376,7 @@ public class Hotel {
                 default -> System.out.println("Opcion incorrecta");
             }
         }
-        userMenues(user);
+        paxMenu(user);
     }
 
     public void userMenues(User user) {
@@ -344,7 +402,7 @@ public class Hotel {
                             [3]- Agregar Nueva Reserva
                             [4]- Reservas
                             [5]- Habitaciones
-                            [6]- Buscar Pasajero
+                            [6]- Pasajeros
                             [0]- Salir""");
             System.out.print("\n\nIngrese el numero de la opcion a la que quiere entrar: ");
             opt = scan.nextInt();
@@ -369,13 +427,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 6:
-                    Pax srchPax = searchHistoryPax();
-                    if (srchPax != null) {
-                        paxMenu(srchPax, recepcionist);
-
-                    } else {
-                        System.out.println("Pasajero no encnontrado");
-                    }
+                    paxMenu(user);
                     break;
                 case 0:
 
@@ -404,7 +456,7 @@ public class Hotel {
                             [4]- Añadir nueva reserva
                             [5]- Reservas
                             [6]- Habitaciones
-                            [7]- Buscar Pasajero
+                            [7]- Pasajeros
                             [8]- Cambiar estado de habitacion
                             [0]- Log out""");
             System.out.print("\n\nIngrese el numero de la opcion a la que quiere entrar: ");
@@ -433,8 +485,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 7:
-                    Pax srchPax = searchHistoryPax();
-                    paxMenu(srchPax, admin);
+
                     break;
                 case 8:
                     admin.changeRoomState(this.getRooms(), scan);
@@ -520,7 +571,7 @@ public class Hotel {
         int opt;
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reserva por pasajero\n\nElija una opcion: ");
+            System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n\nElija una opcion: ");
             opt = scan.nextInt();
             switch (opt) {
                 case 1 -> {
@@ -537,16 +588,13 @@ public class Hotel {
                         e.printStackTrace();
                     }
                 }
-                case 3 -> {
-                    Pax srchPax = searchHistoryPax();
-                    if (srchPax != null) {
-                        showPaxReserve(srchPax);
-                    } else {
-                        System.out.println("Pasajero no encontrado");
-                    }
+                case 3 -> System.out.println(searchPaxReserve());
+                case 4 -> {
+                    Reservation reservation = searchPaxReserve();
+                    eliminateReserve(reservation);
                 }
                 case 0 -> exit++;
-                default -> System.out.println("opcion incorrecta");
+                default -> System.out.println("opcion incorrecta.");
             }
         }
     }
