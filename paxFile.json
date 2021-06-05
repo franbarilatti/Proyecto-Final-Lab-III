@@ -15,7 +15,14 @@
     "dni": "655475",
     "nationality": "",
     "ingress": false,
-    "tickets": []
+    "tickets": [
+      {
+        "paxName": "Toto",
+        "paxSurname": "",
+        "description": "-------------------------------------------Numero de habitacion: 102\nTipo de cama Dos camas separadas de una plaza\nTipo de TvTelevisor de Tubo\nEstado: Disponible--------------------------------------------",
+        "total": 1600.0
+      }
+    ]
   },
   {
     "name": "Cholo",
@@ -78,6 +85,15 @@
     "dni": "123232",
     "nationality": "",
     "ingress": true,
+    "tickets": []
+  },
+  {
+    "name": "pepe",
+    "surname": "argento",
+    "address": "flores 123",
+    "dni": "43223",
+    "nationality": "arg",
+    "ingress": false,
     "tickets": []
   }
 ]

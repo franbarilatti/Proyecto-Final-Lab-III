@@ -121,7 +121,7 @@ public class Hotel {
     }
 
     public void showPaxReserves(Pax pax) {
-        System.out.println(reserves.stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).collect(Collectors.toList()));
+        reserves.stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).collect(Collectors.toList()).forEach(System.out::println);
     }
 
     public void showPaxTickets(Pax pax) {
@@ -571,7 +571,7 @@ public class Hotel {
         int opt;
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n\nElija una opcion: ");
+            System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n[0]- Salir\n\nElija una opcion: ");
             opt = scan.nextInt();
             switch (opt) {
                 case 1 -> {
@@ -588,8 +588,12 @@ public class Hotel {
                         e.printStackTrace();
                     }
                 }
-                case 3 -> System.out.println(searchPaxReserve());
-                case 4 -> {
+                case 3 -> {
+                    Pax srchPax = searchHistoryPax();
+                    showPaxReserves(srchPax);
+                }
+                case 4 -> System.out.println(searchPaxReserve());
+                case 5 -> {
                     Reservation reservation = searchPaxReserve();
                     eliminateReserve(reservation);
                 }
