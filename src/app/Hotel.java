@@ -139,8 +139,10 @@ public class Hotel {
 
     //------ Search Methods ------//
 
-    public Pax searchHistoryPax(String dni) {
-        return paxes.stream().
+    public Pax searchHistoryPax() {
+        System.out.print("Ingrese el dni del pasajero que busca: ");
+        String dni = scan.next();
+        return this.getPaxes().stream().
                 filter(pax -> pax.getDni().equals(dni))
                 .findFirst()
                 .orElse(null);
@@ -161,9 +163,9 @@ public class Hotel {
                 orElse(null);
     }
 
-    public Room searchRoomByNumber(int roomNumber){
+    public Room searchRoomByNumber(int roomNumber) {
         return rooms.stream().
-                filter(room-> room.getNumber() == roomNumber).
+                filter(room -> room.getNumber() == roomNumber).
                 findFirst().
                 orElse(null);
     }
@@ -199,7 +201,6 @@ public class Hotel {
     public void eliminateReserve(Reservation reserve) {
         reserves.remove(reserve);
     }
-
 
 
     public void logIn() {
@@ -368,10 +369,13 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 6:
-                    System.out.print("Ingrese el dni del pasajero que busca: ");
-                    String dni = scan.next();
-                    Pax srchPax = searchHistoryPax(dni);
-                    paxMenu(srchPax, recepcionist);
+                    Pax srchPax = searchHistoryPax();
+                    if (srchPax != null) {
+                        paxMenu(srchPax, recepcionist);
+
+                    } else {
+                        System.out.println("Pasajero no encnontrado");
+                    }
                     break;
                 case 0:
 
@@ -420,7 +424,7 @@ public class Hotel {
                     }
                     break;
                 case 4:
-                    admin.makeReserve(reserves,paxes,rooms,scan);
+                    admin.makeReserve(reserves, paxes, rooms, scan);
                     break;
                 case 5:
                     reserveMenu();
@@ -429,13 +433,11 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 7:
-                    System.out.print("Ingrese el dni del pasajero que busca: ");
-                    String dni = scan.next();
-                    Pax srchPax = searchHistoryPax(dni);
+                    Pax srchPax = searchHistoryPax();
                     paxMenu(srchPax, admin);
                     break;
                 case 8:
-                    admin.changeRoomState(this.getRooms(),scan);
+                    admin.changeRoomState(this.getRooms(), scan);
                     break;
                 case 0:
                     back++;
@@ -513,7 +515,7 @@ public class Hotel {
 
     }
 
-    public void reserveMenu(){
+    public void reserveMenu() {
         spaces();
         int opt;
         int exit = 0;
@@ -535,11 +537,13 @@ public class Hotel {
                         e.printStackTrace();
                     }
                 }
-                case 3 ->{
-                    System.out.print("Ingrese el dni del pasajero que busca: ");
-                    String dni = scan.next();
-                    Pax srchPax = searchHistoryPax(dni);
-                    showPaxReserve(srchPax);
+                case 3 -> {
+                    Pax srchPax = searchHistoryPax();
+                    if (srchPax != null) {
+                        showPaxReserve(srchPax);
+                    } else {
+                        System.out.println("Pasajero no encontrado");
+                    }
                 }
                 case 0 -> exit++;
                 default -> System.out.println("opcion incorrecta");
@@ -547,7 +551,7 @@ public class Hotel {
         }
     }
 
-    public void roomMenu(){
+    public void roomMenu() {
         spaces();
         int opt;
         int exit = 0;
@@ -561,14 +565,14 @@ public class Hotel {
                     Room srchRoom = searchRoomByNumber(scan.nextInt());
                     System.out.println(srchRoom);
                 }
-                case 3 ->{
+                case 3 -> {
                     System.out.print("Ingrese la fecha que busca: ");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     String date = scan.next();
                     LocalDate ingress = LocalDate.parse(date, formatter);
                     System.out.print("ingrese la cantidad de dias de disponibilidad: ");
                     LocalDate out = ingress.plusDays(scan.nextInt());
-                    showDisponibledRooms(ingress,out);
+                    showDisponibledRooms(ingress, out);
                 }
                 case 0 -> exit++;
                 default -> System.out.println("opcion incorrecta");

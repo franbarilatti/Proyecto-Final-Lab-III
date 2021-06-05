@@ -111,6 +111,8 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         Reservation auxReserve = searchReserve(pax, room, reservations);
         if(auxReserve != null){
             pax.setIngress(true);
+            double price = (room.getBedType().getPrice() + room.getExtraPrice()) * auxReserve.getCantDays();
+            pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Costo de habitacion", price));
             paxes.add(pax);
             eliminateReserve(reservations, auxReserve);
             room.setCondition(Condition.OCUPPED);

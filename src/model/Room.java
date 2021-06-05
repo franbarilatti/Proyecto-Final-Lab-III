@@ -20,8 +20,10 @@ public class Room implements Serializable {
     private BedType bedType;
     private Condition condition;
     private TvType tvType;
+    private double extraPrice;
 
     public Room() {
+        this.extraPrice = 0;
     }
 
     public Room(int number, BedType bedType, Condition condition, TvType tvType) {
@@ -29,6 +31,14 @@ public class Room implements Serializable {
         this.bedType = bedType;
         this.condition = condition;
         this.tvType = tvType;
+    }
+
+    public double getExtraPrice() {
+        return extraPrice;
+    }
+
+    public void setExtraPrice(double extraPrice) {
+        this.extraPrice = extraPrice;
     }
 
     public BedType getBedType() {
@@ -64,11 +74,11 @@ public class Room implements Serializable {
 
 
     public String toString() {
-        return "-------------------------------------------"+
+        return "-------------------------------------------" +
                 "Numero de habitacion: " + number +
                 "\nTipo de cama " + bedType.getDescription() +
                 "\nTipo de Tv" + tvType.getDescription() +
-                "\nEstado: " + condition.getState()+
+                "\nEstado: " + condition.getState() +
                 "--------------------------------------------";
     }
 

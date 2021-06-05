@@ -102,6 +102,9 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             pax = newPax();
             paxes.add(pax);
         }
+        else {
+
+        }
         System.out.print("Ingrese el numero de habitacion: ");
         int roomNumber = scanner.nextInt();
         Room room = rooms.stream().filter((Room r) -> ((Integer) r.getNumber()).equals(roomNumber)).findFirst().orElse(null);
@@ -109,13 +112,12 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             Reservation auxReserve = searchReserve(pax, room, reservations);
             if (auxReserve != null) {
                 pax.setIngress(true);
-                paxes.add(pax);
+                double price = (room.getBedType().getPrice() + room.getExtraPrice()) * auxReserve.getCantDays();
+                pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Costo de habitacion", price));
                 eliminateReserve(reservations, auxReserve);
                 room.setCondition(Condition.OCUPPED);
             } else {
-                pax.setIngress(true);
-                paxes.add(pax);
-                room.setCondition(Condition.OCUPPED);
+                System.out.println("El pasajero no tiene reserva para esta habitacion");
             }
         }
     }
@@ -184,7 +186,6 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
                 filter(r -> r.getPaxDni().equals(pax.getDni())).
                 findFirst().
                 orElse(null);
-
     }
 
     @Override
