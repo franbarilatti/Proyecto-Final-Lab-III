@@ -2,7 +2,6 @@ package users;
 
 import Interface.Ingress;
 import Interface.Reserve;
-import app.Hotel;
 import enumn.Condition;
 import model.Reservation;
 import model.Room;
@@ -14,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Admin extends User implements Reserve, Ingress, Serializable {
     @Serial
@@ -48,7 +48,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         System.out.println("--------------------------------------");
         for (Room room : rooms) {
             if (!room.isOcuped(reservations, checkIn, checkOut)) {
-                System.out.println(room.toString());
+                System.out.println(room);
             }
         }
         System.out.println("--------------------------------------");
@@ -86,7 +86,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     public void RoomAvailable(List<Room> roomList) {
         for (Room room : roomList) {
             if (room.getCondition() == Condition.AVAILABLE || room.getCondition() == Condition.UNCLEAN_AVAILABLE) {
-                System.out.println(room.toString());
+                System.out.println(room);
             }
         }
     }
@@ -100,25 +100,21 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         if (pax == null) {
             System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
             pax = newPax();
+            this.makeReserve(reservations, paxes, rooms, scanner);
             paxes.add(pax);
         }
-        else {
-
-        }
-        System.out.print("Ingrese el numero de habitacion: ");
-        int roomNumber = scanner.nextInt();
-        Room room = rooms.stream().filter((Room r) -> ((Integer) r.getNumber()).equals(roomNumber)).findFirst().orElse(null);
-        if (room != null) {
-            Reservation auxReserve = searchReserve(pax, room, reservations);
-            if (auxReserve != null) {
-                pax.setIngress(true);
-                double price = (room.getBedType().getPrice() + room.getExtraPrice()) * auxReserve.getCantDays();
-                pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Costo de habitacion", price));
-                eliminateReserve(reservations, auxReserve);
-                room.setCondition(Condition.OCUPPED);
-            } else {
-                System.out.println("El pasajero no tiene reserva para esta habitacion");
-            }
+        List<Reservation> reservationList = reservations.stream().filter((Reservation r) -> r.getPaxDni().equals(dniAux)).collect(Collectors.toList());
+        if (reservationList != null) {
+            reservationList.stream().filter(reservation -> reservation.getCheckIn().equals(LocalDate.now())).forEach(System.out::println);
+            System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
+            int roomNumAux = scanner.nextInt();
+            Room roomAux = searchRoomByNumber(rooms, roomNumAux);
+            Reservation reservationAux = searchReserve(pax,roomAux,reservations);
+            eliminateReserve(reservations,reservationAux);
+            pax.setIngress(true);
+            roomAux.setCondition(Condition.OCUPPED);
+        }else {
+            System.out.println("El pasajero no tiene reservas hechas");
         }
     }
 
@@ -127,11 +123,11 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el dni del pasajero: ");
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(scanner.next())).findFirst().orElse(null);
-        System.out.print("Ingrese el numero de habitacion: ");
-        Room room = searchRoomByNumber(rooms, scanner.nextInt());
         if (pax == null) {
             System.out.println("El dni ingresado no esta registrado en el sistema.");
         } else {
+            System.out.print("Ingrese el numero de habitacion: ");
+            Room room = searchRoomByNumber(rooms, scanner.nextInt());
             if ((pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum()) == 0) {
                 pax.setIngress(false);
                 room.setCondition(Condition.UNCLEAN_AVAILABLE);

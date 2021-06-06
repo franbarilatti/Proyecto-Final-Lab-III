@@ -196,8 +196,6 @@ public class Hotel {
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
-
     }
 
     public void saveHotel() {
@@ -350,7 +348,6 @@ public class Hotel {
                 default -> System.out.println("opcion incorrecta");
             }
         }
-        userMenues(user);
     }
 
     public void paxMenuBis(Pax pax, User user) {
@@ -376,7 +373,6 @@ public class Hotel {
                 default -> System.out.println("Opcion incorrecta");
             }
         }
-        paxMenu(user);
     }
 
     public void userMenues(User user) {
@@ -427,7 +423,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 6:
-                    paxMenu(user);
+                    paxMenu(recepcionist);
                     break;
                 case 0:
 
@@ -438,7 +434,6 @@ public class Hotel {
                     break;
             }
         }
-        firstMenu();
     }
 
     public void adminMenu(User user) {
@@ -485,7 +480,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 7:
-
+                    paxMenu(admin);
                     break;
                 case 8:
                     admin.changeRoomState(this.getRooms(), scan);
@@ -498,7 +493,6 @@ public class Hotel {
                     break;
             }
         }
-        firstMenu();
     }
 
     public void roomServiceMenu(Scanner scan, Pax pax) {
