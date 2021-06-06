@@ -318,7 +318,7 @@ public class Hotel {
         saveHotel();
     }
 
-    public void paxMenu(User user){
+    public void paxMenu(){
         spaces();
         int opt;
         int exit = 0;
@@ -340,7 +340,7 @@ public class Hotel {
                 case 3 ->{
                     Pax srchPax = searchHistoryPax();
                     if (srchPax != null) {
-                        paxMenuBis(srchPax,user);
+                        paxMenuBis(srchPax);
 
                     } else {
                         System.out.println("Pasajero no encnontrado");
@@ -350,10 +350,9 @@ public class Hotel {
                 default -> System.out.println("opcion incorrecta");
             }
         }
-        userMenues(user);
     }
 
-    public void paxMenuBis(Pax pax, User user) {
+    public void paxMenuBis(Pax pax) {
         spaces();
         System.out.println("========== " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
@@ -376,7 +375,7 @@ public class Hotel {
                 default -> System.out.println("Opcion incorrecta");
             }
         }
-        paxMenu(user);
+
     }
 
     public void userMenues(User user) {
@@ -438,7 +437,7 @@ public class Hotel {
                     break;
             }
         }
-        firstMenu();
+
     }
 
     public void adminMenu(User user) {
@@ -498,7 +497,7 @@ public class Hotel {
                     break;
             }
         }
-        firstMenu();
+
     }
 
     public void roomServiceMenu(Scanner scan, Pax pax) {
