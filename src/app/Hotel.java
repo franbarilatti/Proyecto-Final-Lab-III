@@ -426,7 +426,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 6:
-                    paxMenu(user);
+                    paxMenu();
                     break;
                 case 0:
 
