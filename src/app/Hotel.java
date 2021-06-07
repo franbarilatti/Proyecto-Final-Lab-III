@@ -196,8 +196,6 @@ public class Hotel {
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
-
     }
 
     public void saveHotel() {
@@ -318,7 +316,7 @@ public class Hotel {
         saveHotel();
     }
 
-    public void paxMenu(){
+    public void paxMenu(User user){
         spaces();
         int opt;
         int exit = 0;
@@ -340,7 +338,7 @@ public class Hotel {
                 case 3 ->{
                     Pax srchPax = searchHistoryPax();
                     if (srchPax != null) {
-                        paxMenuBis(srchPax);
+                        paxMenuBis(srchPax,user);
 
                     } else {
                         System.out.println("Pasajero no encnontrado");
@@ -352,7 +350,7 @@ public class Hotel {
         }
     }
 
-    public void paxMenuBis(Pax pax) {
+    public void paxMenuBis(Pax pax, User user) {
         spaces();
         System.out.println("========== " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
@@ -375,7 +373,6 @@ public class Hotel {
                 default -> System.out.println("Opcion incorrecta");
             }
         }
-
     }
 
     public void userMenues(User user) {
@@ -426,7 +423,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 6:
-                    paxMenu();
+                    paxMenu(recepcionist);
                     break;
                 case 0:
 
@@ -437,7 +434,6 @@ public class Hotel {
                     break;
             }
         }
-
     }
 
     public void adminMenu(User user) {
@@ -484,7 +480,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 7:
-
+                    paxMenu(admin);
                     break;
                 case 8:
                     admin.changeRoomState(this.getRooms(), scan);
@@ -497,7 +493,6 @@ public class Hotel {
                     break;
             }
         }
-
     }
 
     public void roomServiceMenu(Scanner scan, Pax pax) {
