@@ -103,15 +103,15 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             this.makeReserve(reservations, paxes, rooms, scanner);
             paxes.add(pax);
         }
-        List<Reservation> reservationList = reservations.stream().filter((Reservation r) -> r.getPaxDni().equals(dniAux)).collect(Collectors.toList());
+        List<Reservation> reservationList = reservations.stream().filter(((Reservation r) -> r.getPaxDni().equals(dniAux) && r.getCheckIn().equals(LocalDate.now()))).collect(Collectors.toList());
         if (reservationList != null) {
-            reservationList.stream().filter(reservation -> reservation.getCheckIn().equals(LocalDate.now())).forEach(System.out::println);
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
             Room roomAux = searchRoomByNumber(rooms, roomNumAux);
             Reservation reservationAux = searchReserve(pax,roomAux,reservations);
             eliminateReserve(reservations,reservationAux);
             pax.setIngress(true);
+            pax.getTickets().add(new Ticket(pax.getName(),pax.getSurname(),"Alojamiento",0));
             roomAux.setCondition(Condition.OCUPPED);
         }else {
             System.out.println("El pasajero no tiene reservas hechas");
