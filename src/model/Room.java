@@ -49,13 +49,24 @@ public class Room implements Serializable {
         return condition;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     public void setCondition(Condition condition) {
         this.condition = condition;
     }
 
+    public void setBedType(BedType bedType) {
+        this.bedType = bedType;
+    }
 
-    public int getNumber() {
-        return number;
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setTvType(TvType tvType) {
+        this.tvType = tvType;
     }
 
     public boolean isOcuped(List<Reservation> reservations, LocalDate ingress, LocalDate exit) {
@@ -75,11 +86,11 @@ public class Room implements Serializable {
 
     public String toString() {
         return "-------------------------------------------" +
-                "Numero de habitacion: " + number +
+                "\nNumero de habitacion: " + number +
                 "\nTipo de cama " + bedType.getDescription() +
                 "\nTipo de Tv" + tvType.getDescription() +
                 "\nEstado: " + condition.getState() +
-                "--------------------------------------------";
+                "\n--------------------------------------------";
     }
 
 

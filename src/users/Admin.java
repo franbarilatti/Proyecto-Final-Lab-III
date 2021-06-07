@@ -44,7 +44,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         System.out.print("Cantidad de noches que se queda: ");
         int cantDays = scan.nextInt();
         LocalDate checkOut = checkIn.plusDays(cantDays);
-        System.out.print("\ningrese el numero de habitación disponible: ");
+        System.out.println("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
         for (Room room : rooms) {
             if (!room.isOcuped(reservations, checkIn, checkOut)) {
@@ -61,7 +61,8 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         } else {
             System.out.println("Habitacion no encontrada");
         }
-
+        Ticket ticket = new Ticket(pax.getName(),pax.getSurname(),roomAux.toString(),roomAux.getBedType().getPrice());
+        pax.getTickets().add(ticket);
     }
 
 

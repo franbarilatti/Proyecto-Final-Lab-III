@@ -1,9 +1,10 @@
 package app;
 
+import enumn.BedType;
+import enumn.Condition;
 import enumn.MiniBar;
-import model.Reservation;
-import model.Room;
-import model.Ticket;
+import enumn.TvType;
+import model.*;
 import repositories.RepositoryController;
 import users.Admin;
 import users.Pax;
@@ -191,7 +192,6 @@ public class Hotel {
             this.setRooms(roomRepository.throwList(roomFile));
             this.setPaxes(paxRepository.throwList(paxFile));
             this.setReserves(reserveRepository.throwList(reserveFile));
-            System.out.println(this.getUsers().get(2).toString());
             firstMenu();
         }catch (FileNotFoundException e){
             e.printStackTrace();
@@ -209,6 +209,64 @@ public class Hotel {
         reserves.remove(reserve);
     }
 
+    private void addNewRoom(){
+        Room newRoom = new Room();
+        System.out.print("\nIngrese el numero de la habitacion: ");
+        int number = scan.nextInt();
+
+        newRoom = searchRoomByNumber(number);
+        if(newRoom == null){
+            newRoom.setNumber(number);
+
+
+            System.out.println("ingrese el tipo de Habitacion: \n[1]- Superior\n[2]- Estandar\n");
+            switch (scan.nextInt()){
+                case 1 -> newRoom = new Superior();
+                case 2 -> newRoom = new Standar();
+            }
+            System.out.println("ingrese el tipo de cama: \n[1]- Matrimonial\n[2]- Doble Twin\n[3]- Triple\n[4]- Cuadruple\n");
+            switch (scan.nextInt()){
+                case 1 -> newRoom.setBedType(BedType.MATRIMONIAL);
+                case 2 -> newRoom.setBedType(BedType.DOBLE_TWIN);
+                case 3 -> newRoom.setBedType(BedType.TRIPLE);
+                case 4 -> newRoom.setBedType(BedType.CUADRUPLE);
+                default -> System.out.println("Opcion Incorrecta. ");
+            }
+            System.out.println("ingrese el tipo de cama: \n[1]- TV de Tubo\n[2]- TV 32'\n[3]- TV 42'\n");
+            switch (scan.nextInt()){
+                case 1 -> newRoom.setTvType(TvType.TV_TUBO);
+                case 2 -> newRoom.setTvType(TvType.TV_LED_32);
+                case 3 -> newRoom.setTvType(TvType.TV_LED_42);
+                default -> System.out.println("Opcion Incorrecta. ");
+            }
+            newRoom.setCondition(Condition.AVAILABLE);
+            rooms.add(newRoom);
+        }else {
+            System.out.println("La habistacion con este numero ya esta registrada. ");
+        }
+
+    }
+
+    private void eliminateRoom(){
+        System.out.print("Ingrese el numero de habitacion: ");
+        int number = scan.nextInt();
+        Room eliminatedRoom = rooms.stream().filter(room -> room.getNumber() == number).findFirst().orElse(null);
+        if(eliminatedRoom != null){
+            System.out.println(eliminatedRoom);
+            System.out.println("Esta seguro que desea eliminar esta habitacion?\n[1]- Si\n[2]- No\n");
+            switch (scan.nextInt()){
+                case 1 ->{
+                    rooms.remove(eliminatedRoom);
+                    System.out.println("Habitacion Eliminada");
+                }
+                case 2 -> System.out.println("Gracias por salvar esta pequeña habitacion :)");
+                default -> System.out.println("Opcion incorrecta.");
+            }
+        }
+        else {
+            System.out.println("Habitacion no encontrada.");
+        }
+    }
 
     public void logIn() {
         System.out.print("Ingrese su Nickname: ");
@@ -302,8 +360,7 @@ public class Hotel {
                             [2]- Registrarse
                             [0]- Salir""");
             System.out.print("Ingrese una opción: ");
-            int opt = scan.nextInt();
-            switch (opt) {
+            switch (scan.nextInt()) {
                 case 1 -> logIn();
                 case 2 -> {
                     registerMenu();
@@ -318,12 +375,11 @@ public class Hotel {
 
     public void paxMenu(User user){
         spaces();
-        int opt;
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]- Lista de pasajeros\n[2]- Nuevo Pasajero\n[3]- Buscar Pasajero\n[0]- Salir\n\nElija una opcion: ");
-            opt = scan.nextInt();
-            switch (opt) {
+
+            switch (scan.nextInt()) {
                 case 1 -> {
                     try {
                         showHistoryPax();
@@ -363,8 +419,7 @@ public class Hotel {
                             [4]- Cobrar
                             [0]- Salir""");
             System.out.print("Ingrese una opción: ");
-            int opt = scan.nextInt();
-            switch (opt) {
+            switch (scan.nextInt()) {
                 case 1 -> showPaxReserves(pax);
                 case 2 -> roomServiceMenu(scan, pax);
                 case 3 -> showPaxTickets(pax);
@@ -387,7 +442,6 @@ public class Hotel {
     public void recepcionistMenu(User user) {
         spaces();
         Recepcionist recepcionist = new Recepcionist(user.getNickName(), user.getPassword(), user.getJobTitle());
-        int opt;
         int back = 0;
         System.out.println("Bienvenido, " + recepcionist.getNickName());
         while (back == 0) {
@@ -401,8 +455,7 @@ public class Hotel {
                             [6]- Pasajeros
                             [0]- Salir""");
             System.out.print("\n\nIngrese el numero de la opcion a la que quiere entrar: ");
-            opt = scan.nextInt();
-            switch (opt) {
+            switch (scan.nextInt()) {
                 case 1:
                     recepcionist.checkIn(paxes, rooms, reserves);
                     break;
@@ -439,7 +492,6 @@ public class Hotel {
     public void adminMenu(User user) {
         spaces();
         Admin admin = new Admin(user.getNickName(), user.getPassword(), user.getJobTitle());
-        int opt;
         int back = 0;
         System.out.println("Bienvenido, " + admin.getNickName());
         while (back == 0) {
@@ -455,8 +507,7 @@ public class Hotel {
                             [8]- Cambiar estado de habitacion
                             [0]- Log out""");
             System.out.print("\n\nIngrese el numero de la opcion a la que quiere entrar: ");
-            opt = scan.nextInt();
-            switch (opt) {
+            switch (scan.nextInt()) {
                 case 1:
                     registerMenu();
                     break;
@@ -477,7 +528,7 @@ public class Hotel {
                     reserveMenu();
                     break;
                 case 6:
-                    roomMenu();
+                    roomMenuAdmin();
                     break;
                 case 7:
                     paxMenu(admin);
@@ -497,7 +548,6 @@ public class Hotel {
 
     public void roomServiceMenu(Scanner scan, Pax pax) {
         spaces();
-        int op;
         int exit = 0;
         double total = 0;
         String detail = "";
@@ -506,8 +556,7 @@ public class Hotel {
             for (MiniBar m : MiniBar.values()) {
                 System.out.println(m.ordinal() + 1 + " " + m.getProduct() + ": $" + m.getPrice());
             }
-            op = scan.nextInt();
-            switch (op) {
+            switch (scan.nextInt()) {
                 case 1 -> {
                     total = MiniBar.COCA_COLA.getPrice();
                     detail = MiniBar.COCA_COLA.getProduct();
@@ -545,12 +594,10 @@ public class Hotel {
 
     public void registerMenu() {
         spaces();
-        int opt;
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n[0]- Salir\n\nElija una opcion: ");
-            opt = scan.nextInt();
-            switch (opt) {
+            switch (scan.nextInt()) {
                 case 1 -> registerAdmin();
                 case 2 -> registerRecepcionist();
                 case 0 -> exit++;
@@ -562,12 +609,10 @@ public class Hotel {
 
     public void reserveMenu() {
         spaces();
-        int opt;
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n[0]- Salir\n\nElija una opcion: ");
-            opt = scan.nextInt();
-            switch (opt) {
+            switch (scan.nextInt()) {
                 case 1 -> {
                     try {
                         showAllReserves();
@@ -599,12 +644,10 @@ public class Hotel {
 
     public void roomMenu() {
         spaces();
-        int opt;
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[0]- Salir\n\nElija una opcion: ");
-            opt = scan.nextInt();
-            switch (opt) {
+            switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {
                     System.out.print("Ingrese el numero de habitación que busca: ");
@@ -620,6 +663,36 @@ public class Hotel {
                     LocalDate out = ingress.plusDays(scan.nextInt());
                     showDisponibledRooms(ingress, out);
                 }
+                case 0 -> exit++;
+                default -> System.out.println("opcion incorrecta");
+            }
+        }
+    }
+
+    public void roomMenuAdmin() {
+        spaces();
+        int exit = 0;
+        while (exit == 0) {
+            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[5]- Agregar habitacion\n[6]- Eliminar Habitacion\n[0]- Salir\n\nElija una opcion: ");
+            switch (scan.nextInt()) {
+                case 1 -> showRooms();
+                case 2 -> {
+                    System.out.print("Ingrese el numero de habitación que busca: ");
+                    Room srchRoom = searchRoomByNumber(scan.nextInt());
+                    System.out.println(srchRoom);
+                }
+                case 3 -> {
+                    System.out.print("Ingrese la fecha que busca: ");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    String date = scan.next();
+                    LocalDate ingress = LocalDate.parse(date, formatter);
+                    System.out.print("ingrese la cantidad de dias de disponibilidad: ");
+                    LocalDate out = ingress.plusDays(scan.nextInt());
+                    showDisponibledRooms(ingress, out);
+                }
+                case 4 -> System.out.println(rooms.stream().filter(room -> room.getCondition().equals(Condition.RESERVED)));
+                case 5 -> addNewRoom();
+                case 6 -> eliminateRoom();
                 case 0 -> exit++;
                 default -> System.out.println("opcion incorrecta");
             }

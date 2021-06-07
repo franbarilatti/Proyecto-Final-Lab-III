@@ -51,7 +51,14 @@
     "dni": "554565",
     "nationality": "",
     "ingress": false,
-    "tickets": []
+    "tickets": [
+      {
+        "paxName": "Rodolfo",
+        "paxSurname": "",
+        "description": "-------------------------------------------Numero de habitacion: 103\nTipo de cama Una cama matrimonial, una individual y una cucheta\nTipo de TvTelevisor de Tubo\nEstado: Disponible--------------------------------------------",
+        "total": 2600.0
+      }
+    ]
   },
   {
     "name": "Otto",
@@ -59,8 +66,15 @@
     "address": "",
     "dni": "778754",
     "nationality": "",
-    "ingress": false,
-    "tickets": []
+    "ingress": true,
+    "tickets": [
+      {
+        "paxName": "Otto",
+        "paxSurname": "",
+        "description": "-------------------------------------------Numero de habitacion: 104\nTipo de cama Una cama matrimonial\nTipo de TvTelevisor Led 42 Pulgadas\nEstado: Disponible--------------------------------------------",
+        "total": 1600.0
+      }
+    ]
   },
   {
     "name": "Pololo",
@@ -70,5 +84,46 @@
     "nationality": "",
     "ingress": false,
     "tickets": []
+  },
+  {
+    "name": "pepepepe",
+    "surname": "argento",
+    "address": "flores123",
+    "dni": "1243432",
+    "nationality": "arg",
+    "ingress": false,
+    "tickets": []
+  },
+  {
+    "name": "Otto",
+    "surname": "",
+    "address": "",
+    "dni": "778754",
+    "nationality": "",
+    "ingress": true,
+    "tickets": [
+      {
+        "paxName": "Otto",
+        "paxSurname": "",
+        "description": "-------------------------------------------Numero de habitacion: 104\nTipo de cama Una cama matrimonial\nTipo de TvTelevisor Led 42 Pulgadas\nEstado: Disponible--------------------------------------------",
+        "total": 1600.0
+      }
+    ]
+  },
+  {
+    "name": "Otto",
+    "surname": "",
+    "address": "",
+    "dni": "778754",
+    "nationality": "",
+    "ingress": true,
+    "tickets": [
+      {
+        "paxName": "Otto",
+        "paxSurname": "",
+        "description": "-------------------------------------------Numero de habitacion: 104\nTipo de cama Una cama matrimonial\nTipo de TvTelevisor Led 42 Pulgadas\nEstado: Disponible--------------------------------------------",
+        "total": 1600.0
+      }
+    ]
   }
 ]

@@ -62,15 +62,13 @@ public class RepositoryController<T> extends LocalDateAdapter {
             switch (fileName) {
                 case "userFile.json" -> {
                     Reader reader = new BufferedReader(new FileReader(fileName));
-                    usersData = gson.fromJson(reader, new TypeToken<List<User>>() {
-                    }.getType());
+                    usersData = gson.fromJson(reader, new TypeToken<List<User>>() {}.getType());
                     reader.close();
                     returnList= (List<T>) usersData;
                 }
                 case "roomFile.json" -> {
                     Reader reader1 = new BufferedReader(new FileReader(fileName));
-                    roomsData = gson.fromJson(reader1, new TypeToken<List<Room>>() {
-                    }.getType());
+                    roomsData = gson.fromJson(reader1, new TypeToken<List<Room>>() {}.getType());
                     reader1.close();
                     returnList= (List<T>) roomsData;
                 }
@@ -82,8 +80,7 @@ public class RepositoryController<T> extends LocalDateAdapter {
                 }
                 case "paxFile.json" -> {
                     Reader reader3 = new BufferedReader(new FileReader(fileName));
-                    paxesData = gson.fromJson(reader3, new TypeToken<List<Pax>>() {
-                    }.getType());
+                    paxesData = gson.fromJson(reader3, new TypeToken<List<Pax>>() {}.getType());
                     reader3.close();
                     returnList = (List<T>) paxesData;
                 }

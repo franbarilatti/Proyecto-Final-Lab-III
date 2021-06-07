@@ -50,7 +50,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         System.out.print("Cantidad de noches que se queda: ");
         int cantDays = scan.nextInt();
         LocalDate checkOut = checkIn.plusDays(cantDays);
-        System.out.print("\ningrese el numero de habitación disponible: ");
+        System.out.println("\ningrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
         for (Room room : rooms) {
             if (!room.isOcuped(reservations, checkIn, checkOut)) {
@@ -60,11 +60,17 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
-        Reservation reservation = new Reservation(pax.getName(),pax.getDni(),roomAux,cantDays,checkIn,checkOut);
-        assert roomAux != null;
+        if(roomAux != null){
+            roomAux.setCondition(Condition.RESERVED);
+            Reservation reservation = new Reservation(pax.getName(),pax.getDni(),roomAux,cantDays,checkIn,checkOut);
+            reservations.add(reservation);
+        }else {
+            System.out.println("Habitacion no encontrada");
+        }
+
         Ticket ticket = new Ticket(pax.getName(),pax.getSurname(),roomAux.toString(),roomAux.getBedType().getPrice());
         pax.getTickets().add(ticket);
-        reservations.add(reservation);
+
     }
 
 

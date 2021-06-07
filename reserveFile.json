@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "paxName": "Otto",
+    "paxDni": "778754",
+    "room": {
+      "number": 104,
+      "bedType": "MATRIMONIAL",
+      "condition": "AVAILABLE",
+      "tvType": "TV_LED_42",
+      "extraPrice": 0.0
+    },
+    "cantDays": 8,
+    "checkIn": "08-07-2021",
+    "checkOut": "16-07-2021"
+  }
+]
