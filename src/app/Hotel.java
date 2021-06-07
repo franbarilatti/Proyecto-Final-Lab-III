@@ -211,13 +211,14 @@ public class Hotel {
     }
 
     private void addNewRoom(){
-        Room newRoom = new Room();
+
         System.out.print("\nIngrese el numero de la habitación: ");
         int number = scan.nextInt();
-
         Room auxRoom = searchRoomByNumber(number);
         if(auxRoom == null){
-            System.out.print("\nRepita el numero de la nueva habitación");
+            Room newRoom = new Room();
+            System.out.print("\nRepita el numero de la nueva habitación: ");
+            System.out.println(scan.nextInt());
             newRoom.setNumber(number);
 
             System.out.println("ingrese el tipo de Habitacion: \n[1]- Superior\n[2]- Estandar\n");
@@ -267,6 +268,7 @@ public class Hotel {
         else {
             System.out.println("Habitacion no encontrada.");
         }
+
     }
 
     public void logIn() {
@@ -289,21 +291,22 @@ public class Hotel {
         } else {
             System.out.println("El usuario no se encuentra registrado");
         }
+
     }
 
     public Pax registerPax() {
         Pax pax = new Pax();
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Nombre: ");
-        pax.setName(scanner.nextLine());
+        pax.setName(scan.nextLine());
         System.out.print("Apellido: ");
-        pax.setSurname(scanner.nextLine());
+        pax.setSurname(scan.nextLine());
         System.out.print("Direccion: ");
-        pax.setAddress(scanner.nextLine());
+        pax.setAddress(scan.nextLine());
         System.out.print("DNI o Pasaporte: ");
-        pax.setDni(scanner.nextLine());
+        pax.setDni(scan.nextLine());
         System.out.print("Nacionalidad: ");
-        pax.setNationality(scanner.nextLine());
+        pax.setNationality(scan.nextLine());
+
         return pax;
     }
 
@@ -340,6 +343,7 @@ public class Hotel {
             users.add(recepcionist);
             System.out.println("\nUsuario creado con exito");
         }
+
     }
 
     public void chargue(Pax pax) {
@@ -647,7 +651,7 @@ public class Hotel {
         spaces();
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[0]- Salir\n\nElija una opción: ");
+            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {
@@ -674,7 +678,7 @@ public class Hotel {
         spaces();
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[5]- Agregar habitacion\n[6]- Eliminar Habitacion\n[0]- Salir\n\nElija una opción: ");
+            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[5]- Agregar habitacion\n[6]- Eliminar Habitacion\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {
