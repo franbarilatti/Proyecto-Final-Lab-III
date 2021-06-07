@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -133,7 +134,7 @@ public class Hotel {
         if (rooms == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
-            rooms.forEach(System.out::println);
+            rooms.stream().sorted(Comparator.comparingInt(Room::getNumber)).forEach(System.out::println);
         }
     }
 
@@ -142,7 +143,7 @@ public class Hotel {
     //------ Search Methods ------//
 
     public Pax searchHistoryPax() {
-        System.out.print("Ingrese el dni del pasajero que busca: ");
+        System.out.print("Ingrese el DNI del pasajero que busca: ");
         String dni = scan.next();
         return this.getPaxes().stream().
                 filter(pax -> pax.getDni().equals(dni))
@@ -211,13 +212,13 @@ public class Hotel {
 
     private void addNewRoom(){
         Room newRoom = new Room();
-        System.out.print("\nIngrese el numero de la habitacion: ");
+        System.out.print("\nIngrese el numero de la habitación: ");
         int number = scan.nextInt();
 
-        newRoom = searchRoomByNumber(number);
-        if(newRoom == null){
+        Room auxRoom = searchRoomByNumber(number);
+        if(auxRoom == null){
+            System.out.print("\nRepita el numero de la nueva habitación");
             newRoom.setNumber(number);
-
 
             System.out.println("ingrese el tipo de Habitacion: \n[1]- Superior\n[2]- Estandar\n");
             switch (scan.nextInt()){
@@ -483,7 +484,7 @@ public class Hotel {
                     back++;
                     break;
                 default:
-                    System.out.println("opcion incorrecta");
+                    System.out.println("opción incorrecta");
                     break;
             }
         }
@@ -540,7 +541,7 @@ public class Hotel {
                     back++;
                     break;
                 default:
-                    System.out.println("Incorrect option");
+                    System.out.println("opción incorrecta");
                     break;
             }
         }
@@ -596,12 +597,12 @@ public class Hotel {
         spaces();
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n[0]- Salir\n\nElija una opcion: ");
+            System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> registerAdmin();
                 case 2 -> registerRecepcionist();
                 case 0 -> exit++;
-                default -> System.out.println("opcion incorrecta");
+                default -> System.out.println("opción incorrecta");
             }
         }
 
@@ -611,7 +612,7 @@ public class Hotel {
         spaces();
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n[0]- Salir\n\nElija una opcion: ");
+            System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> {
                     try {
@@ -637,7 +638,7 @@ public class Hotel {
                     eliminateReserve(reservation);
                 }
                 case 0 -> exit++;
-                default -> System.out.println("opcion incorrecta.");
+                default -> System.out.println("opción incorrecta.");
             }
         }
     }
@@ -646,7 +647,7 @@ public class Hotel {
         spaces();
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[0]- Salir\n\nElija una opcion: ");
+            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {
@@ -659,12 +660,12 @@ public class Hotel {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     String date = scan.next();
                     LocalDate ingress = LocalDate.parse(date, formatter);
-                    System.out.print("ingrese la cantidad de dias de disponibilidad: ");
+                    System.out.print("ingrese la cantidad de días de disponibilidad: ");
                     LocalDate out = ingress.plusDays(scan.nextInt());
                     showDisponibledRooms(ingress, out);
                 }
                 case 0 -> exit++;
-                default -> System.out.println("opcion incorrecta");
+                default -> System.out.println("opción incorrecta");
             }
         }
     }
@@ -673,7 +674,7 @@ public class Hotel {
         spaces();
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[5]- Agregar habitacion\n[6]- Eliminar Habitacion\n[0]- Salir\n\nElija una opcion: ");
+            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]-Habitaciones con Reserva\n[5]- Agregar habitacion\n[6]- Eliminar Habitacion\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {
@@ -686,7 +687,7 @@ public class Hotel {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     String date = scan.next();
                     LocalDate ingress = LocalDate.parse(date, formatter);
-                    System.out.print("ingrese la cantidad de dias de disponibilidad: ");
+                    System.out.print("ingrese la cantidad de días de disponibilidad: ");
                     LocalDate out = ingress.plusDays(scan.nextInt());
                     showDisponibledRooms(ingress, out);
                 }
@@ -694,7 +695,7 @@ public class Hotel {
                 case 5 -> addNewRoom();
                 case 6 -> eliminateRoom();
                 case 0 -> exit++;
-                default -> System.out.println("opcion incorrecta");
+                default -> System.out.println("opción incorrecta");
             }
         }
     }
