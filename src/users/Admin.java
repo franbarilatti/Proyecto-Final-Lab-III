@@ -106,7 +106,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             paxes.add(pax);
         }
         List<Reservation> reservationList;
-        
+
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
             Room roomAux = searchRoomByNumber(rooms, roomNumAux);
