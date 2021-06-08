@@ -217,10 +217,6 @@ public class Hotel {
         Room auxRoom = searchRoomByNumber(number);
         if(auxRoom == null){
             Room newRoom = new Room();
-            System.out.print("\nRepita el numero de la nueva habitación: ");
-            System.out.println(scan.nextInt());
-            newRoom.setNumber(number);
-
             System.out.println("ingrese el tipo de Habitacion: \n[1]- Superior\n[2]- Estandar\n");
             switch (scan.nextInt()){
                 case 1 -> newRoom = new Superior();
@@ -242,6 +238,7 @@ public class Hotel {
                 default -> System.out.println("Opcion Incorrecta. ");
             }
             newRoom.setCondition(Condition.AVAILABLE);
+            newRoom.setNumber(number);
             rooms.add(newRoom);
         }else {
             System.out.println("La habistacion con este numero ya esta registrada. ");
