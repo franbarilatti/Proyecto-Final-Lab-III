@@ -230,7 +230,7 @@ public class Hotel {
                 case 4 -> newRoom.setBedType(BedType.CUADRUPLE);
                 default -> System.out.println("Opcion Incorrecta. ");
             }
-            System.out.println("ingrese el tipo de cama: \n[1]- TV de Tubo\n[2]- TV 32'\n[3]- TV 42'\n");
+            System.out.println("ingrese el tipo de TV: \n[1]- TV de Tubo\n[2]- TV 32'\n[3]- TV 42'\n");
             switch (scan.nextInt()){
                 case 1 -> newRoom.setTvType(TvType.TV_TUBO);
                 case 2 -> newRoom.setTvType(TvType.TV_LED_32);
