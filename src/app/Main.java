@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Hotel hotel = new Hotel();
-      /* User recepcionist1 = new Admin("L-Gante", "Keloke", "Administrador");
+        User recepcionist1 = new Admin("L-Gante", "Keloke", "Administrador");
         User recepcionist2 = new Recepcionist("ElDuko", "9821", "Recepcionista");
         User recepcionist3 = new Admin("ELDoctor", "LaMasPiola", "Administrador");
         User recepcionist4 = new Recepcionist("Dillom", "247", "Recepcionista");
@@ -33,7 +33,7 @@ public class Main {
         hotel.getUsers().add(recepcionist2);
         hotel.getUsers().add(recepcionist3);
         hotel.getUsers().add(recepcionist4);
-        hotel.getPaxes().add(new Pax("Pocho", "", "", "123232", ""));
+        /*hotel.getPaxes().add(new Pax("Pocho", "", "", "123232", ""));
         hotel.getPaxes().add(new Pax("Toto", "", "", "655475", ""));
         hotel.getPaxes().add(new Pax("Cholo", "", "", "998878", ""));
         hotel.getPaxes().add(new Pax("Tom", "", "", "221254", ""));
@@ -42,7 +42,7 @@ public class Main {
         hotel.getPaxes().add(new Pax("Otto", "", "", "778754", ""));
         hotel.getPaxes().add(new Pax("Pololo", "", "", "212446", ""));
         hotel.saveHotel();*/
-        hotel.runHotel();
+//        hotel.runHotel();
         hotel.saveHotel();
     }
 }

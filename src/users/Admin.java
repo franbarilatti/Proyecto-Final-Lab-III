@@ -62,8 +62,6 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         } else {
             System.out.println("Habitacion no encontrada");
         }
-        Ticket ticket = new Ticket(pax.getName(), pax.getSurname(), roomAux.toString(), roomAux.getBedType().getPrice());
-        pax.getTickets().add(ticket);
     }
 
 
