@@ -38,6 +38,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         if (pax == null) {
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             pax = newPax();
+            paxes.add(pax);
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan, LocalDate.now());
@@ -104,8 +105,8 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             this.makeReserve(reservations, paxes, rooms, scanner);
             paxes.add(pax);
         }
-        List<Reservation> reservationList = reservations.stream().filter(((Reservation r) -> r.getPaxDni().equals(dniAux) && r.getCheckIn().equals(LocalDate.now()))).collect(Collectors.toList());
-        if (reservationList != null) {
+        List<Reservation> reservationList;
+        
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
             Room roomAux = searchRoomByNumber(rooms, roomNumAux);
@@ -114,9 +115,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             pax.setIngress(true);
             pax.getTickets().add(new Ticket(pax.getName(),pax.getSurname(),"Alojamiento",0));
             roomAux.setCondition(Condition.OCUPPED);
-        }else {
-            System.out.println("El pasajero no tiene reservas hechas");
-        }
+
     }
 
     @Override
