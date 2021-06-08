@@ -109,18 +109,24 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
                 reservationList.add(reservation);
             }
         }
-        if (!reservationList.isEmpty()){
+        if (!reservationList.isEmpty()) {
             System.out.println(reservationList);
+
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
-            Room roomAux = searchRoomByNumber(rooms, roomNumAux);
-            Reservation reservationAux = searchReserve(pax, roomAux, reservations);
-            eliminateReserve(reservations, reservationAux);
-            pax.setIngress(true);
-            pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Alojamiento", 0));
-            roomAux.setCondition(Condition.OCUPPED);
-        }
-        else {
+            Reservation reservation = reservationList.stream().filter(reservation1 -> reservation1.getRoom().getNumber() == roomNumAux).findFirst().orElse(null);
+            if (reservation != null) {
+                Room roomAux = searchRoomByNumber(rooms, roomNumAux);
+                Reservation reservationAux = searchReserve(pax, roomAux, reservations);
+                pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Alojamiento", (roomAux.getBedType().getPrice() + roomAux.getExtraPrice()) * reservationAux.getCantDays()));
+                eliminateReserve(reservations, reservationAux);
+                pax.setIngress(true);
+                roomAux.setCondition(Condition.OCUPPED);
+            } else {
+                System.out.println(pax.getName() + " no tiene reserva para esta habitacion");
+            }
+
+        } else {
             System.out.println(pax.getName() + " no tiene reservas hechas para este dia");
         }
 
