@@ -11,9 +11,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Admin extends User implements Reserve, Ingress, Serializable {
     @Serial
@@ -62,7 +62,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         } else {
             System.out.println("Habitacion no encontrada");
         }
-        Ticket ticket = new Ticket(pax.getName(),pax.getSurname(),roomAux.toString(),roomAux.getBedType().getPrice());
+        Ticket ticket = new Ticket(pax.getName(), pax.getSurname(), roomAux.toString(), roomAux.getBedType().getPrice());
         pax.getTickets().add(ticket);
     }
 
@@ -105,16 +105,27 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             this.makeReserve(reservations, paxes, rooms, scanner);
             paxes.add(pax);
         }
-        List<Reservation> reservationList;
-
+        List<Reservation> reservationList = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            if (reservation.getPaxDni().equals(pax.getDni()) && reservation.getCheckIn().equals(LocalDate.now())) {
+                reservationList.add(reservation);
+            }
+        }
+        if (!reservationList.isEmpty()){
+            System.out.println(reservationList);
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
             Room roomAux = searchRoomByNumber(rooms, roomNumAux);
-            Reservation reservationAux = searchReserve(pax,roomAux,reservations);
-            eliminateReserve(reservations,reservationAux);
+            Reservation reservationAux = searchReserve(pax, roomAux, reservations);
+            eliminateReserve(reservations, reservationAux);
             pax.setIngress(true);
-            pax.getTickets().add(new Ticket(pax.getName(),pax.getSurname(),"Alojamiento",0));
+            pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Alojamiento", 0));
             roomAux.setCondition(Condition.OCUPPED);
+        }
+        else {
+            System.out.println(pax.getName() + " no tiene reservas hechas para este dia");
+        }
+
 
     }
 
