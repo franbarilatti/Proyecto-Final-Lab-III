@@ -156,7 +156,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
                     room.setCondition(Condition.UNCLEAN_AVAILABLE);
                     return true;
                 } else {
-                    System.out.println("El pasajero tiene cuentas inpagas.");
+                    System.out.println("El pasajero tiene cuentas impagas.");
                 }
             }
         }

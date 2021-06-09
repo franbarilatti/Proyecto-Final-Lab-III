@@ -11,6 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -132,7 +133,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     }
 
     @Override
-    public boolean checkOut(List<Pax> paxes, List<Room> rooms,List<Reservation> reservations) {
+    public boolean checkOut(List<Pax> paxes, List<Room> rooms, List<Reservation> reservations) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el dni del pasajero: ");
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(scanner.next())).findFirst().orElse(null);
@@ -159,15 +160,21 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     public LocalDate ingressDate(Scanner scan, LocalDate today) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String date = scan.next();
-        LocalDate localDate = LocalDate.parse(date, formatter);
+        LocalDate localDate = null;
         int exit = 0;
         while (exit == 0) {
-            if (!formatter.format(localDate).equals(date) || localDate.compareTo(today) < 0) {
-                System.out.println("\nFecha invalida. Ingrese una nueva fecha");
-                date = scan.next();
+            try {
                 localDate = LocalDate.parse(date, formatter);
-            } else {
-                exit++;
+                if (!formatter.format(localDate).equals(date) || localDate.compareTo(today) < 0) {
+                    System.out.println("\nFecha invalida. Ingrese una nueva fecha");
+                    date = scan.next();
+                    localDate = LocalDate.parse(date, formatter);
+                } else {
+                    exit++;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Formato de fecha invalido. Ingrese la fecha nuevamente");
+                date = scan.next();
             }
         }
         return localDate;
