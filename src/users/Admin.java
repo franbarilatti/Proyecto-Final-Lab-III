@@ -11,9 +11,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Admin extends User implements Reserve, Ingress, Serializable {
     @Serial
@@ -38,6 +38,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         if (pax == null) {
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             pax = newPax();
+            paxes.add(pax);
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan, LocalDate.now());
@@ -61,8 +62,6 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         } else {
             System.out.println("Habitacion no encontrada");
         }
-        Ticket ticket = new Ticket(pax.getName(),pax.getSurname(),roomAux.toString(),roomAux.getBedType().getPrice());
-        pax.getTickets().add(ticket);
     }
 
 
@@ -104,19 +103,34 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             this.makeReserve(reservations, paxes, rooms, scanner);
             paxes.add(pax);
         }
-        List<Reservation> reservationList = reservations.stream().filter(((Reservation r) -> r.getPaxDni().equals(dniAux) && r.getCheckIn().equals(LocalDate.now()))).collect(Collectors.toList());
-        if (reservationList != null) {
+        List<Reservation> reservationList = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            if (reservation.getPaxDni().equals(pax.getDni()) && reservation.getCheckIn().equals(LocalDate.now())) {
+                reservationList.add(reservation);
+            }
+        }
+        if (!reservationList.isEmpty()) {
+            System.out.println(reservationList);
+
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
-            Room roomAux = searchRoomByNumber(rooms, roomNumAux);
-            Reservation reservationAux = searchReserve(pax,roomAux,reservations);
-            eliminateReserve(reservations,reservationAux);
-            pax.setIngress(true);
-            pax.getTickets().add(new Ticket(pax.getName(),pax.getSurname(),"Alojamiento",0));
-            roomAux.setCondition(Condition.OCUPPED);
-        }else {
-            System.out.println("El pasajero no tiene reservas hechas");
+            Reservation reservation = reservationList.stream().filter(reservation1 -> reservation1.getRoom().getNumber() == roomNumAux).findFirst().orElse(null);
+            if (reservation != null) {
+                Room roomAux = searchRoomByNumber(rooms, roomNumAux);
+                Reservation reservationAux = searchReserve(pax, roomAux, reservations);
+                pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Alojamiento", (roomAux.getBedType().getPrice() + roomAux.getExtraPrice()) * reservationAux.getCantDays()));
+                eliminateReserve(reservations, reservationAux);
+                pax.setIngress(true);
+                roomAux.setCondition(Condition.OCUPPED);
+            } else {
+                System.out.println(pax.getName() + " no tiene reserva para esta habitacion");
+            }
+
+        } else {
+            System.out.println(pax.getName() + " no tiene reservas hechas para este dia");
         }
+
+
     }
 
     @Override

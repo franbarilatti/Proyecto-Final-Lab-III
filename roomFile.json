@@ -2,9 +2,9 @@
   {
     "number": 101,
     "bedType": "MATRIMONIAL",
-    "condition": "AVAILABLE",
+    "condition": "OCUPPED",
     "tvType": "TV_LED_42",
-    "extraPrice": 0.0
+    "extraPrice": 1000.0
   },
   {
     "number": 102,
@@ -16,7 +16,7 @@
   {
     "number": 103,
     "bedType": "CUADRUPLE",
-    "condition": "OCUPPED",
+    "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
     "extraPrice": 0.0
   },
@@ -25,48 +25,6 @@
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_LED_42",
-    "extraPrice": 0.0
-  },
-  {
-    "number": 105,
-    "bedType": "MATRIMONIAL",
-    "condition": "AVAILABLE",
-    "tvType": "TV_LED_42",
     "extraPrice": 1000.0
-  },
-  {
-    "number": 106,
-    "bedType": "TRIPLE",
-    "condition": "AVAILABLE",
-    "tvType": "TV_LED_32",
-    "extraPrice": 0.0
-  },
-  {
-    "number": 107,
-    "bedType": "TRIPLE",
-    "condition": "AVAILABLE",
-    "tvType": "TV_LED_32",
-    "extraPrice": 0.0
-  },
-  {
-    "number": 201,
-    "bedType": "MATRIMONIAL",
-    "condition": "AVAILABLE",
-    "tvType": "TV_LED_42",
-    "extraPrice": 1000.0
-  },
-  {
-    "number": 202,
-    "bedType": "DOBLE_TWIN",
-    "condition": "AVAILABLE",
-    "tvType": "TV_TUBO",
-    "extraPrice": 0.0
-  },
-  {
-    "number": 203,
-    "bedType": "CUADRUPLE",
-    "condition": "AVAILABLE",
-    "tvType": "TV_TUBO",
-    "extraPrice": 0.0
   }
 ]

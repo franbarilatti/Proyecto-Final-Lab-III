@@ -18,6 +18,7 @@ public class Superior extends Room implements Serializable {
 
     public Superior(int number, BedType bedType, Condition condition, TvType tvType) {
         super(number, bedType, condition, tvType);
+        this.setExtraPrice(1000);
 
     }
 
