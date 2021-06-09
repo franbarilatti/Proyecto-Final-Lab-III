@@ -61,11 +61,11 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         System.out.println("--------------------------------------");
         int roomNumber = scan.nextInt();
         Room roomAux = rooms.stream().filter(room -> room.getNumber() == roomNumber).findFirst().orElse(null);
-        if(roomAux != null){
+        if (roomAux != null) {
             roomAux.setCondition(Condition.RESERVED);
-            Reservation reservation = new Reservation(pax.getName(),pax.getDni(),roomAux,cantDays,checkIn,checkOut);
+            Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
             reservations.add(reservation);
-        }else {
+        } else {
             System.out.println("Habitacion no encontrada");
         }
     }
@@ -139,7 +139,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
     }
 
     @Override
-    public boolean checkOut(List<Pax> paxes, List<Room> rooms,List<Reservation> reservations) {
+    public boolean checkOut(List<Pax> paxes, List<Room> rooms, List<Reservation> reservations) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el dni del pasajero: ");
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(scanner.next())).findFirst().orElse(null);
@@ -149,8 +149,8 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
             System.out.print("Ingrese el numero de habitacion: ");
             Room room = searchRoomByNumber(rooms, scanner.nextInt());
             Reservation srchReserve = reservations.stream().filter(reservation -> reservation.getRoom().equals(room)).filter(reservation -> reservation.getPaxDni().equals(pax.getDni())).findFirst().orElse(null);
-            assert srchReserve != null;
-            if (srchReserve.getCheckOut().equals(LocalDate.now())) {
+
+            if (srchReserve != null && srchReserve.getCheckOut().equals(LocalDate.now())) {
                 if ((pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum()) == 0) {
                     pax.setIngress(false);
                     room.setCondition(Condition.UNCLEAN_AVAILABLE);
