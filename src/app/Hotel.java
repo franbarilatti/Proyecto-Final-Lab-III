@@ -217,10 +217,6 @@ public class Hotel {
         Room auxRoom = searchRoomByNumber(number);
         if(auxRoom == null){
             Room newRoom = new Room();
-            System.out.print("\nRepita el numero de la nueva habitación: ");
-            System.out.println(scan.nextInt());
-            newRoom.setNumber(number);
-
             System.out.println("ingrese el tipo de Habitacion: \n[1]- Superior\n[2]- Estandar\n");
             switch (scan.nextInt()){
                 case 1 -> newRoom = new Superior();
@@ -234,7 +230,7 @@ public class Hotel {
                 case 4 -> newRoom.setBedType(BedType.CUADRUPLE);
                 default -> System.out.println("Opcion Incorrecta. ");
             }
-            System.out.println("ingrese el tipo de cama: \n[1]- TV de Tubo\n[2]- TV 32'\n[3]- TV 42'\n");
+            System.out.println("ingrese el tipo de TV: \n[1]- TV de Tubo\n[2]- TV 32'\n[3]- TV 42'\n");
             switch (scan.nextInt()){
                 case 1 -> newRoom.setTvType(TvType.TV_TUBO);
                 case 2 -> newRoom.setTvType(TvType.TV_LED_32);
@@ -242,6 +238,7 @@ public class Hotel {
                 default -> System.out.println("Opcion Incorrecta. ");
             }
             newRoom.setCondition(Condition.AVAILABLE);
+            newRoom.setNumber(number);
             rooms.add(newRoom);
         }else {
             System.out.println("La habistacion con este numero ya esta registrada. ");
@@ -465,7 +462,7 @@ public class Hotel {
                     recepcionist.checkIn(paxes, rooms, reserves);
                     break;
                 case 2:
-                    if (recepcionist.checkOut(paxes, rooms)) {
+                    if (recepcionist.checkOut(paxes, rooms,reserves)) {
                         System.out.println("Check out exitoso.");
                     } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");
@@ -520,7 +517,7 @@ public class Hotel {
                     admin.checkIn(paxes, rooms, reserves);
                     break;
                 case 3:
-                    if (admin.checkOut(paxes, rooms)) {
+                    if (admin.checkOut(paxes, rooms,reserves)) {
                         System.out.println("Check out exitoso.");
                     } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");
