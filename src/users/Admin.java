@@ -100,8 +100,8 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         if (pax == null) {
             System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
             pax = newPax();
-            this.makeReserve(reservations, paxes, rooms, scanner);
             paxes.add(pax);
+            this.makeReserve(reservations, paxes, rooms, scanner);
         }
         List<Reservation> reservationList = new ArrayList<>();
         for (Reservation reservation : reservations) {
@@ -111,7 +111,6 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         }
         if (!reservationList.isEmpty()) {
             System.out.println(reservationList);
-
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
             Reservation reservation = reservationList.stream().filter(reservation1 -> reservation1.getRoom().getNumber() == roomNumAux).findFirst().orElse(null);
