@@ -2,29 +2,197 @@
   {
     "number": 101,
     "bedType": "MATRIMONIAL",
-    "condition": "OCUPPED",
+    "condition": "AVAILABLE",
     "tvType": "TV_LED_42",
     "extraPrice": 1000.0
   },
   {
     "number": 102,
     "bedType": "DOBLE_TWIN",
-    "condition": "OCUPPED",
-    "tvType": "TV_TUBO",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_42",
     "extraPrice": 0.0
   },
   {
     "number": 103,
     "bedType": "CUADRUPLE",
     "condition": "AVAILABLE",
-    "tvType": "TV_TUBO",
+    "tvType": "TV_LED_32",
     "extraPrice": 0.0
   },
   {
     "number": 104,
+    "bedType": "TRIPLE",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 105,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 106,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 107,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 201,
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_LED_42",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 202,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_42",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 203,
+    "bedType": "CUADRUPLE",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 204,
+    "bedType": "TRIPLE",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 205,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 206,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 207,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 301,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_42",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 302,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_42",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 303,
+    "bedType": "CUADRUPLE",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 304,
+    "bedType": "TRIPLE",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 305,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 306,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 307,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 401,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_42",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 402,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_42",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 403,
+    "bedType": "CUADRUPLE",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 404,
+    "bedType": "TRIPLE",
+    "condition": "AVAILABLE",
+    "tvType": "TV_LED_32",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 405,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 406,
+    "bedType": "DOBLE_TWIN",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
+    "extraPrice": 1000.0
+  },
+  {
+    "number": 407,
+    "bedType": "MATRIMONIAL",
+    "condition": "AVAILABLE",
+    "tvType": "TV_TUBO",
     "extraPrice": 1000.0
   }
 ]

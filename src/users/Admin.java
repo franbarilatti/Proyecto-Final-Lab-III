@@ -142,8 +142,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             System.out.print("Ingrese el numero de habitacion: ");
             Room room = searchRoomByNumber(rooms, scanner.nextInt());
             Reservation srchReserve = reservations.stream().filter(reservation -> reservation.getRoom().equals(room)).filter(reservation -> reservation.getPaxDni().equals(pax.getDni())).findFirst().orElse(null);
-            assert srchReserve != null;
-            if (srchReserve.getCheckOut().equals(LocalDate.now())) {
+            if (srchReserve != null && srchReserve.getCheckOut().equals(LocalDate.now())) {
                 if ((pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum()) == 0) {
                     pax.setIngress(false);
                     room.setCondition(Condition.UNCLEAN_AVAILABLE);

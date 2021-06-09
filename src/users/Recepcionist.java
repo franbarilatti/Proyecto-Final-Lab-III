@@ -45,6 +45,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         if (pax == null) {
             System.out.println("El pasajero no esta dentro del historial del hotel.\n\nPor favor ingrese sus datos: \n\n-------------------------------------\n\n");
             pax = newPax();
+            paxes.add(pax);
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan, LocalDate.now());
@@ -149,7 +150,6 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
             System.out.print("Ingrese el numero de habitacion: ");
             Room room = searchRoomByNumber(rooms, scanner.nextInt());
             Reservation srchReserve = reservations.stream().filter(reservation -> reservation.getRoom().equals(room)).filter(reservation -> reservation.getPaxDni().equals(pax.getDni())).findFirst().orElse(null);
-
             if (srchReserve != null && srchReserve.getCheckOut().equals(LocalDate.now())) {
                 if ((pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum()) == 0) {
                     pax.setIngress(false);

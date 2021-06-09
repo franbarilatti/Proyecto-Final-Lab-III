@@ -375,7 +375,7 @@ public class Hotel {
         saveHotel();
     }
 
-    public void paxMenu(User user){
+    public void paxMenu(){
         spaces();
         int exit = 0;
         while (exit == 0) {
@@ -396,7 +396,7 @@ public class Hotel {
                 case 3 ->{
                     Pax srchPax = searchHistoryPax();
                     if (srchPax != null) {
-                        paxMenuBis(srchPax,user);
+                        paxMenuBis(srchPax);
 
                     } else {
                         System.out.println("Pasajero no encnontrado");
@@ -408,7 +408,7 @@ public class Hotel {
         }
     }
 
-    public void paxMenuBis(Pax pax, User user) {
+    public void paxMenuBis(Pax pax) {
         spaces();
         System.out.println("========== " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
@@ -478,7 +478,7 @@ public class Hotel {
                     roomMenu();
                     break;
                 case 6:
-                    paxMenu(recepcionist);
+                    paxMenu();
                     break;
                 case 0:
 
@@ -533,7 +533,7 @@ public class Hotel {
                     roomMenuAdmin();
                     break;
                 case 7:
-                    paxMenu(admin);
+                    paxMenu();
                     break;
                 case 8:
                     admin.changeRoomState(this.getRooms(), scan);
@@ -648,7 +648,7 @@ public class Hotel {
         spaces();
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[0]- Salir\n\nElija una opción: ");
+            System.out.println("\n\n[1]- Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {

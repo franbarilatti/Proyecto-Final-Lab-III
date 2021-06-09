@@ -5,15 +5,8 @@
     "address": "",
     "dni": "123232",
     "nationality": "",
-    "ingress": true,
-    "tickets": [
-      {
-        "paxName": "Pocho",
-        "paxSurname": "",
-        "description": "Alojamiento",
-        "total": 13000.0
-      }
-    ]
+    "ingress": false,
+    "tickets": []
   },
   {
     "name": "Toto",
@@ -77,37 +70,5 @@
     "nationality": "",
     "ingress": false,
     "tickets": []
-  },
-  {
-    "name": "Pocho",
-    "surname": "",
-    "address": "",
-    "dni": "123232",
-    "nationality": "",
-    "ingress": true,
-    "tickets": [
-      {
-        "paxName": "Pocho",
-        "paxSurname": "",
-        "description": "Alojamiento",
-        "total": 13000.0
-      }
-    ]
-  },
-  {
-    "name": "Pocho",
-    "surname": "",
-    "address": "",
-    "dni": "123232",
-    "nationality": "",
-    "ingress": true,
-    "tickets": [
-      {
-        "paxName": "Pocho",
-        "paxSurname": "",
-        "description": "Alojamiento",
-        "total": 13000.0
-      }
-    ]
   }
 ]
