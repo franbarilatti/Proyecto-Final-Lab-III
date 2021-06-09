@@ -62,6 +62,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         } else {
             System.out.println("Habitacion no encontrada");
         }
+
     }
 
 
@@ -129,12 +130,10 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         } else {
             System.out.println(pax.getName() + " no tiene reservas hechas para este dia");
         }
-
-
     }
 
     @Override
-    public boolean checkOut(List<Pax> paxes, List<Room> rooms) {
+    public boolean checkOut(List<Pax> paxes, List<Room> rooms,List<Reservation> reservations) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el dni del pasajero: ");
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(scanner.next())).findFirst().orElse(null);
@@ -143,10 +142,16 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         } else {
             System.out.print("Ingrese el numero de habitacion: ");
             Room room = searchRoomByNumber(rooms, scanner.nextInt());
-            if ((pax.getTickets().stream().mapToDouble((Ticket t) -> t.getTotal()).sum()) == 0) {
-                pax.setIngress(false);
-                room.setCondition(Condition.UNCLEAN_AVAILABLE);
-                return true;
+            Reservation srchReserve = reservations.stream().filter(reservation -> reservation.getRoom().equals(room)).filter(reservation -> reservation.getPaxDni().equals(pax.getDni())).findFirst().orElse(null);
+            assert srchReserve != null;
+            if (srchReserve.getCheckOut().equals(LocalDate.now())) {
+                if ((pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum()) == 0) {
+                    pax.setIngress(false);
+                    room.setCondition(Condition.UNCLEAN_AVAILABLE);
+                    return true;
+                } else {
+                    System.out.println("El pasajero tiene cuentas inpagas.");
+                }
             }
         }
         return false;

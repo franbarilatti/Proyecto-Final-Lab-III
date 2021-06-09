@@ -462,7 +462,7 @@ public class Hotel {
                     recepcionist.checkIn(paxes, rooms, reserves);
                     break;
                 case 2:
-                    if (recepcionist.checkOut(paxes, rooms)) {
+                    if (recepcionist.checkOut(paxes, rooms,reserves)) {
                         System.out.println("Check out exitoso.");
                     } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");
@@ -517,7 +517,7 @@ public class Hotel {
                     admin.checkIn(paxes, rooms, reserves);
                     break;
                 case 3:
-                    if (admin.checkOut(paxes, rooms)) {
+                    if (admin.checkOut(paxes, rooms,reserves)) {
                         System.out.println("Check out exitoso.");
                     } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");

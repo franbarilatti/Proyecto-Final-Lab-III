@@ -11,6 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,10 +68,6 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         }else {
             System.out.println("Habitacion no encontrada");
         }
-
-        Ticket ticket = new Ticket(pax.getName(),pax.getSurname(),roomAux.toString(),roomAux.getBedType().getPrice());
-        pax.getTickets().add(ticket);
-
     }
 
 
@@ -109,41 +106,58 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         if (pax == null) {
             System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
             pax = newPax();
+            this.makeReserve(reservations, paxes, rooms, scanner);
+            paxes.add(pax);
         }
-        paxes.add(pax);
-        System.out.print("Ingrese el numero de habitacion: ");
-        int roomNumber = scanner.nextInt();
-        Room room = searchRoomByNumber(rooms,roomNumber);
-        Reservation auxReserve = searchReserve(pax, room, reservations);
-        if(auxReserve != null){
-            pax.setIngress(true);
-            double price = (room.getBedType().getPrice() + room.getExtraPrice()) * auxReserve.getCantDays();
-            pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Costo de habitacion", price));
-            paxes.add(pax);
-            eliminateReserve(reservations, auxReserve);
-            room.setCondition(Condition.OCUPPED);
-        }else {
-            pax.setIngress(true);
-            paxes.add(pax);
-            room.setCondition(Condition.OCUPPED);
+        List<Reservation> reservationList = new ArrayList<>();
+        for (Reservation reservation : reservations) {
+            if (reservation.getPaxDni().equals(pax.getDni()) && reservation.getCheckIn().equals(LocalDate.now())) {
+                reservationList.add(reservation);
+            }
+        }
+        if (!reservationList.isEmpty()) {
+            System.out.println(reservationList);
+
+            System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
+            int roomNumAux = scanner.nextInt();
+            Reservation reservation = reservationList.stream().filter(reservation1 -> reservation1.getRoom().getNumber() == roomNumAux).findFirst().orElse(null);
+            if (reservation != null) {
+                Room roomAux = searchRoomByNumber(rooms, roomNumAux);
+                Reservation reservationAux = searchReserve(pax, roomAux, reservations);
+                pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Alojamiento", (roomAux.getBedType().getPrice() + roomAux.getExtraPrice()) * reservationAux.getCantDays()));
+                eliminateReserve(reservations, reservationAux);
+                pax.setIngress(true);
+                roomAux.setCondition(Condition.OCUPPED);
+            } else {
+                System.out.println(pax.getName() + " no tiene reserva para esta habitacion");
+
+            }
+
+        } else {
+            System.out.println(pax.getName() + " no tiene reservas hechas para este dia");
         }
     }
 
     @Override
-    public boolean checkOut(List<Pax> paxes, List<Room> rooms) {
+    public boolean checkOut(List<Pax> paxes, List<Room> rooms,List<Reservation> reservations) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese el dni del pasajero: ");
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(scanner.next())).findFirst().orElse(null);
-        System.out.print("Ingrese el numero de habitacion: ");
-        Room room = searchRoomByNumber(rooms,scanner.nextInt());
-        if(pax == null){
+        if (pax == null) {
             System.out.println("El dni ingresado no esta registrado en el sistema.");
-        }
-        else {
-            if ((pax.getTickets().stream().mapToDouble((Ticket t)->t.getTotal()).sum()) == 0){
-                pax.setIngress(false);
-                room.setCondition(Condition.UNCLEAN_AVAILABLE);
-                return true;
+        } else {
+            System.out.print("Ingrese el numero de habitacion: ");
+            Room room = searchRoomByNumber(rooms, scanner.nextInt());
+            Reservation srchReserve = reservations.stream().filter(reservation -> reservation.getRoom().equals(room)).filter(reservation -> reservation.getPaxDni().equals(pax.getDni())).findFirst().orElse(null);
+            assert srchReserve != null;
+            if (srchReserve.getCheckOut().equals(LocalDate.now())) {
+                if ((pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum()) == 0) {
+                    pax.setIngress(false);
+                    room.setCondition(Condition.UNCLEAN_AVAILABLE);
+                    return true;
+                } else {
+                    System.out.println("El pasajero tiene cuentas inpagas.");
+                }
             }
         }
         return false;
