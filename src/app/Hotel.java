@@ -88,7 +88,7 @@ public class Hotel {
 
     //------ Show Methods ------//
     public void spaces() {
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
+        System.out.println("\n\n\n\n\n\n\n");
     }
 
     public void showHistoryPax() throws Exception {
@@ -358,14 +358,14 @@ public class Hotel {
 
     public void firstMenu() {
         spaces();
-        System.out.println("========== BIENVENIDO A NUESTRO HOTEL ==========");
+        System.out.println("\033[33m"+"========== BIENVENIDO A HOTEL TRANSILVANIA ==========");
         int back = 0;
         while (back == 0) {
-            System.out.println(
-                    """
-                            [1]- Ingresar
-                            [2]- Registrarse
-                            [0]- Salir""");
+            System.out.println("""
+                    \033[32m
+                    [1]- Ingresar
+                    [2]- Registrarse
+                    [0]- Salir""");
             System.out.print("Ingrese una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> logIn();
@@ -374,7 +374,7 @@ public class Hotel {
                     saveHotel();
                 }
                 case 0 -> back++;
-                default -> System.out.println("Opcion incorrecta");
+                default -> System.out.println("\033[31m"+"Opcion incorrecta");
             }
         }
         saveHotel();
@@ -382,10 +382,17 @@ public class Hotel {
 
     public void paxMenu() {
         spaces();
-        System.out.println("========== MENU DE PASAJEROS ==========");
+        System.out.println("\033[36m"+"========== MENU DE PASAJEROS ==========");
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Lista de pasajeros\n[2]- Nuevo Pasajero\n[3]- Buscar Pasajero\n[0]- Salir\n\nElija una opcion: ");
+            System.out.println("""
+                    \033[32m
+                    [1]- Lista de pasajeros
+                    [2]- Nuevo Pasajero
+                    [3]- Buscar Pasajero
+                    [0]- Salir
+
+                    Elija una opcion:\s""");
 
             switch (scan.nextInt()) {
                 case 1 -> {
@@ -405,27 +412,27 @@ public class Hotel {
                         paxMenuBis(srchPax);
 
                     } else {
-                        System.out.println("Pasajero no encnontrado");
+                        System.out.println("\033[31m"+"Pasajero no encnontrado");
                     }
                 }
                 case 0 -> exit++;
-                default -> System.out.println("opcion incorrecta");
+                default -> System.out.println("\033[31m"+"opcion incorrecta");
             }
         }
     }
 
     public void paxMenuBis(Pax pax) {
         spaces();
-        System.out.println("========== MENU DEL PASAJERO " + pax.getName() + " " + pax.getSurname() + " ==========");
+        System.out.println("\033[36m"+"========== MENU DEL PASAJERO " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
         while (back == 0) {
-            System.out.println(
-                    """
-                            [1]- Ver Reservas
-                            [2]- Añadir consumo
-                            [3]- Ver consumos
-                            [4]- Cobrar
-                            [0]- Salir""");
+            System.out.println("""
+                    \033[32
+                    [1]- Ver Reservas
+                    [2]- Añadir consumo
+                    [3]- Ver consumos
+                    [4]- Cobrar
+                    [0]- Salir""");
             System.out.print("Ingrese una opción: ");
             switch (scan.nextInt()) {
                 case 1 -> showPaxReserves(pax);
@@ -433,7 +440,7 @@ public class Hotel {
                 case 3 -> showPaxTickets(pax);
                 case 4 -> chargue(pax);
                 case 0 -> back++;
-                default -> System.out.println("Opcion incorrecta");
+                default -> System.out.println("\033[31m"+"Opcion incorrecta");
             }
         }
     }
@@ -448,7 +455,7 @@ public class Hotel {
 
     public void recepcionistMenu(User user) {
         spaces();
-        System.out.println("========== MENU DE RECEPCIONISTAS ==========");
+        System.out.println("\033[36m"+"========== MENU DE RECEPCIONISTAS ==========");
 
         Recepcionist recepcionist = new Recepcionist(user.getNickName(), user.getPassword(), user.getJobTitle());
         int back = 0;
@@ -456,6 +463,7 @@ public class Hotel {
         while (back == 0) {
             System.out.println(
                     """
+                            \033[32m
                             [1]- Check in
                             [2]- Check out
                             [3]- Agregar Nueva Reserva
@@ -470,9 +478,9 @@ public class Hotel {
                     break;
                 case 2:
                     if (recepcionist.checkOut(paxes, rooms, reserves)) {
-                        System.out.println("Check out exitoso.");
+                        System.out.println("\033[34m"+"Check out exitoso.");
                     } else {
-                        System.out.println("El pasajero todavia tiene cargos en su cuenta.");
+                        System.out.println("\033[31m"+"El pasajero todavia tiene cargos en su cuenta.");
                     }
                     break;
                 case 3:
@@ -492,7 +500,7 @@ public class Hotel {
                     back++;
                     break;
                 default:
-                    System.out.println("opción incorrecta");
+                    System.out.println("\033[31m"+"Opción incorrecta");
                     break;
             }
         }
@@ -500,13 +508,17 @@ public class Hotel {
 
     public void adminMenu(User user) {
         spaces();
-        System.out.println("========== MENU DE ADMINISTRADORES ==========\n\n");
+        System.out.println("""
+                \033[36m
+                ========== MENU DE ADMINISTRADORES ==========
+                """);
         Admin admin = new Admin(user.getNickName(), user.getPassword(), user.getJobTitle());
         int back = 0;
         System.out.println("Bienvenido, " + admin.getNickName());
         while (back == 0) {
             System.out.println(
                     """
+                            \033[32m
                             [1]- Añadir nuevo usuario
                             [2]- Check in
                             [3]- Check out
@@ -526,9 +538,9 @@ public class Hotel {
                     break;
                 case 3:
                     if (admin.checkOut(paxes, rooms, reserves)) {
-                        System.out.println("Check out exitoso.");
+                        System.out.println("\033[33m"+"Check out exitoso.");
                     } else {
-                        System.out.println("El pasajero todavia tiene cargos en su cuenta.");
+                        System.out.println("\033[31m"+"El pasajero todavia tiene cargos en su cuenta.");
                     }
                     break;
                 case 4:
@@ -550,7 +562,7 @@ public class Hotel {
                     back++;
                     break;
                 default:
-                    System.out.println("opción incorrecta");
+                    System.out.println("\033[31m"+"opción incorrecta");
                     break;
             }
         }
@@ -558,7 +570,10 @@ public class Hotel {
 
     public void roomServiceMenu(Scanner scan, Pax pax) {
         spaces();
-        System.out.println("========== ROOM SERVICE MENU ==========\n\n");
+        System.out.println("""
+                \033[36m
+                ========== ROOM SERVICE MENU ==========
+                """);
         int exit = 0;
         double total = 0;
         String detail = "";
@@ -605,10 +620,19 @@ public class Hotel {
 
     public void registerMenu() {
         spaces();
-        System.out.println("========== MENU DE REGISTRO ==========\n\n");
+        System.out.println("""
+                \033[36m
+                ========== MENU DE REGISTRO ==========
+                """);
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n[0]- Salir\n\nElija una opción: ");
+            System.out.println("""
+                    \033[32m
+                    [1]- Administrador
+                    [2]- Recepcionista
+                    [0]- Salir
+
+                    Elija una opción:\s""");
             switch (scan.nextInt()) {
                 case 1 -> {
                     registerAdmin();
@@ -626,10 +650,22 @@ public class Hotel {
 
     public void reserveMenu() {
         spaces();
-        System.out.println("========== MENU DE RESERVAS ==========\n\n");
+        System.out.println("""
+                \033[36m
+                ========== MENU DE RESERVAS ==========
+                """);
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n[0]- Salir\n\nElija una opción: ");
+            System.out.println("""
+                    \033[32m
+                    [1]- Todas las reservas
+                    [2]- Reservas del dia
+                    [3]- Reservas por pasajero
+                    [4]- Buscar Reserva
+                    [5]- Eliminar Reserva
+                    [0]- Salir
+
+                    Elija una opción:\s""");
             switch (scan.nextInt()) {
                 case 1 -> {
                     try {
@@ -668,10 +704,21 @@ public class Hotel {
 
     public void roomMenu() {
         spaces();
-        System.out.println("========== MENU DE HABITACIONES ========== \n\n");
+        System.out.println("""
+                \033[36m
+                ========== MENU DE HABITACIONES ==========\s
+                """);
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]- Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[0]- Salir\n\nElija una opción: ");
+            System.out.println("""
+                    \033[32m
+                    [1]- Ver todas las Habitaciones
+                    [2]- Buscar Habitacion
+                    [3]- Habitaciones disponibles
+                    [4]- Habitaciones con Reserva
+                    [0]- Salir
+
+                    Elija una opción:\s""");
             switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {
@@ -705,10 +752,23 @@ public class Hotel {
 
     public void roomMenuAdmin() {
         spaces();
-        System.out.println("========== MENU DE HABITACIONES ========== \n\n");
+        System.out.println("""
+                \033[36m
+                ========== MENU DE HABITACIONES ==========\s
+                """);
         int exit = 0;
         while (exit == 0) {
-            System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[5]- Agregar habitacion\n[6]- Eliminar Habitacion\n[0]- Salir\n\nElija una opción: ");
+            System.out.println("""
+                    \033[32m
+                    [1]-Ver todas las Habitaciones
+                    [2]- Buscar Habitacion
+                    [3]- Habitaciones disponibles
+                    [4]- Habitaciones con Reserva
+                    [5]- Agregar habitacion
+                    [6]- Eliminar Habitacion
+                    [0]- Salir
+
+                    Elija una opción:\s""");
             switch (scan.nextInt()) {
                 case 1 -> showRooms();
                 case 2 -> {
