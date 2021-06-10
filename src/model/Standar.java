@@ -22,7 +22,7 @@ public class Standar extends Room implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString();
+        return super.toString() + "\nTipo de habitacion: Standar";
     }
 
 }

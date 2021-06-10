@@ -11,6 +11,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -56,7 +57,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         System.out.println("--------------------------------------");
         for (Room room : rooms) {
             if (!room.isOcuped(reservations, checkIn, checkOut)) {
-                System.out.println(room.getNumber() + " " + room.getCondition().getState());
+                System.out.println(room);
             }
         }
         System.out.println("--------------------------------------");
@@ -69,6 +70,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         } else {
             System.out.println("Habitacion no encontrada");
         }
+
     }
 
 
@@ -86,6 +88,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         pax.setDni(scanner.nextLine());
         System.out.print("Nacionalidad: ");
         pax.setNationality(scanner.nextLine());
+        System.out.println("Pasajero creado con exito");
         return pax;
     }
 
@@ -93,7 +96,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
     public void RoomAvailable(List<Room> roomList) {
         for (Room room : roomList) {
             if (room.getCondition() == Condition.AVAILABLE || room.getCondition() == Condition.UNCLEAN_AVAILABLE) {
-                System.out.println(room.toString());
+                System.out.println(room);
             }
         }
     }
@@ -107,8 +110,8 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         if (pax == null) {
             System.out.println("Pasajero no encontrado. Ingrese sus datos para continuar\n\n");
             pax = newPax();
-            this.makeReserve(reservations, paxes, rooms, scanner);
             paxes.add(pax);
+            this.makeReserve(reservations, paxes, rooms, scanner);
         }
         List<Reservation> reservationList = new ArrayList<>();
         for (Reservation reservation : reservations) {
@@ -118,7 +121,6 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
         }
         if (!reservationList.isEmpty()) {
             System.out.println(reservationList);
-
             System.out.println("Ingrese el numero de habitacion que quiere hacer el checkin");
             int roomNumAux = scanner.nextInt();
             Reservation reservation = reservationList.stream().filter(reservation1 -> reservation1.getRoom().getNumber() == roomNumAux).findFirst().orElse(null);
@@ -131,7 +133,6 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
                 roomAux.setCondition(Condition.OCUPPED);
             } else {
                 System.out.println(pax.getName() + " no tiene reserva para esta habitacion");
-
             }
 
         } else {
@@ -167,15 +168,21 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
     public LocalDate ingressDate(Scanner scan, LocalDate today) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String date = scan.next();
-        LocalDate localDate = LocalDate.parse(date, formatter);
+        LocalDate localDate = null;
         int exit = 0;
         while (exit == 0) {
-            if (!formatter.format(localDate).equals(date) || localDate.compareTo(today) < 0) {
-                System.out.println("\nFecha invalida. Ingrese una nueva fecha");
-                date = scan.next();
+            try {
                 localDate = LocalDate.parse(date, formatter);
-            } else {
-                exit++;
+                if (!formatter.format(localDate).equals(date) || localDate.compareTo(today) < 0) {
+                    System.out.println("\nFecha invalida. Ingrese una nueva fecha");
+                    date = scan.next();
+                    localDate = LocalDate.parse(date, formatter);
+                } else {
+                    exit++;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Formato de fecha invalido. Ingrese la fecha nuevamente");
+                date = scan.next();
             }
         }
         return localDate;

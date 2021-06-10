@@ -93,14 +93,14 @@ public class Hotel {
 
     public void showHistoryPax() throws Exception {
         if (paxes != null)
-            paxes.forEach(System.out::println);
+            getPaxes().forEach(System.out::println);
         else
             throw new Exception("No hay pasajeros historicos en el sistema");
     }
 
     public void showTodayReserves() throws Exception {
-        if (reserves != null)
-            reserves.stream().
+        if (getReserves() != null)
+            getReserves().stream().
                     filter((Reservation r) -> r.getCheckIn().equals(LocalDate.now())).
                     forEach(System.out::println);
         else
@@ -108,33 +108,42 @@ public class Hotel {
     }
 
     public void showDisponibledRooms(LocalDate ingress, LocalDate exit) {
-        if (rooms == null) {
+        if (getRooms().isEmpty()) {
             System.out.println("No hay habitaciones disponibles");
         } else {
-            rooms.stream().filter(room -> !room.isOcuped(reserves, ingress, exit)).forEach(System.out::println);
+            getRooms().stream().filter(room -> !room.isOcuped(reserves, ingress, exit)).forEach(System.out::println);
         }
     }
 
-    public void showAllReserves() throws Exception {
-        if (reserves != null)
-            reserves.forEach(System.out::println);
-        else
-            throw new Exception("No hay reservas cargadas en el sistema");
+    public void showAllReserves()  {
+        if (!getReserves().isEmpty()){
+            getReserves().forEach(System.out::println);
+        }else {
+            System.out.println("No hay reservas cargadas en el sistema");
+        }
     }
 
     public void showPaxReserves(Pax pax) {
-        reserves.stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).collect(Collectors.toList()).forEach(System.out::println);
+        if(!getReserves().isEmpty()){
+            getReserves().stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).collect(Collectors.toList()).forEach(System.out::println);
+        }else {
+            System.out.println("No hay reservas cargadas en el sistema");
+        }
     }
 
     public void showPaxTickets(Pax pax) {
-        pax.getTickets().forEach(System.out::println);
+        if (!pax.getTickets().isEmpty()){
+            pax.getTickets().forEach(System.out::println);
+        }else {
+            System.out.println("El pasajero no tiene tickets cargados");
+        }
     }
 
     public void showRooms() {
-        if (rooms == null) {
+        if (getRooms() == null) {
             System.out.println("No hay habitaciones disponibles");
         } else {
-            rooms.stream().sorted(Comparator.comparingInt(Room::getNumber)).forEach(System.out::println);
+            getRooms().stream().sorted(Comparator.comparingInt(Room::getNumber)).forEach(System.out::println);
         }
     }
 
@@ -153,32 +162,32 @@ public class Hotel {
 
     public Reservation searchPaxReserve() {
         Pax srchPax = searchHistoryPax();
-        if(srchPax != null){
+        if (srchPax != null) {
             System.out.println("Ingrese el numero de habitación: ");
             Room srchRoom = searchRoomByNumber(scan.nextInt());
-            if(srchRoom != null){
-                return reserves.stream().
+            if (srchRoom != null) {
+                return getReserves().stream().
                         filter((Reservation r) -> r.getRoom().equals(srchRoom)).
                         filter(r -> r.getPaxDni().equals(srchPax.getDni())).
                         findFirst().orElse(null);
-            }else {
+            } else {
                 System.out.println("Habitación no encontrada.");
             }
-        }else {
+        } else {
             System.out.println("Pasajero no encontrado.");
         }
         return null;
     }
 
     public User searchUserByNickName(String nickname) {
-        return users.stream().
+        return getUsers().stream().
                 filter(user -> user.getNickName().equals(nickname)).
                 findFirst().
                 orElse(null);
     }
 
     public Room searchRoomByNumber(int roomNumber) {
-        return rooms.stream().
+        return getRooms().stream().
                 filter(room -> room.getNumber() == roomNumber).
                 findFirst().
                 orElse(null);
@@ -188,13 +197,13 @@ public class Hotel {
     //------ Functional Methods ------//
 
     public void runHotel() throws ClassCastException {
-        try{
+        try {
             this.setUsers(userRepository.throwList(userFile));
             this.setRooms(roomRepository.throwList(roomFile));
             this.setPaxes(paxRepository.throwList(paxFile));
             this.setReserves(reserveRepository.throwList(reserveFile));
             firstMenu();
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -210,20 +219,20 @@ public class Hotel {
         reserves.remove(reserve);
     }
 
-    private void addNewRoom(){
+    private void addNewRoom() {
 
         System.out.print("\nIngrese el numero de la habitación: ");
         int number = scan.nextInt();
         Room auxRoom = searchRoomByNumber(number);
-        if(auxRoom == null){
+        if (auxRoom == null) {
             Room newRoom = new Room();
             System.out.println("ingrese el tipo de Habitacion: \n[1]- Superior\n[2]- Estandar\n");
-            switch (scan.nextInt()){
+            switch (scan.nextInt()) {
                 case 1 -> newRoom = new Superior();
                 case 2 -> newRoom = new Standar();
             }
             System.out.println("ingrese el tipo de cama: \n[1]- Matrimonial\n[2]- Doble Twin\n[3]- Triple\n[4]- Cuadruple\n");
-            switch (scan.nextInt()){
+            switch (scan.nextInt()) {
                 case 1 -> newRoom.setBedType(BedType.MATRIMONIAL);
                 case 2 -> newRoom.setBedType(BedType.DOBLE_TWIN);
                 case 3 -> newRoom.setBedType(BedType.TRIPLE);
@@ -231,7 +240,7 @@ public class Hotel {
                 default -> System.out.println("Opcion Incorrecta. ");
             }
             System.out.println("ingrese el tipo de TV: \n[1]- TV de Tubo\n[2]- TV 32'\n[3]- TV 42'\n");
-            switch (scan.nextInt()){
+            switch (scan.nextInt()) {
                 case 1 -> newRoom.setTvType(TvType.TV_TUBO);
                 case 2 -> newRoom.setTvType(TvType.TV_LED_32);
                 case 3 -> newRoom.setTvType(TvType.TV_LED_42);
@@ -239,30 +248,29 @@ public class Hotel {
             }
             newRoom.setCondition(Condition.AVAILABLE);
             newRoom.setNumber(number);
-            rooms.add(newRoom);
-        }else {
+            getRooms().add(newRoom);
+        } else {
             System.out.println("La habistacion con este numero ya esta registrada. ");
         }
 
     }
 
-    private void eliminateRoom(){
+    private void eliminateRoom() {
         System.out.print("Ingrese el numero de habitacion: ");
         int number = scan.nextInt();
-        Room eliminatedRoom = rooms.stream().filter(room -> room.getNumber() == number).findFirst().orElse(null);
-        if(eliminatedRoom != null){
+        Room eliminatedRoom = getRooms().stream().filter(room -> room.getNumber() == number).findFirst().orElse(null);
+        if (eliminatedRoom != null) {
             System.out.println(eliminatedRoom);
             System.out.println("Esta seguro que desea eliminar esta habitacion?\n[1]- Si\n[2]- No\n");
-            switch (scan.nextInt()){
-                case 1 ->{
-                    rooms.remove(eliminatedRoom);
+            switch (scan.nextInt()) {
+                case 1 -> {
+                    getRooms().remove(eliminatedRoom);
                     System.out.println("Habitacion Eliminada");
                 }
                 case 2 -> System.out.println("Gracias por salvar esta pequeña habitacion :)");
                 default -> System.out.println("Opcion incorrecta.");
             }
-        }
-        else {
+        } else {
             System.out.println("Habitacion no encontrada.");
         }
 
@@ -303,7 +311,6 @@ public class Hotel {
         pax.setDni(scan.nextLine());
         System.out.print("Nacionalidad: ");
         pax.setNationality(scan.nextLine());
-
         return pax;
     }
 
@@ -319,10 +326,9 @@ public class Hotel {
             System.out.print("Ingrese una contraseña: ");
             admin.setPassword(scan.next());
             admin.setJobTitle("Administrador");
-            users.add(admin);
+            getUsers().add(admin);
             System.out.println("\nUsuario creado con exito");
         }
-
     }
 
     public void registerRecepcionist() {
@@ -340,7 +346,6 @@ public class Hotel {
             users.add(recepcionist);
             System.out.println("\nUsuario creado con exito");
         }
-
     }
 
     public void chargue(Pax pax) {
@@ -375,7 +380,7 @@ public class Hotel {
         saveHotel();
     }
 
-    public void paxMenu(){
+    public void paxMenu() {
         spaces();
         int exit = 0;
         while (exit == 0) {
@@ -393,7 +398,7 @@ public class Hotel {
                     Pax newPax = registerPax();
                     addHistoryPax(newPax);
                 }
-                case 3 ->{
+                case 3 -> {
                     Pax srchPax = searchHistoryPax();
                     if (srchPax != null) {
                         paxMenuBis(srchPax);
@@ -462,7 +467,7 @@ public class Hotel {
                     recepcionist.checkIn(paxes, rooms, reserves);
                     break;
                 case 2:
-                    if (recepcionist.checkOut(paxes, rooms,reserves)) {
+                    if (recepcionist.checkOut(paxes, rooms, reserves)) {
                         System.out.println("Check out exitoso.");
                     } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");
@@ -517,7 +522,7 @@ public class Hotel {
                     admin.checkIn(paxes, rooms, reserves);
                     break;
                 case 3:
-                    if (admin.checkOut(paxes, rooms,reserves)) {
+                    if (admin.checkOut(paxes, rooms, reserves)) {
                         System.out.println("Check out exitoso.");
                     } else {
                         System.out.println("El pasajero todavia tiene cargos en su cuenta.");
@@ -600,13 +605,18 @@ public class Hotel {
         while (exit == 0) {
             System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n[0]- Salir\n\nElija una opción: ");
             switch (scan.nextInt()) {
-                case 1 -> registerAdmin();
-                case 2 -> registerRecepcionist();
+                case 1 -> {
+                    registerAdmin();
+                    exit++;
+                }
+                case 2 -> {
+                    registerRecepcionist();
+                    exit++;
+                }
                 case 0 -> exit++;
                 default -> System.out.println("opción incorrecta");
             }
         }
-
     }
 
     public void reserveMenu() {
@@ -636,7 +646,10 @@ public class Hotel {
                 case 4 -> System.out.println(searchPaxReserve());
                 case 5 -> {
                     Reservation reservation = searchPaxReserve();
+                    if (reservation!=null)
                     eliminateReserve(reservation);
+                    else
+                        System.out.println("El pasajero no tiene una reserva para esta habitacion");
                 }
                 case 0 -> exit++;
                 default -> System.out.println("opción incorrecta.");
@@ -654,7 +667,10 @@ public class Hotel {
                 case 2 -> {
                     System.out.print("Ingrese el numero de habitación que busca: ");
                     Room srchRoom = searchRoomByNumber(scan.nextInt());
-                    System.out.println(srchRoom);
+                    if (srchRoom != null)
+                        System.out.println(srchRoom);
+                    else
+                        System.out.println("Habitacion no encontrada");
                 }
                 case 3 -> {
                     System.out.print("Ingrese la fecha que busca: ");
@@ -665,6 +681,7 @@ public class Hotel {
                     LocalDate out = ingress.plusDays(scan.nextInt());
                     showDisponibledRooms(ingress, out);
                 }
+                case 4 -> System.out.println(rooms.stream().filter(room -> room.getCondition().equals(Condition.RESERVED)));
                 case 0 -> exit++;
                 default -> System.out.println("opción incorrecta");
             }
@@ -681,7 +698,10 @@ public class Hotel {
                 case 2 -> {
                     System.out.print("Ingrese el numero de habitación que busca: ");
                     Room srchRoom = searchRoomByNumber(scan.nextInt());
-                    System.out.println(srchRoom);
+                    if (srchRoom != null)
+                        System.out.println(srchRoom);
+                    else
+                        System.out.println("Habitacion no encontrada");
                 }
                 case 3 -> {
                     System.out.print("Ingrese la fecha que busca: ");

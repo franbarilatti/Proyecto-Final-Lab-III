@@ -81,6 +81,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         pax.setDni(scanner.nextLine());
         System.out.print("Nacionalidad: ");
         pax.setNationality(scanner.nextLine());
+        System.out.println("Pasajero creado con exito");
         return pax;
     }
 
