@@ -170,7 +170,7 @@
   {
     "number": 404,
     "bedType": "TRIPLE",
-    "condition": "AVAILABLE",
+    "condition": "RESERVED",
     "tvType": "TV_LED_32",
     "extraPrice": 1000.0
   },

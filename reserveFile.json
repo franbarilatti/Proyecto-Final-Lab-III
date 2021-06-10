@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "paxName": "Pocho",
+    "paxDni": "123232",
+    "room": {
+      "number": 404,
+      "bedType": "TRIPLE",
+      "condition": "RESERVED",
+      "tvType": "TV_LED_32",
+      "extraPrice": 1000.0
+    },
+    "cantDays": 5,
+    "checkIn": "10-10-2021",
+    "checkOut": "15-10-2021"
+  }
+]

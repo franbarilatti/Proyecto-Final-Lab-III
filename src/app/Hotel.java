@@ -115,26 +115,26 @@ public class Hotel {
         }
     }
 
-    public void showAllReserves()  {
-        if (!getReserves().isEmpty()){
+    public void showAllReserves() {
+        if (!getReserves().isEmpty()) {
             getReserves().forEach(System.out::println);
-        }else {
+        } else {
             System.out.println("No hay reservas cargadas en el sistema");
         }
     }
 
     public void showPaxReserves(Pax pax) {
-        if(!getReserves().isEmpty()){
+        if (!getReserves().isEmpty()) {
             getReserves().stream().filter((Reservation r) -> r.getPaxDni().equals(pax.getDni())).collect(Collectors.toList()).forEach(System.out::println);
-        }else {
+        } else {
             System.out.println("No hay reservas cargadas en el sistema");
         }
     }
 
     public void showPaxTickets(Pax pax) {
-        if (!pax.getTickets().isEmpty()){
+        if (!pax.getTickets().isEmpty()) {
             pax.getTickets().forEach(System.out::println);
-        }else {
+        } else {
             System.out.println("El pasajero no tiene tickets cargados");
         }
     }
@@ -382,6 +382,7 @@ public class Hotel {
 
     public void paxMenu() {
         spaces();
+        System.out.println("========== MENU DE PASAJEROS ==========");
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]- Lista de pasajeros\n[2]- Nuevo Pasajero\n[3]- Buscar Pasajero\n[0]- Salir\n\nElija una opcion: ");
@@ -415,7 +416,7 @@ public class Hotel {
 
     public void paxMenuBis(Pax pax) {
         spaces();
-        System.out.println("========== " + pax.getName() + " " + pax.getSurname() + " ==========");
+        System.out.println("========== MENU DEL PASAJERO " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
         while (back == 0) {
             System.out.println(
@@ -438,7 +439,6 @@ public class Hotel {
     }
 
     public void userMenues(User user) {
-
         if (user.getJobTitle().equals("Administrador")) {
             adminMenu(user);
         } else {
@@ -448,6 +448,8 @@ public class Hotel {
 
     public void recepcionistMenu(User user) {
         spaces();
+        System.out.println("========== MENU DE RECEPCIONISTAS ==========");
+
         Recepcionist recepcionist = new Recepcionist(user.getNickName(), user.getPassword(), user.getJobTitle());
         int back = 0;
         System.out.println("Bienvenido, " + recepcionist.getNickName());
@@ -498,6 +500,7 @@ public class Hotel {
 
     public void adminMenu(User user) {
         spaces();
+        System.out.println("========== MENU DE ADMINISTRADORES ==========\n\n");
         Admin admin = new Admin(user.getNickName(), user.getPassword(), user.getJobTitle());
         int back = 0;
         System.out.println("Bienvenido, " + admin.getNickName());
@@ -555,6 +558,7 @@ public class Hotel {
 
     public void roomServiceMenu(Scanner scan, Pax pax) {
         spaces();
+        System.out.println("========== ROOM SERVICE MENU ==========\n\n");
         int exit = 0;
         double total = 0;
         String detail = "";
@@ -601,6 +605,7 @@ public class Hotel {
 
     public void registerMenu() {
         spaces();
+        System.out.println("========== MENU DE REGISTRO ==========\n\n");
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]- Administrador\n[2]- Recepcionista\n[0]- Salir\n\nElija una opción: ");
@@ -621,6 +626,7 @@ public class Hotel {
 
     public void reserveMenu() {
         spaces();
+        System.out.println("========== MENU DE RESERVAS ==========\n\n");
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]- Todas las reservas\n[2]- Reservas del dia\n[3]- Reservas por pasajero\n[4]- Buscar Reserva\n[5]- Eliminar Reserva\n[0]- Salir\n\nElija una opción: ");
@@ -641,13 +647,16 @@ public class Hotel {
                 }
                 case 3 -> {
                     Pax srchPax = searchHistoryPax();
+                    if (srchPax!=null)
                     showPaxReserves(srchPax);
+                    else
+                        System.out.println("El pasajero ingresado no esta cargado en el sistema");
                 }
                 case 4 -> System.out.println(searchPaxReserve());
                 case 5 -> {
                     Reservation reservation = searchPaxReserve();
-                    if (reservation!=null)
-                    eliminateReserve(reservation);
+                    if (reservation != null)
+                        eliminateReserve(reservation);
                     else
                         System.out.println("El pasajero no tiene una reserva para esta habitacion");
                 }
@@ -659,6 +668,7 @@ public class Hotel {
 
     public void roomMenu() {
         spaces();
+        System.out.println("========== MENU DE HABITACIONES ========== \n\n");
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]- Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[0]- Salir\n\nElija una opción: ");
@@ -681,7 +691,12 @@ public class Hotel {
                     LocalDate out = ingress.plusDays(scan.nextInt());
                     showDisponibledRooms(ingress, out);
                 }
-                case 4 -> System.out.println(rooms.stream().filter(room -> room.getCondition().equals(Condition.RESERVED)));
+                case 4 -> {
+                    List<Room> listAux = getRooms().stream().filter(room -> room.getCondition().equals(Condition.RESERVED)).collect(Collectors.toList());
+                    if (!listAux.isEmpty())
+                        System.out.println(listAux);
+                    else System.out.println("No hay habitaciones con reservas");
+                }
                 case 0 -> exit++;
                 default -> System.out.println("opción incorrecta");
             }
@@ -690,6 +705,7 @@ public class Hotel {
 
     public void roomMenuAdmin() {
         spaces();
+        System.out.println("========== MENU DE HABITACIONES ========== \n\n");
         int exit = 0;
         while (exit == 0) {
             System.out.println("\n\n[1]-Ver todas las Habitaciones\n[2]- Buscar Habitacion\n[3]- Habitaciones disponibles\n[4]- Habitaciones con Reserva\n[5]- Agregar habitacion\n[6]- Eliminar Habitacion\n[0]- Salir\n\nElija una opción: ");
@@ -712,7 +728,12 @@ public class Hotel {
                     LocalDate out = ingress.plusDays(scan.nextInt());
                     showDisponibledRooms(ingress, out);
                 }
-                case 4 -> System.out.println(rooms.stream().filter(room -> room.getCondition().equals(Condition.RESERVED)));
+                case 4 -> {
+                    List<Room> listAux = getRooms().stream().filter(room -> room.getCondition().equals(Condition.RESERVED)).collect(Collectors.toList());
+                    if (!listAux.isEmpty())
+                        System.out.println(listAux);
+                    else System.out.println("No hay habitaciones con reservas");
+                }
                 case 5 -> addNewRoom();
                 case 6 -> eliminateRoom();
                 case 0 -> exit++;
