@@ -141,7 +141,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         String dni = scanner.next();
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dni)).findFirst().orElse(null);
         if (pax == null) {
-            System.out.println("\033[31m"+"El dni ingresado no esta registrado en el sistema.");
+            System.out.println("\033[31m" + "El dni ingresado no esta registrado en el sistema.");
         } else {
             System.out.print("Ingrese el numero de habitacion: ");
             Room room = searchRoomByNumber(rooms, scanner.nextInt());
@@ -152,7 +152,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
                     room.setCondition(Condition.UNCLEAN_AVAILABLE);
                     return true;
                 } else {
-                    System.out.println("\033[31m"+"El pasajero tiene cuentas inpagas.");
+                    System.out.println("\033[31m" + "El pasajero tiene cuentas inpagas.");
                 }
             }
         }
@@ -190,7 +190,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             System.out.println(room);
             System.out.println("Elija el nuevo estado de la habitacion");
             for (Condition condition : Condition.values()) {
-                System.out.println(condition.ordinal() + 1 + "- " + condition.name());
+                System.out.println(condition.ordinal() + 1 + "- " + condition.getState());
             }
             String s = Condition.searchByOrdinal(scan.nextInt());
             if (!s.equals("")) {

@@ -10,25 +10,13 @@ import users.Pax;
 import users.User;
 
 import java.io.*;
-import java.lang.reflect.Type;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class RepositoryController<T> extends LocalDateAdapter {
-
-    public void createFile(String fileName) {
-        File file = new File(fileName);
-        try {
-            if (!file.exists()) file.createNewFile();
-            if (!file.canWrite()) {
-                file.setWritable(true);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     public void addList(String fileName, List<T> tList) {

@@ -356,15 +356,15 @@ public class Hotel {
 
     public void firstMenu() {
         spaces();
-        System.out.println("\033[33m"+"========== BIENVENIDO A HOTEL TRANSILVANIA ==========");
+        System.out.println("\033[33m" + "========== BIENVENIDO A HOTEL TRANSILVANIA ==========");
         int back = 0;
         while (back == 0) {
             try {
                 System.out.println("""
-                    \033[32m
-                    [1]- Ingresar
-                    [2]- Registrarse
-                    [0]- Salir""");
+                        \033[32m
+                        [1]- Ingresar
+                        [2]- Registrarse
+                        [0]- Salir""");
                 System.out.print("Ingrese una opción: ");
                 switch (scan.nextInt()) {
                     case 1 -> logIn();
@@ -373,30 +373,30 @@ public class Hotel {
                         saveHotel();
                     }
                     case 0 -> back++;
-                    default -> System.out.println("\033[31m"+"Opcion incorrecta");
+                    default -> System.out.println("\033[31m" + "Opcion incorrecta");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
         saveHotel();
     }
 
-    public void paxMenu() throws InputMismatchException{
+    public void paxMenu() throws InputMismatchException {
         spaces();
-        System.out.println("\033[36m"+"========== MENU DE PASAJEROS ==========");
+        System.out.println("\033[36m" + "========== MENU DE PASAJEROS ==========");
         int exit = 0;
         while (exit == 0) {
             try {
                 System.out.println("""
-                    \033[32m
-                    [1]- Lista de pasajeros
-                    [2]- Nuevo Pasajero
-                    [3]- Buscar Pasajero
-                    [0]- Salir
+                        \033[32m
+                        [1]- Lista de pasajeros
+                        [2]- Nuevo Pasajero
+                        [3]- Buscar Pasajero
+                        [0]- Salir
 
-                    Elija una opcion:\s""");
+                        Elija una opcion:\s""");
 
                 switch (scan.nextInt()) {
                     case 1 -> {
@@ -416,32 +416,32 @@ public class Hotel {
                             paxMenuBis(srchPax);
 
                         } else {
-                            System.out.println("\033[31m"+"Pasajero no encnontrado");
+                            System.out.println("\033[31m" + "Pasajero no encnontrado");
                         }
                     }
                     case 0 -> exit++;
-                    default -> System.out.println("\033[31m"+"opcion incorrecta");
+                    default -> System.out.println("\033[31m" + "opcion incorrecta");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
     }
 
-    public void paxMenuBis(Pax pax) throws InputMismatchException{
+    public void paxMenuBis(Pax pax) throws InputMismatchException {
         spaces();
-        System.out.println("\033[36m"+"========== MENU DEL PASAJERO " + pax.getName() + " " + pax.getSurname() + " ==========");
+        System.out.println("\033[36m" + "========== MENU DEL PASAJERO " + pax.getName() + " " + pax.getSurname() + " ==========");
         int back = 0;
         while (back == 0) {
             try {
                 System.out.println("""
-                    \033[32
-                    [1]- Ver Reservas
-                    [2]- Añadir consumo
-                    [3]- Ver consumos
-                    [4]- Cobrar
-                    [0]- Salir""");
+                        \033[32
+                        [1]- Ver Reservas
+                        [2]- Añadir consumo
+                        [3]- Ver consumos
+                        [4]- Cobrar
+                        [0]- Salir""");
                 System.out.print("Ingrese una opción: ");
                 switch (scan.nextInt()) {
                     case 1 -> showPaxReserves(pax);
@@ -449,10 +449,10 @@ public class Hotel {
                     case 3 -> showPaxTickets(pax);
                     case 4 -> chargue(pax);
                     case 0 -> back++;
-                    default -> System.out.println("\033[31m"+"Opcion incorrecta");
+                    default -> System.out.println("\033[31m" + "Opcion incorrecta");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
@@ -466,9 +466,9 @@ public class Hotel {
         }
     }
 
-    public void recepcionistMenu(User user) throws InputMismatchException{
+    public void recepcionistMenu(User user) throws InputMismatchException {
         spaces();
-        System.out.println("\033[36m"+"========== MENU DE RECEPCIONISTAS ==========");
+        System.out.println("\033[36m" + "========== MENU DE RECEPCIONISTAS ==========");
 
         Recepcionist recepcionist = new Recepcionist(user.getNickName(), user.getPassword(), user.getJobTitle());
         int back = 0;
@@ -492,7 +492,7 @@ public class Hotel {
                         break;
                     case 2:
                         if (recepcionist.checkOut(paxes, rooms, reserves)) {
-                            System.out.println("\033[34m"+"Check out exitoso.");
+                            System.out.println("\033[34m" + "Check out exitoso.");
                         } else {
                             System.out.println("""
                                     \033[31m
@@ -516,17 +516,17 @@ public class Hotel {
                         back++;
                         break;
                     default:
-                        System.out.println("\033[31m"+"Opción incorrecta");
+                        System.out.println("\033[31m" + "Opción incorrecta");
                         break;
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
     }
 
-    public void adminMenu(User user) throws InputMismatchException{
+    public void adminMenu(User user) throws InputMismatchException {
         spaces();
         System.out.println("""
                 \033[36m
@@ -559,7 +559,7 @@ public class Hotel {
                         break;
                     case 3:
                         if (admin.checkOut(paxes, rooms, reserves)) {
-                            System.out.println("\033[33m"+"Check out exitoso.");
+                            System.out.println("\033[33m" + "Check out exitoso.");
                         } else {
                             System.out.println("""
                                     \033[31m
@@ -585,17 +585,17 @@ public class Hotel {
                         back++;
                         break;
                     default:
-                        System.out.println("\033[31m"+"opción incorrecta");
+                        System.out.println("\033[31m" + "opción incorrecta");
                         break;
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
     }
 
-    public void roomServiceMenu(Scanner scan, Pax pax) throws InputMismatchException{
+    public void roomServiceMenu(Scanner scan, Pax pax) throws InputMismatchException {
         spaces();
         System.out.println("""
                 \033[36m
@@ -640,17 +640,17 @@ public class Hotel {
                         detail = MiniBar.BOLSA_MANI.getProduct();
                     }
                     case 0 -> exit++;
-                    default -> System.out.println("\033[31m"+"Opcion invalida, por favor elija una nueva");
+                    default -> System.out.println("\033[31m" + "Opcion invalida, por favor elija una nueva");
                 }
                 pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), detail, total));
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
     }
 
-    public void registerMenu() throws InputMismatchException{
+    public void registerMenu() throws InputMismatchException {
         spaces();
         System.out.println("""
                 \033[36m
@@ -660,12 +660,12 @@ public class Hotel {
         while (exit == 0) {
             try {
                 System.out.println("""
-                    \033[32m
-                    [1]- Administrador
-                    [2]- Recepcionista
-                    [0]- Salir
+                        \033[32m
+                        [1]- Administrador
+                        [2]- Recepcionista
+                        [0]- Salir
 
-                    Elija una opción:\s""");
+                        Elija una opción:\s""");
                 switch (scan.nextInt()) {
                     case 1 -> {
                         registerAdmin();
@@ -676,16 +676,16 @@ public class Hotel {
                         exit++;
                     }
                     case 0 -> exit++;
-                    default -> System.out.println("\033[31m"+"opción incorrecta");
+                    default -> System.out.println("\033[31m" + "opción incorrecta");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
     }
 
-    public void reserveMenu() throws InputMismatchException{
+    public void reserveMenu() throws InputMismatchException {
         spaces();
         System.out.println("""
                 \033[36m
@@ -695,14 +695,14 @@ public class Hotel {
         while (exit == 0) {
             try {
                 System.out.println("""
-                    \033[32m
-                    [1]- Todas las reservas
-                    [2]- Reservas del dia
-                    [3]- Reservas por pasajero
-                    [4]- Buscar Reserva
-                    [5]- Eliminar Reserva
-                    [0]- Salir
-                    Elija una opción:\s""");
+                        \033[32m
+                        [1]- Todas las reservas
+                        [2]- Reservas del dia
+                        [3]- Reservas por pasajero
+                        [4]- Buscar Reserva
+                        [5]- Eliminar Reserva
+                        [0]- Salir
+                        Elija una opción:\s""");
                 switch (scan.nextInt()) {
                     case 1 -> {
                         try {
@@ -720,17 +720,17 @@ public class Hotel {
                     }
                     case 3 -> {
                         Pax srchPax = searchHistoryPax();
-                        if (srchPax!=null)
+                        if (srchPax != null)
                             showPaxReserves(srchPax);
                         else
                             System.out.println("El pasajero ingresado no esta cargado en el sistema");
                     }
-                    case 4 ->{
-                        Reservation reservation= searchPaxReserve();
-                        if (reservation!= null)
+                    case 4 -> {
+                        Reservation reservation = searchPaxReserve();
+                        if (reservation != null)
                             System.out.println(reservation);
                         else
-                            System.out.println("\033[31m"+"No hay reserva encontrada");
+                            System.out.println("\033[31m" + "No hay reserva encontrada");
                     }
                     case 5 -> {
                         Reservation reservation = searchPaxReserve();
@@ -740,16 +740,16 @@ public class Hotel {
                             System.out.println("El pasajero no tiene una reserva para esta habitacion");
                     }
                     case 0 -> exit++;
-                    default -> System.out.println("\033[31m"+"opción incorrecta.");
+                    default -> System.out.println("\033[31m" + "opción incorrecta.");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
     }
 
-    public void roomMenu() throws InputMismatchException{
+    public void roomMenu() throws InputMismatchException {
         spaces();
         System.out.println("""
                 \033[36m
@@ -759,14 +759,14 @@ public class Hotel {
         while (exit == 0) {
             try {
                 System.out.println("""
-                    \033[32m
-                    [1]- Ver todas las Habitaciones
-                    [2]- Buscar Habitacion
-                    [3]- Habitaciones disponibles
-                    [4]- Habitaciones con Reserva
-                    [0]- Salir
+                        \033[32m
+                        [1]- Ver todas las Habitaciones
+                        [2]- Buscar Habitacion
+                        [3]- Habitaciones disponibles
+                        [4]- Habitaciones con Reserva
+                        [0]- Salir
 
-                    Elija una opción:\s""");
+                        Elija una opción:\s""");
                 switch (scan.nextInt()) {
                     case 1 -> showRooms();
                     case 2 -> {
@@ -795,8 +795,8 @@ public class Hotel {
                     case 0 -> exit++;
                     default -> System.out.println("opción incorrecta");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }
@@ -812,16 +812,16 @@ public class Hotel {
         while (exit == 0) {
             try {
                 System.out.println("""
-                    \033[32m
-                    [1]-Ver todas las Habitaciones
-                    [2]- Buscar Habitacion
-                    [3]- Habitaciones disponibles
-                    [4]- Habitaciones con Reserva
-                    [5]- Agregar habitacion
-                    [6]- Eliminar Habitacion
-                    [0]- Salir
+                        \033[32m
+                        [1]-Ver todas las Habitaciones
+                        [2]- Buscar Habitacion
+                        [3]- Habitaciones disponibles
+                        [4]- Habitaciones con Reserva
+                        [5]- Agregar habitacion
+                        [6]- Eliminar Habitacion
+                        [0]- Salir
 
-                    Elija una opción:\s""");
+                        Elija una opción:\s""");
                 switch (scan.nextInt()) {
                     case 1 -> showRooms();
                     case 2 -> {
@@ -830,7 +830,7 @@ public class Hotel {
                         if (srchRoom != null)
                             System.out.println(srchRoom);
                         else
-                            System.out.println("\033[31m"+"Habitacion no encontrada");
+                            System.out.println("\033[31m" + "Habitacion no encontrada");
                     }
                     case 3 -> {
                         System.out.print("Ingrese la fecha que busca: ");
@@ -845,15 +845,15 @@ public class Hotel {
                         List<Room> listAux = getRooms().stream().filter(room -> room.getCondition().equals(Condition.RESERVED)).collect(Collectors.toList());
                         if (!listAux.isEmpty())
                             System.out.println(listAux);
-                        else System.out.println("\033[31m"+"No hay habitaciones con reservas");
+                        else System.out.println("\033[31m" + "No hay habitaciones con reservas");
                     }
                     case 5 -> addNewRoom();
                     case 6 -> eliminateRoom();
                     case 0 -> exit++;
-                    default -> System.out.println("\033[31m"+"opción incorrecta");
+                    default -> System.out.println("\033[31m" + "opción incorrecta");
                 }
-            }catch (InputMismatchException e){
-                System.out.println("\033[31m"+"Solo se puede ingresar numeros.");
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "Solo se puede ingresar numeros.");
                 scan.next();
             }
         }

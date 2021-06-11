@@ -1,17 +1,17 @@
 package users;
 
-import app.Hotel;
+
 import model.Room;
 
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Scanner;
+
 import java.util.UUID;
 
-public  class User implements Serializable {
+public class User implements Serializable {
 
     //------ Attributes ------//
     @Serial
@@ -68,9 +68,9 @@ public  class User implements Serializable {
     }
     //------ Methods ------//
 
-    public Room searchRoomByNumber(List<Room> rooms,int number){
+    public Room searchRoomByNumber(List<Room> rooms, int number) {
         return rooms.stream().
-                filter(room1 -> room1.getNumber()==number).
+                filter(room1 -> room1.getNumber() == number).
                 findFirst().
                 orElse(null);
     }

@@ -13,9 +13,9 @@ import users.User;
 
 
 public class Main {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         Hotel hotel = new Hotel();
-        User recepcionist1 = new Admin("L-Gante", "Keloke", "Administrador");
+        /*User recepcionist1 = new Admin("L-Gante", "Keloke", "Administrador");
         User recepcionist2 = new Recepcionist("ElDuko", "9821", "Recepcionista");
         User recepcionist3 = new Admin("ELDoctor", "LaMasPiola", "Administrador");
         User recepcionist4 = new Recepcionist("Dillom", "247", "Recepcionista");
@@ -56,10 +56,10 @@ public class Main {
         hotel.getPaxes().add(new Pax("Vlad", "Dracula", "Castel 2757 ", "14281477", "Rumano"));
         hotel.getPaxes().add(new Pax("Jonathan", "Loughran", "California", "03005988", "EEUU"));
         hotel.getPaxes().add(new Pax("Were", "Wolf", "28is Oktovriou 116", "AM0432504", "Griego"));
-        hotel.getPaxes().add(new Pax("Van", "Hellsing", "Damstraat 46", "XR1001R58", "Holandes"));
-        hotel.saveHotel();
+        hotel.getPaxes().add(new Pax("Van", "Hellsing", "Damstraat 46", "XR1001R58", "Holandes"));*/
+        // hotel.saveHotel();
         //hotel.getRooms().forEach(System.out::println);
-        // hotel.runHotel();
-       // hotel.saveHotel();
+        hotel.runHotel();
+        hotel.saveHotel();
     }
 }

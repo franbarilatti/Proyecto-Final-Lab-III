@@ -1,16 +1,14 @@
 package users;
 
-import app.Hotel;
-import enumn.MiniBar;
+
 import model.Ticket;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class Pax implements Serializable  {
+public class Pax implements Serializable {
 
     //------ Attributes ------//
     @Serial
@@ -53,20 +51,10 @@ public class Pax implements Serializable  {
         return surname;
     }
 
-    public String getAddress() {
-        return address;
-    }
+
 
     public String getDni() {
         return dni;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public boolean isIngress() {
-        return ingress;
     }
 
 
@@ -97,19 +85,19 @@ public class Pax implements Serializable  {
     }
 
 
-    public List<Ticket> getTickets() { return tickets; }
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
     //------ Methods ------//
-
-
 
 
     @Override
     public String toString() {
-        return "\n-----------------------------\n"+
-                "Pax= "+ name +" "+surname+
+        return "\n-----------------------------\n" +
+                "Pax= " + name + " " + surname +
                 "\nAddress= " + address +
                 "\nDni= " + dni +
-                "\nNationality= " + nationality+
+                "\nNationality= " + nationality +
                 "\n-----------------------------\n";
     }
 
