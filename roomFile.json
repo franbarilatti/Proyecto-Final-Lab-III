@@ -32,21 +32,21 @@
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 106,
     "bedType": "DOBLE_TWIN",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 107,
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 201,
@@ -81,21 +81,21 @@
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 206,
     "bedType": "DOBLE_TWIN",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 207,
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 301,
@@ -130,21 +130,21 @@
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 306,
     "bedType": "DOBLE_TWIN",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 307,
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 401,
@@ -170,7 +170,7 @@
   {
     "number": 404,
     "bedType": "TRIPLE",
-    "condition": "RESERVED",
+    "condition": "AVAILABLE",
     "tvType": "TV_LED_32",
     "extraPrice": 1000.0
   },
@@ -179,20 +179,20 @@
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 406,
     "bedType": "DOBLE_TWIN",
-    "condition": "UNCLEAN_OCUPPED",
+    "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   },
   {
     "number": 407,
     "bedType": "MATRIMONIAL",
     "condition": "AVAILABLE",
     "tvType": "TV_TUBO",
-    "extraPrice": 1000.0
+    "extraPrice": 0.0
   }
 ]

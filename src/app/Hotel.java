@@ -702,7 +702,6 @@ public class Hotel {
                     [4]- Buscar Reserva
                     [5]- Eliminar Reserva
                     [0]- Salir
-
                     Elija una opción:\s""");
                 switch (scan.nextInt()) {
                     case 1 -> {

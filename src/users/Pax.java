@@ -34,10 +34,10 @@ public class Pax implements Serializable  {
         tickets = new ArrayList<>();
     }
 
-    public Pax(String name, String surname, String location, String dni, String nationality) {
+    public Pax(String name, String surname, String address, String dni, String nationality) {
         this.name = name;
         this.surname = surname;
-        this.address = location;
+        this.address = address;
         this.dni = dni;
         this.nationality = nationality;
         this.tickets = new ArrayList<>();

@@ -1,38 +1,26 @@
 [
   {
-    "id": "c4715c13-b1ac-4b78-ada0-d01b05b187b0",
+    "id": "bdb21d0f-5a1c-4657-aa46-8d3e071bfb5c",
     "nickName": "L-Gante",
     "password": "Keloke",
     "jobTitle": "Administrador"
   },
   {
-    "id": "3d701191-e76f-4d7a-ad76-17d605ef6b3c",
+    "id": "8e66ae45-cccf-4d87-bba7-adbaecec926b",
     "nickName": "ElDuko",
     "password": "9821",
     "jobTitle": "Recepcionista"
   },
   {
-    "id": "59bdcdc4-660a-4637-ae58-09d51f3e503c",
+    "id": "2e3fad33-a0d7-44c8-bb70-8720da52b58f",
     "nickName": "ELDoctor",
     "password": "LaMasPiola",
     "jobTitle": "Administrador"
   },
   {
-    "id": "8f1c6d98-747a-466a-b11e-4de5aed62005",
+    "id": "ef1b701d-1ddc-4802-8515-226f05346a10",
     "nickName": "Dillom",
     "password": "247",
     "jobTitle": "Recepcionista"
-  },
-  {
-    "id": "7584e236-ae0e-4022-b252-40a0b3759e85",
-    "nickName": "marce",
-    "password": "2020",
-    "jobTitle": "Recepcionista"
-  },
-  {
-    "id": "b7cef831-367e-4f1e-beea-42111178fd6d",
-    "nickName": "putoelqlee",
-    "password": "tutiaentanga",
-    "jobTitle": "Administrador"
   }
 ]
