@@ -94,20 +94,9 @@ public class RepositoryController<T> extends LocalDateAdapter {
         return returnList;
     }
 
-    /*public  void showRepository(String fileName){
-        ArrayList<T> tList = throwList(fileName);
-        tList.forEach(System.out::println);
-    }*/
-
-
     public String serialize(List<T> tList) {
         Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
         return gson.toJson(tList);
-    }
-
-
-    public List<T> deserialize(StringBuilder json, Type clazz) {
-        return new Gson().fromJson(json.toString(), clazz);
     }
 
 }

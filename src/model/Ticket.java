@@ -1,6 +1,6 @@
 package model;
 
-import users.Pax;
+
 
 import java.io.Serial;
 import java.io.Serializable;
