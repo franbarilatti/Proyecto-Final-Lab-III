@@ -184,7 +184,7 @@
   {
     "number": 406,
     "bedType": "DOBLE_TWIN",
-    "condition": "AVAILABLE",
+    "condition": "UNCLEAN_OCUPPED",
     "tvType": "TV_TUBO",
     "extraPrice": 1000.0
   },

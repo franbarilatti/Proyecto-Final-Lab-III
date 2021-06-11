@@ -25,7 +25,7 @@ public class Superior extends Room implements Serializable {
 
     @Override
     public String toString() {
-        return super.toString() + "\nTipo de habitacion: Superior";
+        return super.toString();
     }
 
 }

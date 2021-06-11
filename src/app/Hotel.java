@@ -688,7 +688,13 @@ public class Hotel {
                     else
                         System.out.println("El pasajero ingresado no esta cargado en el sistema");
                 }
-                case 4 -> System.out.println(searchPaxReserve());
+                case 4 ->{
+                    Reservation reservation= searchPaxReserve();
+                    if (reservation!= null)
+                    System.out.println(reservation);
+                    else
+                        System.out.println("No hay reserva encontrada");
+                }
                 case 5 -> {
                     Reservation reservation = searchPaxReserve();
                     if (reservation != null)

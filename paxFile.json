@@ -70,5 +70,21 @@
     "nationality": "",
     "ingress": false,
     "tickets": []
+  },
+  {
+    "name": "lamarta",
+    "surname": "chemarta",
+    "address": "tumarta",
+    "dni": "43593957",
+    "nationality": "martatenses",
+    "ingress": true,
+    "tickets": [
+      {
+        "paxName": "lamarta",
+        "paxSurname": "chemarta",
+        "description": "Alojamiento",
+        "total": 520000.0
+      }
+    ]
   }
 ]

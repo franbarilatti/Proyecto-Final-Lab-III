@@ -67,6 +67,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
             roomAux.setCondition(Condition.RESERVED);
             Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
             reservations.add(reservation);
+            System.out.println("Reserva creada con exito");
         } else {
             System.out.println("Habitacion no encontrada");
         }
