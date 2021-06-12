@@ -33,7 +33,11 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
 
     @Override
     public void makeReserve(List<Reservation> reservations, List<Pax> paxes, List<Room> rooms, Scanner scan) {
-        System.out.print("Ingrese el dni del pasajero: ");
+        System.out.println("""
+                \033[36m
+                ========== GENERADOR DE RESERVAS ==========
+                """);
+        System.out.print("\n\nIngrese el dni del pasajero: ");
         String dni = scan.next();
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dni)).findFirst().orElse(null);
         if (pax == null) {
@@ -43,10 +47,10 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         }
         System.out.print("\nFecha de ingreso(DD/MM/AAAA):");
         LocalDate checkIn = ingressDate(scan, LocalDate.now());
-        System.out.print("Cantidad de noches que se queda: ");
+        System.out.print("\nCantidad de noches que se queda: ");
         int cantDays = scan.nextInt();
         LocalDate checkOut = checkIn.plusDays(cantDays);
-        System.out.println("\ningrese el numero de habitación disponible: ");
+        System.out.println("\nIngrese el numero de habitación disponible: ");
         System.out.println("--------------------------------------");
         for (Room room : rooms) {
             if (!room.isOcuped(reservations, checkIn, checkOut)) {
@@ -60,9 +64,9 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             roomAux.setCondition(Condition.RESERVED);
             Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
             reservations.add(reservation);
-            System.out.println("Reserva creada con exito");
+            System.out.println("\nReserva creada con exito");
         } else {
-            System.out.println("Habitacion no encontrada");
+            System.out.println("\033[31m" +"\nHabitacion no encontrada");
         }
 
     }
@@ -98,7 +102,7 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
     @Override
     public void checkIn(List<Pax> paxes, List<Room> rooms, List<Reservation> reservations) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese un DNI o Pasaporte: ");
+        System.out.print("Ingrese un DNI o Pasaporte del pasajero: ");
         String dniAux = scanner.nextLine();
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dniAux)).findFirst().orElse(null);
         if (pax == null) {
@@ -122,9 +126,9 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
                 Room roomAux = searchRoomByNumber(rooms, roomNumAux);
                 Reservation reservationAux = searchReserve(pax, roomAux, reservations);
                 pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Alojamiento", (roomAux.getBedType().getPrice() + roomAux.getExtraPrice()) * reservationAux.getCantDays()));
-                eliminateReserve(reservations, reservationAux);
                 pax.setIngress(true);
                 roomAux.setCondition(Condition.OCUPPED);
+                System.out.println("Checkin exitoso");
             } else {
                 System.out.println(pax.getName() + " no tiene reserva para esta habitacion");
             }
@@ -141,18 +145,18 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
         String dni = scanner.next();
         Pax pax = paxes.stream().filter(pax1 -> pax1.getDni().equals(dni)).findFirst().orElse(null);
         if (pax == null) {
-            System.out.println("\033[31m" + "El dni ingresado no esta registrado en el sistema.");
+            System.out.println("\033[31m" + "\nEl dni ingresado no esta registrado en el sistema.");
         } else {
             System.out.print("Ingrese el numero de habitacion: ");
             Room room = searchRoomByNumber(rooms, scanner.nextInt());
             Reservation srchReserve = reservations.stream().filter(reservation -> reservation.getRoom().equals(room)).filter(reservation -> reservation.getPaxDni().equals(pax.getDni())).findFirst().orElse(null);
-            if (srchReserve != null) {
+            if (srchReserve != null && srchReserve.getRoom().getCondition().equals(Condition.OCUPPED)) {
                 if ((pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum()) == 0) {
                     pax.setIngress(false);
                     room.setCondition(Condition.UNCLEAN_AVAILABLE);
                     return true;
                 } else {
-                    System.out.println("\033[31m" + "El pasajero tiene cuentas inpagas.");
+                    System.out.println("\033[31m" + "\nEl pasajero tiene cuentas inpagas.");
                 }
             }
         }
@@ -169,14 +173,14 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             try {
                 localDate = LocalDate.parse(date, formatter);
                 if (!formatter.format(localDate).equals(date) || localDate.compareTo(today) < 0) {
-                    System.out.println("\nFecha invalida. Ingrese una nueva fecha");
+                    System.out.println("\033[31m" +"\nFecha invalida. Ingrese una nueva fecha");
                     date = scan.next();
                     localDate = LocalDate.parse(date, formatter);
                 } else {
                     exit++;
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Formato de fecha invalido. Ingrese la fecha nuevamente");
+                System.out.println("\033[31m" +"\nFormato de fecha invalido. Ingrese la fecha nuevamente");
                 date = scan.next();
             }
         }
@@ -196,10 +200,10 @@ public class Admin extends User implements Reserve, Ingress, Serializable {
             if (!s.equals("")) {
                 room.setCondition(Condition.valueOf(s));
             } else {
-                System.out.println("Condicion no encontrada");
+                System.out.println("\033[31m" +"\nCondicion no encontrada");
             }
         } else {
-            System.out.println("Habitacion no encontrada");
+            System.out.println("\033[31m" +"\nHabitacion no encontrada");
         }
     }
 

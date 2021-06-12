@@ -51,7 +51,7 @@ public class Pax implements Serializable {
         return surname;
     }
 
-
+    public boolean isIngress() {return ingress;}
 
     public String getDni() {
         return dni;

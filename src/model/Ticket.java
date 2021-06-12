@@ -11,6 +11,7 @@ public class Ticket implements Serializable {
     private String paxName;
     private String paxSurname;
     private String description;
+
     private double total;
 
 

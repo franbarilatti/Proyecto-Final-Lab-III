@@ -1,26 +1,32 @@
 [
   {
-    "id": "bdb21d0f-5a1c-4657-aa46-8d3e071bfb5c",
+    "id": "1cc147ac-1a6b-43c1-b160-7a29dee7e88c",
     "nickName": "L-Gante",
     "password": "Keloke",
     "jobTitle": "Administrador"
   },
   {
-    "id": "8e66ae45-cccf-4d87-bba7-adbaecec926b",
+    "id": "dea268c3-047c-4038-a193-b62a1799aafa",
     "nickName": "ElDuko",
     "password": "9821",
     "jobTitle": "Recepcionista"
   },
   {
-    "id": "2e3fad33-a0d7-44c8-bb70-8720da52b58f",
+    "id": "b45fd3d1-8f22-4868-8666-4f18d514bfd4",
     "nickName": "ELDoctor",
     "password": "LaMasPiola",
     "jobTitle": "Administrador"
   },
   {
-    "id": "ef1b701d-1ddc-4802-8515-226f05346a10",
+    "id": "ae7f81e1-7229-4e39-8689-afeaa8f85753",
     "nickName": "Dillom",
     "password": "247",
+    "jobTitle": "Recepcionista"
+  },
+  {
+    "id": "7f76e440-cef8-4c7a-b361-789a874bf318",
+    "nickName": "marce",
+    "password": "2021",
     "jobTitle": "Recepcionista"
   }
 ]
