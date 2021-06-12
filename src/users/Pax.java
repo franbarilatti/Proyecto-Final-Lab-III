@@ -57,6 +57,9 @@ public class Pax implements Serializable {
         return dni;
     }
 
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
 
     //------ Setters ------//
 
@@ -84,10 +87,6 @@ public class Pax implements Serializable {
         this.ingress = ingress;
     }
 
-
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
     //------ Methods ------//
 
 

@@ -351,7 +351,16 @@ public class Hotel {
 
     public void chargue(Pax pax) {
         System.out.println("El total de su recibo es de: $" + pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum());
-        pax.getTickets().clear();
+        System.out.println("Desea abonar la factura /n[1]- Si/n[2]- No");
+        switch (scan.next()){
+            case "1"->{
+                pax.getTickets().clear();
+                System.out.println("\033[33m"+"Pago realizado con exito.");
+            }
+            case "2"-> System.out.println("El monto sigue siendo de: $"+ pax.getTickets().stream().mapToDouble(Ticket::getTotal).sum());
+            default -> System.out.println("\033[31m"+"Opción incorrecta.");
+        }
+
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

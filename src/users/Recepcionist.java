@@ -71,7 +71,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
             roomAux.setCondition(Condition.RESERVED);
             Reservation reservation = new Reservation(pax.getName(), pax.getDni(), roomAux, cantDays, checkIn, checkOut);
             reservations.add(reservation);
-            System.out.println("\nReserva creada con exito");
+            System.out.println("\033[33m"+"\nReserva creada con exito");
         } else {
             System.out.println("\033[31m" +"\nHabitacion no encontrada");
         }
@@ -135,7 +135,7 @@ public class Recepcionist extends User implements Reserve, Ingress, Serializable
                 pax.getTickets().add(new Ticket(pax.getName(), pax.getSurname(), "Alojamiento", (roomAux.getBedType().getPrice() + roomAux.getExtraPrice()) * reservationAux.getCantDays()));
                 pax.setIngress(true);
                 roomAux.setCondition(Condition.OCUPPED);
-                System.out.println("\nCheckin exitoso");
+                System.out.println("\033[33m"+"\nCheckin exitoso");
             } else {
                 System.out.println("\n" +pax.getName() + " no tiene reserva para esta habitacion");
             }
